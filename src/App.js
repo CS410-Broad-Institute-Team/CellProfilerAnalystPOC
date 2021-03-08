@@ -6,6 +6,16 @@ import * as dfd from "danfojs/src/index";
 import * as lgreg from "ml-logistic-regression";
 import * as prprcss from "ml-preprocess";
 
+import EmmaComponent from "./components/EmmaComponent"
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
+
 import raw from "./example_SETUP.SQL";
 
 function App() {
@@ -49,8 +59,69 @@ function App() {
           Learn React
         </a>
       </header>
+
+      
+      <Router>
+        <div>
+          <ul>
+            <li>
+              <Link to="/Yahiya">Yahiya</Link>
+            </li>
+            <li>
+              <Link to="/Alex">Alex</Link>
+            </li>
+            <li>
+              <Link to="/Emma">Emma</Link>
+            </li>
+          </ul>
+
+          <hr />
+
+          {/*
+            A <Switch> looks through all its children <Route>
+            elements and renders the first one whose path
+            matches the current URL. Use a <Switch> any time
+            you have multiple routes, but you want only one
+            of them to render at a time
+          */}
+          <Switch>
+            <Route exact path="/Yahiya">
+              <Yahiya />
+            </Route>
+            <Route path="/Alex">
+              <Alex />
+            </Route>
+            <Route path="/Emma">
+              <Emma />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
+
+
+    </div>
+
+  );
+}
+
+function Yahiya() {
+  return (
+    <div>
+      <h2>Yahiya</h2>
     </div>
   );
+}
+
+function Alex() {
+  return (
+    <div>
+      <h2>Alex</h2>
+    </div>
+  );
+}
+
+function Emma() {
+  return <EmmaComponent></EmmaComponent>
 }
 
 export default App;

@@ -6,7 +6,7 @@ import * as dfd from "danfojs/src/index";
 import * as lgreg from "ml-logistic-regression";
 import * as prprcss from "ml-preprocess";
 
-import EmmaComponent from "./components/EmmaComponent"
+import EmmaComponent from "./components/Emma"
 
 import {
   BrowserRouter as Router,

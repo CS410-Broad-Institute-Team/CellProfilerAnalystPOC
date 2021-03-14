@@ -8,6 +8,7 @@ import * as prprcss from "ml-preprocess";
 
 import EmmaComponent from "./components/Emma"
 import BellaComponent from "./components/Bella"
+import AbbyComponent from "./components/Abby"
 
 import {
   BrowserRouter as Router,
@@ -88,7 +89,12 @@ function App() {
               <Link to="/Emma">Emma</Link>
             </li>
             <li>
+
               <Link to="/Bella">Bella</Link>
+
+            </li>
+            <li>
+            <Link to="/Abby">Abby</Link>
             </li>
           </ul>
 
@@ -109,7 +115,10 @@ function App() {
               <Alex />
             </Route>
             <Route path="/Emma">
-              <Emma />
+            <Emma />
+            </Route>
+            <Route path="/Abby">
+            <Abby />
             </Route>
             <Route path="/Bella">
               <Bella />
@@ -145,6 +154,12 @@ function Emma() {
 }
 function Bella() {
   return <BellaComponent></BellaComponent>
+}
+
+
+
+function Abby() {
+  return <AbbyComponent></AbbyComponent>
 }
 
 export default App;

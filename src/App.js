@@ -1,11 +1,12 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react';
-import * as tf from "@tensorflow/tfjs";
-import * as dfd from "danfojs/src/index";
-import * as lgreg from "ml-logistic-regression";
-import * as prprcss from "ml-preprocess";
-import Papa from "papaparse";
+// import { useState } from 'react';
+// import * as tf from "@tensorflow/tfjs";
+// import * as dfd from "danfojs/src/index";
+// import * as lgreg from "ml-logistic-regression";
+// import * as prprcss from "ml-preprocess";
+// import Papa from "papaparse";
+import raw from "./example_SETUP.SQL"; 
 
 import EmmaComponent from "./components/Emma"
 
@@ -13,6 +14,7 @@ import YahiyaComponent from "./components/Yahiya"
 
 import BellaComponent from "./components/Bella"
 import AbbyComponent from "./components/Abby"
+import AlexComponent from "./components/Alex"
 
 import {
   BrowserRouter as Router,
@@ -24,17 +26,8 @@ import {
 
 
 function App() {
-  // file read callback
-  var showFile = async (fileName) => {
-    fileName.preventDefault()
-    const reader = new FileReader()
-    reader.onload = async (fileName) => { 
-      const text = (fileName.target.result)
-      console.log(text)
-      alert(text)
-    };
-    reader.readAsText(fileName.target.files[0])
-  }	
+
+
   var setup_lines = null;
   var create_index = null;
   var end_index = null;
@@ -46,13 +39,13 @@ function App() {
 		return text.split("\n").map((x)=>x.trim());
 	})
 	.then(lines => {
-		console.log(lines.indexOf("CREATE TABLE per_object \("));
-    console.log(lines.indexOf("PRIMARY KEY  (ImageNumber,ObjectNumber)"));
+		// console.log(lines.indexOf("CREATE TABLE per_object \("));
+    // console.log(lines.indexOf("PRIMARY KEY  (ImageNumber,ObjectNumber)"));
     setup_lines = lines;
-    create_index = lines.indexOf("CREATE TABLE per_object \(");
+    create_index = lines.indexOf("CREATE TABLE per_object (");
     end_index = lines.indexOf("PRIMARY KEY  (ImageNumber,ObjectNumber)");
     column_lines = lines.slice(create_index + 1, end_index);
-    console.log(column_lines);
+    // console.log(column_lines);
 
    // console.log(lines[1287]);
    // console.log(lines[1287] === "PRIMARY KEY  (ImageNumber,ObjectNumber)")
@@ -123,11 +116,7 @@ function Yahiya() {
 }
 
 function Alex() {
-  return (
-    <div>
-      <h2>Alex</h2>
-    </div>
-  );
+  return <AlexComponent></AlexComponent>
 }
 
 function Emma() {

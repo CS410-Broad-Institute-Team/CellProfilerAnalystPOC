@@ -8,7 +8,11 @@ import * as prprcss from "ml-preprocess";
 import Papa from "papaparse";
 
 import EmmaComponent from "./components/Emma"
+
 import YahiyaComponent from "./components/Yahiya"
+
+import BellaComponent from "./components/Bella"
+import AbbyComponent from "./components/Abby"
 
 import {
   BrowserRouter as Router,
@@ -19,8 +23,41 @@ import {
 
 
 
-
 function App() {
+  // file read callback
+  var showFile = async (fileName) => {
+    fileName.preventDefault()
+    const reader = new FileReader()
+    reader.onload = async (fileName) => { 
+      const text = (fileName.target.result)
+      console.log(text)
+      alert(text)
+    };
+    reader.readAsText(fileName.target.files[0])
+  }	
+  var setup_lines = null;
+  var create_index = null;
+  var end_index = null;
+  var column_lines = null;
+
+  fetch(raw)
+	.then(r => r.text())
+	.then(text => {
+		return text.split("\n").map((x)=>x.trim());
+	})
+	.then(lines => {
+		console.log(lines.indexOf("CREATE TABLE per_object \("));
+    console.log(lines.indexOf("PRIMARY KEY  (ImageNumber,ObjectNumber)"));
+    setup_lines = lines;
+    create_index = lines.indexOf("CREATE TABLE per_object \(");
+    end_index = lines.indexOf("PRIMARY KEY  (ImageNumber,ObjectNumber)");
+    column_lines = lines.slice(create_index + 1, end_index);
+    console.log(column_lines);
+
+   // console.log(lines[1287]);
+   // console.log(lines[1287] === "PRIMARY KEY  (ImageNumber,ObjectNumber)")
+		//console.log(lines.indexOf(" PRIMARY KEY  \(ImageNumber,ObjectNumber\)"));
+	});
 
   return (
     <div className="App">
@@ -35,6 +72,14 @@ function App() {
             </li>
             <li>
               <Link to="/Emma">Emma</Link>
+            </li>
+            <li>
+
+              <Link to="/Bella">Bella</Link>
+
+            </li>
+            <li>
+            <Link to="/Abby">Abby</Link>
             </li>
           </ul>
 
@@ -55,7 +100,13 @@ function App() {
               <Alex />
             </Route>
             <Route path="/Emma">
-              <Emma />
+            <Emma />
+            </Route>
+            <Route path="/Abby">
+            <Abby />
+            </Route>
+            <Route path="/Bella">
+              <Bella />
             </Route>
           </Switch>
         </div>
@@ -81,6 +132,15 @@ function Alex() {
 
 function Emma() {
   return <EmmaComponent></EmmaComponent>
+}
+function Bella() {
+  return <BellaComponent></BellaComponent>
+}
+
+
+
+function Abby() {
+  return <AbbyComponent></AbbyComponent>
 }
 
 export default App;

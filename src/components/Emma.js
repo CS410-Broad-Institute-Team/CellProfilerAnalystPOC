@@ -41,7 +41,11 @@ export default class Emma extends React.Component {
       // console.log(fileName.target.files) 
 
       // parse with the papa, per_object.csv
-      Papa.parse(fileName.target.files[5], 
+      console.log(fileName.target.files);
+      var object_index = Array.from(fileName.target.files).findIndex((elem) => {
+        return elem.name === "per_object.csv";
+      });
+      Papa.parse(fileName.target.files[object_index], 
       {
           // use separate thread to not make app too slow
           worker: true,
@@ -55,11 +59,14 @@ export default class Emma extends React.Component {
           complete: (results, file) => {
           console.log("Parsing complete:");
           console.log(results.data);
-
+          window.data_test = results.data;
           // turn the data into a dataframe
-         const df = new dfd.DataFrame(tf.tensor(results.data));
+         // let new_index = ["ImageNumber", "ObjectNumber" ]
+         const df = new dfd.DataFrame(results.data,{ columns : column_names});
           // print the first 5 lines
-         df.head().print();
+          
+            //df.set_index({key: new_index, inplace: true});
+            df.head().print();
           }
       });        
       
@@ -131,7 +138,7 @@ export default class Emma extends React.Component {
                   <p>
                   woo the atom thingy do the rotate woo yea
                   </p>
-                  
+                  <script src="https://cdn.jsdelivr.net/npm/danfojs@0.2.4/lib/bundle.min.js"></script>    
               <input type="file" onChange = {(fileName) => showFile(fileName)} webkitdirectory="true" mozdirectory="true" msdirectory="true" odirectory="true" directory="true" multiple/>
                   <a
                   className="App-link"

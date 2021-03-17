@@ -2,13 +2,27 @@ import { render } from "@testing-library/react"
 import * as tf from "@tensorflow/tfjs";
 import * as dfd from "danfojs/src/index";
 import * as lgreg from "ml-logistic-regression";
-import * as prprcss from "ml-preprocess";
+// import * as prprcss from "ml-preprocess";
+import {normal} from 'ml-preprocess'; // replaces StandardScaler
+// example:
+// let matrix = [
+//     [2000, 1000, 3000],
+//     [3000, 2000, 1000],
+//     [1000, 1000, 1000]
+// ];
+// normal(matrix) == [
+//     [0, -1, 1],
+//     [1, 0, -1],
+//     [0, 0, 0]
+// ];
 import React from 'react';
 import logo from '../logo.svg';
 import Papa from "papaparse";
 // import raw_csv from '../per_object.csv'
 
 // import raw from "./example_SETUP.SQL";
+
+import raw from "../example_SETUP.SQL"; 
 
 export default class Yahiya extends React.Component {
     constructor(props) {
@@ -75,13 +89,74 @@ export default class Yahiya extends React.Component {
                 console.log(results.data);
 
                 // turn the data into a dataframe
-                const df = new dfd.DataFrame(tf.tensor(results.data));
+                const df = new dfd.DataFrame(results.data, {columns: column_names});
+                console.log("df complete")
+
+                // calcuate a unique index number for each pair
+                const image_keys = df.column("ImageNumber").tensor;
+                console.log("imagekeys complete")
+                const object_keys = df.column("ObjectNumber").tensor;
+                console.log("objeckeys complete")
+                const output_tensor1 = image_keys.square().add(image_keys).add(object_keys);
+                console.log("output1 complete")
+                const output_tensor2 = object_keys.square().add(image_keys);
+                console.log("output2 complete")
+
+                // calculate the index values, extract the js array, when its done set it as the indices for the df
+                output_tensor1.where(image_keys.greaterEqual(object_keys), output_tensor2)
+                .array()
+                .then(indices => {
+                    console.log("indices complete", indices)
+                    df.set_index({key: indices, inplace: true});
+                    df.head().print();
+                    window.data_df = df;
+                });
+                
+                // df.print();
                 // print the first 5 lines
-                df.head().print();
+                // df.head().print();
+                
                 }
             });        
             
         }	
+
+        // MY CODE ASSIGNMENT STARTS HERE
+        var setup_lines = null;
+        var create_index = null;
+        var end_index = null;
+        var column_lines = null;
+        var column_names = null;
+
+        fetch(raw)
+        .then(r => r.text())
+        .then(text => {
+            return text.split("\n").map((x)=>x.trim());
+        })
+        .then(lines => {
+            // console.log(lines.indexOf("CREATE TABLE per_object \("));
+        // console.log(lines.indexOf("PRIMARY KEY  (ImageNumber,ObjectNumber)"));
+            setup_lines = lines;
+            create_index = lines.indexOf("CREATE TABLE per_object (");
+            end_index = lines.indexOf("PRIMARY KEY  (ImageNumber,ObjectNumber)");
+            column_lines = lines.slice(create_index + 1, end_index);
+            column_names = column_lines.map((name)=>(name.split(' ')[0])); //copied from Emma.js
+            
+        // console.log(column_lines);
+
+    // console.log(lines[1287]);
+    // console.log(lines[1287] === "PRIMARY KEY  (ImageNumber,ObjectNumber)")
+            //console.log(lines.indexOf(" PRIMARY KEY  \(ImageNumber,ObjectNumber\)"));
+
+            return column_lines;
+        })
+        .then(column_lines => {
+            const features_to_use = column_lines.filter((elem)=>elem.includes("Location"));
+            console.log(column_lines);
+            console.log(features_to_use);
+        });
+
+
         
         return (
             

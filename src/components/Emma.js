@@ -45,85 +45,119 @@ export default class Emma extends React.Component {
       var object_index = Array.from(fileName.target.files).findIndex((elem) => {
         return elem.name === "per_object.csv";
       });
-      Papa.parse(fileName.target.files[object_index], 
-      {
-          // use separate thread to not make app too slow
-          worker: true,
-          // blank lines confuse danfo.js so get rid of them
-          skipEmptyLines: true,
-          // per_object.csv has no strings, so we can get a faster speed reading it
-          fastMode: true, 
-          // convert strings to numbers for smaller memory footprint
-          dynamicTyping: true,
-          // call this when the reading is done
-          complete: (results, file) => {
-          console.log("Parsing complete:");
-          console.log(results.data);
-          window.data_test = results.data;
-          // turn the data into a dataframe
-         // let new_index = ["ImageNumber", "ObjectNumber" ]
-         const df = new dfd.DataFrame(results.data,{ columns : column_names});
-          // print the first 5 lines
-          
-            //df.set_index({key: new_index, inplace: true});
-            df.head().print();
+      class SetupSqlData {
+        constructor() {  
+          this.df = null;
+          this.perObjData = null;
+          this.column_names = null;
+          Papa.parsePromise = function(file) {
+            return new Promise(function(complete, error) {
+              Papa.parse(file, {complete, error});
+            });
+          };
+      }
+          getDF() {
+            return this.df;
           }
-      });        
+          findFileIndex (fName) {
+              var index = Array.from(fileName.target.files).findIndex((elem) => {
+                  return elem.name === fName;
+            });
+               return index;
+          }
+          parseSQLData() {
+             var column_n = null;
+             const textReader = new FileReader()
+             textReader.onload = async (fileName) => { 
+             console.log(fileName.target.result);
+            };
+            var index = this.findFileIndex("example_SETUP.SQL");
+           
+            return fileName.target.files[index].text()
+            .then((text) => {
+              return text.split("\n").map((x)=>x.trim());
+            })
+            .then(lines => {
+              console.log(lines.indexOf("CREATE TABLE per_object \("));
+              console.log(lines.indexOf("PRIMARY KEY  (ImageNumber,ObjectNumber)"));
+              var setup_lines = lines;             
+              var create_index = lines.indexOf("CREATE TABLE per_object \(");
+              var end_index = lines.indexOf("PRIMARY KEY  (ImageNumber,ObjectNumber)");
+              var column_lines = lines.slice(create_index + 1, end_index);
+              this.column_names = column_lines.map((name)=>(name.split(' ')[0]));      
+              console.assert(this.column_names[this.column_names.length - 1],
+                   'AreaNormalized_Cytoplasm_AreaShape_Zernike9_9');
+                   console.log("df complete");
+             });
+      
+
+          }
+          parsePerObj() {
+            return Papa.parsePromise(fileName.target.files[this.findFileIndex("per_object.cvs")], 
+              {
+                  // use separate thread to not make app too slow
+                  worker: true,
+                  // blank lines confuse danfo.js so get rid of them
+                  skipEmptyLines: true,
+                  // per_object.csv has no strings, so we can get a faster speed reading it
+                  fastMode: true, 
+                  // convert strings to numbers for smaller memory footprint
+                  dynamicTyping: true,
+                  // call this when the reading is done
+                  complete: (results, file) => {
+                  console.log("Parsing complete:");
+                  console.log(results.data);
+                  this.perObjData = results.data;
+                  }
+              });  
+             }
+          setupDF() {
+                  // turn the data into a dataframe
+                 // let new_index = ["ImageNumber", "ObjectNumber" ]
+                  this.df = new dfd.DataFrame(this.perObjData,{ columns : this.column_names});
+                  console.log("df complete")
+
+                 // calcuate a unique index number for each pair
+                 const image_keys = this.df.column("ImageNumber").tensor;
+                 console.log("imagekeys complete")
+                 const object_keys = this.df.column("ObjectNumber").tensor;
+                 console.log("objeckeys complete")
+                 const output_tensor1 = image_keys.square().add(image_keys).add(object_keys);
+                 console.log("output1 complete")
+                 const output_tensor2 = object_keys.square().add(image_keys);
+                 console.log("output2 complete")
+ 
+                 // calculate the index values, extract the js array, when its done set it as the indices for the df
+                 output_tensor1.where(image_keys.greaterEqual(object_keys), output_tensor2)
+                 .array()
+                 .then(indices => {
+                     console.log("indices complete", indices)
+                     this.df.set_index({key: indices, inplace: true});
+                     this.df.head().print();
+                     window.data_df = this.df;
+                 });
+
+            
+          }
+          init() {
+            this.parseSQLData()
+            .then (()=> {
+              this.parsePerObj()
+              .then (()=>{
+                console.log(this.column_names);
+                console.log(this.perObjData);
+                this.setupDF();
+              });
+            });
+
+          }
+      }
+      const setUpDF = new SetupSqlData();
+      setUpDF.init();
+      var object_data = setUpDF.getDF();
+       
       
   }	
-  
-
-
-      var setup_lines = null;
-      var create_index = null;
-      var end_index = null;
-      var column_lines = null;
-      var column_names = null
-      var object_data;
-
-      fetch(raw)
-      .then(r => r.text())
-      .then(text => {
-        return text.split("\n").map((x)=>x.trim());
-      })
-      .then(lines => {
-        console.log(lines.indexOf("CREATE TABLE per_object \("));
-        console.log(lines.indexOf("PRIMARY KEY  (ImageNumber,ObjectNumber)"));
-        setup_lines = lines;             
-        create_index = lines.indexOf("CREATE TABLE per_object \(");
-        end_index = lines.indexOf("PRIMARY KEY  (ImageNumber,ObjectNumber)");
-        column_lines = lines.slice(create_index + 1, end_index);
-        column_names = column_lines.map((name)=>(name.split(' ')[0]));         
-        console.assert(column_names[column_names.length - 1],
-             'AreaNormalized_Cytoplasm_AreaShape_Zernike9_9');
-        })
-   
-        /*
-        .then (lines=> {
-          dfd.read_csv("https://drive.google.com/file/d/1Ku2oYxF3dYbhSbLo4dGNkTyp7gkS7PFr")
-          .then(df => {
-            object_data = new dfd.DataFrame(df, { columns : column_names} )
-          })
-          console.log(object_data)
-        })
-    
-   
-        dfd.read_csv("../cpa_example/per_object.csv")
-        .then ( df => {
-          console.log(df.head());
-        })
-        */
-                          
-  
-        
-
-
-      // console.log(lines[1287]);
-      // console.log(lines[1287] === "PRIMARY KEY  (ImageNumber,ObjectNumber)")
-        //console.log(lines.indexOf(" PRIMARY KEY  \(ImageNumber,ObjectNumber\)"));
-      
-
-        
       
         
         return (

@@ -42,11 +42,10 @@ export default class ProofOfConcept extends React.Component {
 
             <Container  maxWidth="sm">
                 
-            <GridList cellHeight={160} cols={3}>
+            <GridList cellHeight="auto" cols={3}>
                 {[0,1,2,3,4,5,6,7,8].map((tile) => (
                 <GridListTile key={tile} cols={ 1}>
-                    <Button 
-                            onClick={()=>console.log(`Click Image: ${tile}!`)}>
+                    <Button onClick={()=>console.log(`Click Image: ${tile}!`)}>
                         <img  width={'100%'} src={jones} alt={"jones"} />
                     </Button>
                 </GridListTile>

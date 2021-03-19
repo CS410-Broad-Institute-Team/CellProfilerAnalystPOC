@@ -25,7 +25,7 @@ export default class Bella extends React.Component {
         <Container> 
         <Row>
          <Col>
-         <Image src={logo}></Image>
+         <Img src={logo}></Img>
          </Col>
         </Row>
         <Row>

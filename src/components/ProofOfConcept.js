@@ -5,66 +5,115 @@ import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-
+import Papa from 'papaparse'
 import jones from '../jones.jpg'
 import { findRenderedComponentWithType } from "react-dom/test-utils";
 
+// modified from emma.js
 
 
 export default class ProofOfConcept extends React.Component {
 
+    constructor(){
+        super();
+        Papa.parsePromise = function(file, config) {
+            return new Promise(function(complete, error) {
+              Papa.parse(file, {...config, complete, error});
+            });
+        };
+    }
     
     state = {
         imageSources: new Array(9).fill(jones)
     }
 
-    async fileReaderPromiseImage(fileName, fileIndex) {
+    // modified from emma.js  
+    findFileIndex (fileListObject, fileName) {
+        var index = Array.from(fileListObject.target.files).findIndex((elem) => {
+            return elem.name === fileName;
+        });
+        return index;
+    }
+
+
+    fileReaderPromiseImage(fileListObject, fileIndex) {
         return new Promise((resolve, reject)=> {
             var fr = new FileReader();
             fr.onload = () => {
                 resolve(fr.result)
             };
-            fr.readAsDataURL(fileName.target.files[fileIndex])
+            fr.readAsDataURL(fileListObject.target.files[fileIndex])
         })
     }
 
-    on_folder_uploaded_callback = function(fileName) {
+    fileReaderPromiseText(fileListObject, fileIndex) {
+        return new Promise((resolve, reject)=> {
+            var fr = new FileReader();
+            fr.onload = () => {
+                resolve(fr.result)
+            };
+            fr.readAsText(fileListObject.target.files[fileIndex])
+        })
+    }
+
+
+    on_folder_uploaded_callback = async function(fileListObject) {
         console.log("folder upload done!")
     
 
         Promise.all(Array.from({length: 9}, (_,idx)=>
-            this.fileReaderPromiseImage(fileName, idx+6).then(img=>{
+        // the 6th item is an image and a lot of items after are images, obviously we need a better implementation lol
+            this.fileReaderPromiseImage(fileListObject, idx+6).then(img=>{
                 this.state.imageSources[idx] = img;
                 this.setState({imageSources: this.state.imageSources})
             }
         )))
         .then(()=>console.log("Finished Loading Images"))
 
-        // const imageReader = new FileReader()
-        //     imageReader.onload = async (fileName) => { 
-        //         console.log(fileName.target.result);
-    
-        //         this.state.imageSources[0] = fileName.target.result;
-    
-        //         this.setState({imageSources: this.state.imageSources})
-        //         };
-        //     // start the reading of the image
-    
-    
-    
-        //     imageReader.readAsDataURL(fileName.target.files[6]);
 
-            
+
+        const object_csv_index = this.findFileIndex(fileListObject, "per_object.csv");
+        this.object_data = await Papa.parsePromise(fileListObject.target.files[object_csv_index],
+            {
+                worker: true,
+                skipEmptyLines: true,
+                // we're lucky there are no strings
+                fastMode: true, 
+                dynamicTyping: true,
+            }    
+        )
+        .then((result)=> result.data)
+        console.log("Finished Loading Object Data")
+        
+        const image_csv_index = this.findFileIndex(fileListObject, "per_image.csv");
+        this.image_data = await Papa.parsePromise(fileListObject.target.files[image_csv_index],
+            {
+                worker: true,
+                skipEmptyLines: true,
+                dynamicTyping: true,
+            }    
+        )
+        .then((result)=> result.data)
+        console.log("Finished Loading image Data")
+
+        const setup_sql_index = this.findFileIndex(fileListObject, "example_SETUP.SQL");
+        this.image_data = await Papa.parsePromise(fileListObject.target.files[setup_sql_index],
+            {
+                worker: true,
+                skipEmptyLines: true,
+                dynamicTyping: true,
+            }    
+        )
+        // .then((result)=> result.data.map(e=>e.trim()))
+        console.log("Finished Loading image Data")
     
     }
+    
 
     componentDidMount(){};
     componentWillUnmount(){};
     render(){
 
-        // your javascript goes here:
-        console.log("hi there");
-        console.log(this.state.imageSources)
 
         // JSX goes here:
         return (<div>

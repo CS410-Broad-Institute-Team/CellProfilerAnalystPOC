@@ -3,7 +3,7 @@ import React from 'react';
 import { Container, Row, Col} from "reactstrap";
 import {Box, Button, Grid }from '@material-ui/core'; 
 import logo from '../CPA_logo.jpg';
-
+import Image from 'react-bootstrap/Image'
 
 
 import "bootstrap/dist/css/bootstrap.css";

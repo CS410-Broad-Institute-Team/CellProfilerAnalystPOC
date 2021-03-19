@@ -1,25 +1,27 @@
 {
   "files": {
-    "main.css": "/CellProfilerAnalystPOC/static/css/main.8c8b27cf.chunk.css",
-    "main.js": "/CellProfilerAnalystPOC/static/js/main.9102a96c.chunk.js",
-    "main.js.map": "/CellProfilerAnalystPOC/static/js/main.9102a96c.chunk.js.map",
-    "runtime-main.js": "/CellProfilerAnalystPOC/static/js/runtime-main.2ee8b0d1.js",
-    "runtime-main.js.map": "/CellProfilerAnalystPOC/static/js/runtime-main.2ee8b0d1.js.map",
-    "static/js/2.0d582725.chunk.js": "/CellProfilerAnalystPOC/static/js/2.0d582725.chunk.js",
-    "static/js/2.0d582725.chunk.js.map": "/CellProfilerAnalystPOC/static/js/2.0d582725.chunk.js.map",
-    "static/js/3.fb0932cb.chunk.js": "/CellProfilerAnalystPOC/static/js/3.fb0932cb.chunk.js",
-    "static/js/3.fb0932cb.chunk.js.map": "/CellProfilerAnalystPOC/static/js/3.fb0932cb.chunk.js.map",
+    "main.css": "/CellProfilerAnalystPOC/static/css/main.62fdc471.chunk.css",
+    "main.js": "/CellProfilerAnalystPOC/static/js/main.0ba75d88.chunk.js",
+    "main.js.map": "/CellProfilerAnalystPOC/static/js/main.0ba75d88.chunk.js.map",
+    "runtime-main.js": "/CellProfilerAnalystPOC/static/js/runtime-main.0a7d5ed4.js",
+    "runtime-main.js.map": "/CellProfilerAnalystPOC/static/js/runtime-main.0a7d5ed4.js.map",
+    "static/css/2.658248ec.chunk.css": "/CellProfilerAnalystPOC/static/css/2.658248ec.chunk.css",
+    "static/js/2.24ca3004.chunk.js": "/CellProfilerAnalystPOC/static/js/2.24ca3004.chunk.js",
+    "static/js/2.24ca3004.chunk.js.map": "/CellProfilerAnalystPOC/static/js/2.24ca3004.chunk.js.map",
+    "static/js/3.fe191ca5.chunk.js": "/CellProfilerAnalystPOC/static/js/3.fe191ca5.chunk.js",
+    "static/js/3.fe191ca5.chunk.js.map": "/CellProfilerAnalystPOC/static/js/3.fe191ca5.chunk.js.map",
     "index.html": "/CellProfilerAnalystPOC/index.html",
-    "static/css/main.8c8b27cf.chunk.css.map": "/CellProfilerAnalystPOC/static/css/main.8c8b27cf.chunk.css.map",
-    "static/js/2.0d582725.chunk.js.LICENSE.txt": "/CellProfilerAnalystPOC/static/js/2.0d582725.chunk.js.LICENSE.txt",
+    "static/css/2.658248ec.chunk.css.map": "/CellProfilerAnalystPOC/static/css/2.658248ec.chunk.css.map",
+    "static/css/main.62fdc471.chunk.css.map": "/CellProfilerAnalystPOC/static/css/main.62fdc471.chunk.css.map",
+    "static/js/2.24ca3004.chunk.js.LICENSE.txt": "/CellProfilerAnalystPOC/static/js/2.24ca3004.chunk.js.LICENSE.txt",
     "static/media/example_SETUP.c8183f4e.SQL": "/CellProfilerAnalystPOC/static/media/example_SETUP.c8183f4e.SQL",
-    "static/media/jones.88567442.jpg": "/CellProfilerAnalystPOC/static/media/jones.88567442.jpg",
     "static/media/logo.6ce24c58.svg": "/CellProfilerAnalystPOC/static/media/logo.6ce24c58.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.2ee8b0d1.js",
-    "static/js/2.0d582725.chunk.js",
-    "static/css/main.8c8b27cf.chunk.css",
-    "static/js/main.9102a96c.chunk.js"
+    "static/js/runtime-main.0a7d5ed4.js",
+    "static/css/2.658248ec.chunk.css",
+    "static/js/2.24ca3004.chunk.js",
+    "static/css/main.62fdc471.chunk.css",
+    "static/js/main.0ba75d88.chunk.js"
   ]
 }

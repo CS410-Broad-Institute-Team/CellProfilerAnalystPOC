@@ -34,6 +34,10 @@ export default class ProofOfConcept extends React.Component {
             });
         };
 
+        Promise.prototype.notify = function(strMsg) {
+            return this.then(x=>{console.log(strMsg); return x});
+        }
+
         Array.prototype.sliceByValue = function (value1, value2) {
             const index1 = this.indexOf(value1);
             const index2 = this.indexOf(value2);
@@ -113,13 +117,13 @@ export default class ProofOfConcept extends React.Component {
                 {...this.basicPapaConfig, fastMode: true } // luckily it has no quotes so we can use fastmode
             )
             .then((result)=> result.data)
-            .then(()=>console.log("Finished Loading Object Data")),
+            .notify("Finished Loading Object Data"),
 
 
             Papa.parsePromise(fileListObject.target.files[image_csv_index],
                 this.basicPapaConfig
             )
-            .then(()=>console.log("Finished Loading image Data")),
+            .notify("Finished Loading Image Data"),
 
 
             Papa.parsePromise(fileListObject.target.files[setup_sql_index],
@@ -127,14 +131,14 @@ export default class ProofOfConcept extends React.Component {
             )
             .then((result)=> result.data.map(e=>e[0].trim()))
             .then((result)=> result.data)
-            .then(()=>console.log("Finished Loading setup Data")),
+            .notify("Finished Loading Setup Data"),
 
 
             Papa.parsePromise(fileListObject.target.files[training_data_index],
                 {...this.basicPapaConfig, delimiter: " ", comments: "#" }
             )
             .then((result)=>result.data.slice(1)) 
-            .then(()=>console.log("Finished Loading training Data"))
+            .notify("Finished Loading Training Data")
         ])
         .then(values =>{
             [this.object_data, this.image_data, this.setup_lines, this.training_data] = values;

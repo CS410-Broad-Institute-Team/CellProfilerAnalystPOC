@@ -9,6 +9,7 @@ import * as prprcss from "ml-preprocess";
 import EmmaComponent from "./components/Emma"
 import BellaComponent from "./components/Bella"
 import AbbyComponent from "./components/Abby"
+import ProofOfConceptComponent from "./components/ProofOfConcept"
 
 import {
   BrowserRouter as Router,
@@ -59,7 +60,7 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           woo the atom thingy do the rotate woo yea
@@ -73,7 +74,7 @@ function App() {
         >
           Learn React
         </a>
-      </header>
+      </header> */}
 
       
       <Router>
@@ -95,6 +96,9 @@ function App() {
             </li>
             <li>
                 <Link to="/Abby">Abby</Link>
+            </li>
+            <li>
+                <Link to="/ProofOfConcept">ProofOfConcept</Link>
             </li>
           </ul>
 
@@ -122,6 +126,9 @@ function App() {
             </Route>
             <Route path="/Bella">
               <Bella />
+            </Route>
+            <Route path="/ProofOfConcept">
+              <ProofOfConcept />
             </Route>
           </Switch>
         </div>
@@ -156,7 +163,9 @@ function Bella() {
   return <BellaComponent></BellaComponent>
 }
 
-
+function ProofOfConcept() {
+  return <ProofOfConceptComponent></ProofOfConceptComponent>
+}
 
 function Abby() {
   return <AbbyComponent></AbbyComponent>

@@ -1,15 +1,14 @@
-// import logo from './logo.svg';
+import logo from './logo.svg';
 import './App.css';
 
+import * as tf from "@tensorflow/tfjs";
+import * as dfd from "danfojs/src/index";
+import * as lgreg from "ml-logistic-regression";
+import * as prprcss from "ml-preprocess";
+
 import EmmaComponent from "./components/Emma"
-
-import YahiyaComponent from "./components/Yahiya"
-
 import BellaComponent from "./components/Bella"
 import AbbyComponent from "./components/Abby"
-import AlexComponent from "./components/Alex"
-
-import ProofOfConceptComponent from "./components/ProofOfConcept"
 
 import {
   BrowserRouter as Router,
@@ -19,16 +18,67 @@ import {
 } from "react-router-dom";
 
 
+import raw from "./example_SETUP.SQL";
 
 function App() {
+  // file read callback
+  var showFile = async (fileName) => {
+    fileName.preventDefault()
+    const reader = new FileReader()
+    reader.onload = async (fileName) => { 
+      const text = (fileName.target.result)
+      console.log(text)
+      alert(text)
+    };
+    reader.readAsText(fileName.target.files[0])
+  }	
+  var setup_lines = null;
+  var create_index = null;
+  var end_index = null;
+  var column_lines = null;
+
+  fetch(raw)
+	.then(r => r.text())
+	.then(text => {
+		return text.split("\n").map((x)=>x.trim());
+	})
+	.then(lines => {
+		console.log(lines.indexOf("CREATE TABLE per_object \("));
+    console.log(lines.indexOf("PRIMARY KEY  (ImageNumber,ObjectNumber)"));
+    setup_lines = lines;
+    create_index = lines.indexOf("CREATE TABLE per_object \(");
+    end_index = lines.indexOf("PRIMARY KEY  (ImageNumber,ObjectNumber)");
+    column_lines = lines.slice(create_index + 1, end_index);
+    console.log(column_lines);
+
+   // console.log(lines[1287]);
+   // console.log(lines[1287] === "PRIMARY KEY  (ImageNumber,ObjectNumber)")
+		//console.log(lines.indexOf(" PRIMARY KEY  \(ImageNumber,ObjectNumber\)"));
+	})
+
+
   return (
     <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          woo the atom thingy do the rotate woo yea
+        </p>
+	<input type="file" onChange = {(fileName) => showFile(fileName)} />
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+
+      
       <Router>
         <div>
           <ul>
-            <li>
-              <Link to="/ProofOfConcept">Proof Of Concept</Link>
-            </li>
             <li>
               <Link to="/Yahiya">Yahiya</Link>
             </li>
@@ -44,7 +94,7 @@ function App() {
 
             </li>
             <li>
-            <Link to="/Abby">Abby</Link>
+                <Link to="/Abby">Abby</Link>
             </li>
           </ul>
 
@@ -58,9 +108,6 @@ function App() {
             of them to render at a time
           */}
           <Switch>
-            <Route exact path="/ProofOfConcept">
-              <ProofOfConcept/>
-            </Route>
             <Route exact path="/Yahiya">
               <Yahiya />
             </Route>
@@ -85,16 +132,21 @@ function App() {
 
   );
 }
-function ProofOfConcept() {
-  return <ProofOfConceptComponent></ProofOfConceptComponent>
-}
 
 function Yahiya() {
-  return <YahiyaComponent></YahiyaComponent>
+  return (
+    <div>
+      <h2>Yahiya</h2>
+    </div>
+  );
 }
 
 function Alex() {
-  return <AlexComponent></AlexComponent>
+  return (
+    <div>
+      <h2>Alex</h2>
+    </div>
+  );
 }
 
 function Emma() {

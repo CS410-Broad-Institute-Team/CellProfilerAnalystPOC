@@ -1,9 +1,12 @@
 import { render } from "@testing-library/react"
 import React from 'react';
 import { Container, Row, Col} from "reactstrap";
-import {Box, Button, Grid }from '@material-ui/core'; 
+import {Box, Button, Grid, IconButton }from '@material-ui/core'; 
 import logo from '../CPA_logo.jpg';
 import Image from 'react-bootstrap/Image'
+import CloseIcon from '@material-ui/icons/Close';
+import SaveAltIcon from '@material-ui/icons/SaveAlt';
+
 
 
 import "bootstrap/dist/css/bootstrap.css";
@@ -24,8 +27,17 @@ export default class Bella extends React.Component {
         <div>
         <Container> 
         <Row>
+        <Grid container justify="right">
+        <Grid key={0} item>
+         <IconButton> <SaveAltIcon style={{color: "black", alignItems:'right', justifyContent: 'right' }}/></IconButton> 
+         </Grid>
+         <Grid key={1} item>
+         <IconButton> <CloseIcon style={{color: "black", textAlign:"right"  }}/></IconButton> 
+         </Grid>
+         </Grid>
+         
          <Col>
-         <Image src={logo}></Image>
+         <Image src={logo} style={{paddingRight:1000}}></Image>
          </Col>
         </Row>
         <Row>

@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/CellProfilerAnalystPOC/static/css/main.62fdc471.chunk.css",
-    "main.js": "/CellProfilerAnalystPOC/static/js/main.5150e815.chunk.js",
-    "main.js.map": "/CellProfilerAnalystPOC/static/js/main.5150e815.chunk.js.map",
+    "main.js": "/CellProfilerAnalystPOC/static/js/main.6bb0d10d.chunk.js",
+    "main.js.map": "/CellProfilerAnalystPOC/static/js/main.6bb0d10d.chunk.js.map",
     "runtime-main.js": "/CellProfilerAnalystPOC/static/js/runtime-main.5b9f97fa.js",
     "runtime-main.js.map": "/CellProfilerAnalystPOC/static/js/runtime-main.5b9f97fa.js.map",
     "static/css/2.658248ec.chunk.css": "/CellProfilerAnalystPOC/static/css/2.658248ec.chunk.css",
@@ -23,6 +23,6 @@
     "static/css/2.658248ec.chunk.css",
     "static/js/2.a0db67cd.chunk.js",
     "static/css/main.62fdc471.chunk.css",
-    "static/js/main.5150e815.chunk.js"
+    "static/js/main.6bb0d10d.chunk.js"
   ]
 }

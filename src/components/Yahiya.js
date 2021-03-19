@@ -18,7 +18,7 @@ import {Matrix} from 'ml-matrix';
 // ];
 import React from 'react';
 import logo from '../logo.svg';
-//import Papa from "papaparse";
+import Papa from "papaparse";
 // import raw_csv from '../per_object.csv'
 
 // import raw from "./example_SETUP.SQL";

@@ -9,7 +9,7 @@ import Papa from 'papaparse'
 import jones from '../jones.jpg'
 import { findRenderedComponentWithType } from "react-dom/test-utils";
 import { Matrix } from 'ml-matrix';
-import {normal} from 'ml-preprocess';
+import {normal, center, level} from 'ml-preprocess';
 import LogisticRegression, * as lgreg from "ml-logistic-regression";
 // modified from emma.js
 
@@ -20,6 +20,14 @@ export default class ProofOfConcept extends React.Component {
 
     constructor(){
         super();
+
+        console.log(normal([[1,2],
+                            [3,5]]))
+        console.log(center([[1,2],
+                            [3,20]]))
+        console.log(level([[1,2],
+                           [3,5],
+                           [7,9]]))
         Papa.parsePromise = function(file, config) {
             return new Promise(function(complete, error) {
               Papa.parse(file, {...config, complete, error});
@@ -96,31 +104,54 @@ export default class ProofOfConcept extends React.Component {
 
         
         const object_csv_index = this.findFileIndex(fileListObject, "per_object.csv");
-        this.object_data = await Papa.parsePromise(fileListObject.target.files[object_csv_index],
-            {...this.basicPapaConfig, fastMode: true } // luckily it has no quotes so we can use fastmode
-        )
-        .then((result)=> result.data)
-        console.log("Finished Loading Object Data")
-        
         const image_csv_index = this.findFileIndex(fileListObject, "per_image.csv");
-        this.image_data = await Papa.parsePromise(fileListObject.target.files[image_csv_index],
-            this.basicPapaConfig
-        )
-        .then((result)=> result.data)
-        console.log("Finished Loading image Data")
-
         const setup_sql_index = this.findFileIndex(fileListObject, "example_SETUP.SQL");
-        this.setup_lines = await Papa.parsePromise(fileListObject.target.files[setup_sql_index],
-            {...this.basicPapaConfig, delimiter: ',' }    
-        )
-        .then((result)=> result.data.map(e=>e[0].trim()))
-        console.log("Finished Loading image Data")
-
         const training_data_index = this.findFileIndex(fileListObject, "MyTrainingSet.txt");
-        this.training_data = await Papa.parsePromise(fileListObject.target.files[training_data_index],
-            {...this.basicPapaConfig, delimiter: " ", comments: "#" }
-        )
-        .then((result)=>result.data.slice(1));
+
+        await Promise.all([
+            Papa.parsePromise(fileListObject.target.files[object_csv_index],
+                {...this.basicPapaConfig, fastMode: true } // luckily it has no quotes so we can use fastmode
+            )
+            .then((result)=> result.data)
+            .then(()=>console.log("Finished Loading Object Data")),
+
+
+            Papa.parsePromise(fileListObject.target.files[image_csv_index],
+                this.basicPapaConfig
+            )
+            .then(()=>console.log("Finished Loading image Data")),
+
+
+            Papa.parsePromise(fileListObject.target.files[setup_sql_index],
+                {...this.basicPapaConfig, delimiter: ',' }    
+            )
+            .then((result)=> result.data.map(e=>e[0].trim()))
+            .then((result)=> result.data)
+            .then(()=>console.log("Finished Loading setup Data")),
+
+
+            Papa.parsePromise(fileListObject.target.files[training_data_index],
+                {...this.basicPapaConfig, delimiter: " ", comments: "#" }
+            )
+            .then((result)=>result.data.slice(1)) 
+            .then(()=>console.log("Finished Loading training Data"))
+        ])
+        .then(values =>{
+            [this.object_data, this.image_data, this.setup_lines, this.training_data] = values;
+        })
+        
+        
+        
+        
+         
+        
+
+        
+         
+        
+
+        
+         
 
         this.labeled_cells = this.training_data.map(training_row=>{
             return this.object_data.find((data_row)=>data_row[0] === training_row[1] && data_row[1] === training_row[2]);
@@ -139,30 +170,68 @@ export default class ProofOfConcept extends React.Component {
         this.training_data_column_names = "label imagenum objectnum x y".split(" ")
         console.log(this.image_column_names)
 
-     
-        this.object_features_to_use = this.object_column_lines.filter((elem)=>!elem.includes("Location"));
-        this.object_features_to_use_indices = this.object_features_to_use.map((elem)=>this.object_column_lines.indexOf(elem));
-        this.image_features_to_use = this.image_column_lines.filter((elem)=>!elem.includes("Location"));
-        this.image_features_to_use_indices = this.image_features_to_use.map((elem)=>this.image_column_lines.indexOf(elem));
+        // END OF THE TRUSTWORTHY CODE
 
         
-        this.labeled_features = this.labeled_cells.map(row=>{
-            return this.object_features_to_use_indices.map((idx)=>row[idx]);
-        })
+        // this.object_features_to_use = this.object_column_lines.filter((elem)=>!elem.includes("Location"));
+        // this.object_features_to_use_indices = this.object_features_to_use.map((elem)=>this.object_column_lines.indexOf(elem));
+        // this.image_features_to_use = this.image_column_lines.filter((elem)=>!elem.includes("Location"));
+        // this.image_features_to_use_indices = this.image_features_to_use.map((elem)=>this.image_column_lines.indexOf(elem));
 
-        console.log(this.training_data.map((row)=> row[0]==='positive'? 1:0));
-        this.labels = new Matrix([this.training_data.map((row)=> row[0]==='positive'? 1:0)]);
+        
+        // this.labeled_features = this.labeled_cells.map(row=>{
+        //     return this.object_features_to_use_indices.map((idx)=>row[idx]);
+        // })
 
-        this.standardized_features = new Matrix(normal(this.labeled_features));
+        // console.log(this.training_data.map((row)=> row[0]==='positive'? 1:0));
+        // this.labels = new Matrix([this.training_data.map((row)=> row[0]==='positive'? 1:0).slice(0,613)]);
 
-        this.classifier = new LogisticRegression({ numSteps: 1000, learningRate: 5e-3 });
+        // this.standardized_features = new Matrix(normal(this.labeled_features));
 
-        this.classifier.train(this.standardized_features, this.labels);
-        console.log(this.labeled_features);
-        console.log(normal(this.labeled_features))
-        console.log(new Matrix(this.labeled_features));
-        console.log(this.standardized_features)
-        console.log(this.classifier.predict(this.standardized_features));
+        // this.classifier = new LogisticRegression({ numSteps: 1000, learningRate: 5e-3 });
+
+
+        // this.labeled_features_transpose = Array(this.labeled_features[0].length).fill(0).map(()=>{
+        //     return new Array(this.labeled_features.length).fill(0);
+        // }).slice(0,613);
+
+        // console.log(this.labeled_features)
+        // console.log(this.labeled_features_transpose);
+
+        // for (var i = 0; i < this.labeled_features.length; i++){
+        //     for (var j = 0; j < this.labeled_features[0].length; j++) {
+        //         this.labeled_features_transpose[j][i] = this.labeled_features[i][j];
+        //     }
+        // }
+
+        // console.log(this.labeled_features_transpose);
+        // console.log(normal(this.labeled_features_transpose));
+
+
+        // this.meaned_features_transposed = this.labeled_features_transpose.map(row=> {
+        //     const row_mean = row.reduce((acc, curr)=> acc+curr, 0)/row.length;
+        //     return row.map(element=>element - row_mean);
+        // });
+
+        // this.standardized_features_transposed = this.meaned_features_transposed.map(row=> {
+        //     const row_std = Math.sqrt(row.reduce((acc, curr)=>acc+curr**2, 0));
+        //     return row.map(element=>element/row_std);
+        // });
+
+        // console.log(this.standardized_features_transposed);
+
+        // console.log(this.labels);
+        // this.classifier.train(this.standardized_features_transposed, this.labels);
+        // // console.log(this.labeled_features);
+        // // console.log(center(this.labeled_features))
+        // // console.log(center(this.labeled_features).reduce((acc, cur)=>acc+cur[0], 0))
+        // // window.labeled_features = this.labeled_features;
+        // // window.centered_labeled_features = center(this.labeled_features);
+        // // console.log(normal(center(this.labeled_features)))
+        // // console.log(new Matrix(this.labeled_features));
+        // // console.log(this.standardized_features)
+        // console.log(this.classifier.predict(this.standardized_features));
+
 
     
     }

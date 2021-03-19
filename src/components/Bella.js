@@ -2,7 +2,7 @@ import { render } from "@testing-library/react"
 import React from 'react';
 import { Container, Row, Col} from "reactstrap";
 import {Box, Button, Grid }from '@material-ui/core'; 
-import Image from 'react-bootstrap/Image';
+import logo from '../CPA_logo.jpg';
 
 
 
@@ -25,7 +25,7 @@ export default class Bella extends React.Component {
         <Container> 
         <Row>
          <Col>
-         <Image src="./CPA_logo.jpg"></Image>
+         <Image src={logo}></Image>
          </Col>
         </Row>
         <Row>

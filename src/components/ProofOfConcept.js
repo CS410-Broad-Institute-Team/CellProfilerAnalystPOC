@@ -37,6 +37,9 @@ export default class ProofOfConcept extends React.Component {
         Promise.prototype.notify = function(strMsg) {
             return this.then(x=>{console.log(strMsg); return x});
         }
+        Promise.prototype.debugPrint = function() {
+            return this.then(x=>{console.log(x); return x});
+        }
 
         Array.prototype.sliceByValue = function (value1, value2) {
             const index1 = this.indexOf(value1);
@@ -111,6 +114,8 @@ export default class ProofOfConcept extends React.Component {
         const image_csv_index = this.findFileIndex(fileListObject, "per_image.csv");
         const setup_sql_index = this.findFileIndex(fileListObject, "example_SETUP.SQL");
         const training_data_index = this.findFileIndex(fileListObject, "MyTrainingSet.txt");
+        console.log(setup_sql_index)
+        console.log(fileListObject.target.files[setup_sql_index])
 
         await Promise.all([
             Papa.parsePromise(fileListObject.target.files[object_csv_index],
@@ -130,7 +135,6 @@ export default class ProofOfConcept extends React.Component {
                 {...this.basicPapaConfig, delimiter: ',' }    
             )
             .then((result)=> result.data.map(e=>e[0].trim()))
-            .then((result)=> result.data)
             .notify("Finished Loading Setup Data"),
 
 
@@ -144,7 +148,7 @@ export default class ProofOfConcept extends React.Component {
             [this.object_data, this.image_data, this.setup_lines, this.training_data] = values;
         })
         
-        
+        console.log(this.object_data, this.image_data, this.setup_lines, this.training_data)
         
         
          

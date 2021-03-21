@@ -2,10 +2,11 @@ import { render } from "@testing-library/react"
 import React from 'react';
 import { Container, Row, Col} from "reactstrap";
 import {Box, Button, Grid, IconButton }from '@material-ui/core'; 
-import logo from '../CPA_logo.jpg';
+import logo from '../CPA_newlogo.png';
 import Image from 'react-bootstrap/Image'
 import CloseIcon from '@material-ui/icons/Close';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
+
 
 
 
@@ -26,18 +27,17 @@ export default class Bella extends React.Component {
         return( 
         <div>
         <Container> 
+
         <Row>
-        <Grid container justify="right">
-        <Grid key={0} item>
-         <IconButton> <SaveAltIcon style={{color: "black", alignItems:'right', justifyContent: 'right' }}/></IconButton> 
-         </Grid>
-         <Grid key={1} item>
-         <IconButton> <CloseIcon style={{color: "black", textAlign:"right"  }}/></IconButton> 
-         </Grid>
-         </Grid>
+        <Col >
+         <IconButton style={{color: "black", marginLeft:587}}> <SaveAltIcon /></IconButton> 
+         </Col>
+        <Col >
+         <IconButton style={{color: "black" , marginLeft: -65}}> <CloseIcon /></IconButton> 
+         </Col>
          
          <Col>
-         <Image src={logo} style={{paddingRight:1000}}></Image>
+         <Image src={logo} style={{paddingRight:1000 , height:'90px'}}></Image>
          </Col>
         </Row>
         <Row>
@@ -51,7 +51,7 @@ export default class Bella extends React.Component {
         <Button variant="contained">Train</Button>
         </Grid>
 
-        <Grid key={1} item>
+        <Grid key={2} item>
         <Button variant="contained">Evulate</Button>
         </Grid>
 

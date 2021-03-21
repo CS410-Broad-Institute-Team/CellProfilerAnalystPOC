@@ -7,7 +7,7 @@ import * as lgreg from "ml-logistic-regression";
 import * as prprcss from "ml-preprocess";
 
 import EmmaComponent from "./components/Emma"
-
+import EmmanuelComponent from "./components/Emmanuel"
 import {
   BrowserRouter as Router,
   Switch,
@@ -86,6 +86,9 @@ function App() {
             <li>
               <Link to="/Emma">Emma</Link>
             </li>
+            <li>
+              <Link to="/Emmanuel">Emmanuel</Link>
+            </li>
           </ul>
 
           <hr />
@@ -106,6 +109,9 @@ function App() {
             </Route>
             <Route path="/Emma">
               <Emma />
+            </Route>
+            <Route path="/Emmanuel">
+              <Emmanuel />
             </Route>
           </Switch>
         </div>
@@ -135,6 +141,10 @@ function Alex() {
 
 function Emma() {
   return <EmmaComponent></EmmaComponent>
+}
+
+function Emmanuel() {
+  return <EmmanuelComponent></EmmanuelComponent>
 }
 
 export default App;

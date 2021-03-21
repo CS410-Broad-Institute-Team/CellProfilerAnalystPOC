@@ -4,6 +4,8 @@
   "private": true,
   "homepage": "https://YahtzeeRage.github.io/CellProfilerAnalystPOC",
   "dependencies": {
+    "@babel/core": "^7.12.17",
+    "@babel/preset-env": "^7.12.17",
     "@tensorflow/tfjs": "^3.2.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",

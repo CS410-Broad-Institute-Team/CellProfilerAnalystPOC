@@ -57,7 +57,7 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           woo the atom thingy do the rotate woo yea
@@ -71,7 +71,7 @@ function App() {
         >
           Learn React
         </a>
-      </header>
+      </header> */}
 
       
       <Router>
@@ -108,7 +108,16 @@ function App() {
               <Alex />
             </Route>
             <Route path="/Emma">
-              <Emma />
+            <Emma />
+            </Route>
+            <Route path="/Abby">
+            <Abby />
+            </Route>
+            <Route path="/Bella">
+              <Bella />
+            </Route>
+            <Route path="/ProofOfConcept">
+              <ProofOfConcept />
             </Route>
             <Route path="/Emmanuel">
               <Emmanuel />
@@ -141,6 +150,17 @@ function Alex() {
 
 function Emma() {
   return <EmmaComponent></EmmaComponent>
+}
+function Bella() {
+  return <BellaComponent></BellaComponent>
+}
+
+function ProofOfConcept() {
+  return <ProofOfConceptComponent></ProofOfConceptComponent>
+}
+
+function Abby() {
+  return <AbbyComponent></AbbyComponent>
 }
 
 function Emmanuel() {

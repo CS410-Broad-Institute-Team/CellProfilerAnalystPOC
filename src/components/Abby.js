@@ -71,16 +71,6 @@ export default function FullWidthGrid() {
       
       <IconButton variant="contained" component="label"
                             onClick={()=>console.log("Save!")}><SaveAltIcon />
-                        
-                        <input  type="file" 
-                                hidden webkitdirectory="true" 
-                                mozdirectory="true" 
-                                msdirectory="true" 
-                                odirectory="true" 
-                                directory="true" 
-                                multiple 
-                                onChange = {(fileName) => this.on_folder_uploaded_callback(fileName)}
-                                />
                     </IconButton>  
                     </Grid>             
                     

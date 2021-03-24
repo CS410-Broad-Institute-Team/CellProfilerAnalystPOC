@@ -11,11 +11,12 @@ import Paper from '@material-ui/core/Paper';
 import {Box, Button, Grid, IconButton}from '@material-ui/core'; 
 import { positions } from '@material-ui/system';
 import { FlipLeftRight } from "@tensorflow/tfjs";
+import { Container, Row, Col} from "reactstrap";
 
 
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-
+import FileSaver from 'file-saver';
 const useStyles = makeStyles((theme) => ({
   root: {
 
@@ -46,16 +47,32 @@ const useStyles = makeStyles((theme) => ({
 export default function FullWidthGrid() {
   const classes = useStyles();
 
+  const uploadFile = () => {
+    FileSaver.saveAs(
+      "https://cellprofiler.org/releases",
+      "result"
+    );
+  }
+
+//save the trained result from a link to our backend source.
+  const saveFile = () => {
+    FileSaver.saveAs(
+      "https://cellprofiler.org/releases",
+      "result"
+    );
+  }
+
+  
   return (
     <div >
-        {/* <Button variant="contained"
-            onClick={()=>{console.log("Fetch!");}}>Fetch</Button>
-        <Button variant="contained"
-            onClick={()=>{console.log("Fetch!");}}>Train</Button>
-        <Button variant="contained"
-            onClick={()=>{console.log("Fetch!");}}>Evaluate</Button> */}
-      <Grid container justify="flex-end">
-      <IconButton variant="contained" component="label" className={classes.root}
+
+
+            <Container> 
+            <Row >
+            <Col >
+
+            <Grid container justify="flex-end">
+                  <IconButton variant="contained" component="label" className={classes.root}
                             onClick={()=>console.log("upload!")} > <CloudUploadIcon/>
                             
                             <input  type="file" 
@@ -67,16 +84,34 @@ export default function FullWidthGrid() {
                                 multiple 
                                 onChange = {(fileName) => this.on_folder_uploaded_callback(fileName)}
                                 />
-                            </IconButton> 
-      
-      <IconButton variant="contained" component="label"
-                            onClick={()=>console.log("Save!")}><SaveAltIcon />
-                    </IconButton>  
-                    </Grid>             
-                    
-            
+                    </IconButton> 
 
-      {/* <Grid container spacing={5}>
+                    {/* <IconButton variant="contained" component="label"
+                            onClick={uploadFile}><CloudUploadIcon />
+                    </IconButton>   */}
+
+                   <IconButton variant="contained" component="label"
+                            onClick={saveFile}><SaveAltIcon />
+                    </IconButton>  
+                            </Grid>
+              
+              
+               
+            </Col>
+            </Row>
+            
+            
+            </Container> 
+   
+         <Button variant="contained"
+            onClick={()=>{console.log("Fetch!");}}>Fetch</Button>
+        <Button variant="contained"
+            onClick={()=>{console.log("Fetch!");}}>Train</Button>
+        <Button variant="contained"
+            onClick={()=>{console.log("Fetch!");}}>Evaluate</Button> 
+
+
+      <Grid container spacing={2}>
         <Grid item xs={12}>
           <Box className={classes.paper}>Unclassified</Box>
         </Grid>
@@ -87,43 +122,18 @@ export default function FullWidthGrid() {
           <Paper className={classes.paper}>Positive</Paper>
         </Grid> 
         
-      </Grid> */}
+      </Grid> 
 
-      
-    </div>
-    
-  );
-}
+</div>
+            );
+  }
 
-
-
-// export default class Abby extends React.Component {
-//     state = {
-
-//     };
-
-    
-//     componentDidMount(){};
-//     componentWillUnmount(){};
-    
-//     render(){
-//         console.log("hello world");
-//         return (
-//             <div>
-//                 <Button variant="contained" color="grey" Fetch> Fetch
-//         </Button>
-//         <Button variant="contained" color="grey" Fetch> Fetch
-//         </Button>
-//         <Button variant="contained" color="grey" Fetch> Fetch
-//         </Button>
+                    
             
 
 
+      
 
+    
 
-
-//             </div>)
-
-//     };
-// }
-
+   

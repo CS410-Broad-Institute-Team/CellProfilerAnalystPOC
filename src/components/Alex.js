@@ -16,7 +16,9 @@ export default class Alex extends React.Component {
 	let new_cell_indices = [];
 	num_checked = 0;
 
+	    /*
         while(new_cell_indices.length < 50) {
+
 		num_checked += 50;
 
 		// fetch random_cells here
@@ -43,14 +45,13 @@ export default class Alex extends React.Component {
 			new_cell_indices.push(positive_cells);
 		}
 	}
+	*/
 
         console.log("function end?");
 
         // JSX goes here:
         return (<div>
-            <h2>Alex</h2>
-            <p>Alex stuff</p>
-	    <p>dummy text</p>
+            <h2>dummy text</h2>
         </div>)
     };
 }

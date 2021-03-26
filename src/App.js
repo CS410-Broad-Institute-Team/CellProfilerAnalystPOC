@@ -155,12 +155,16 @@ function Yahiya() {
   );
 }
 
+// TODO: stubbed for now, fix later
 function Alex() {
+	/*
   return (
     <div>
-      <h2>Alex</h2>
+      <h2>dummy text</h2>
     </div>
   );
+  */
+  return <h2>the</h2>
 }
 
 function Emma() {

@@ -10,6 +10,7 @@ import EmmaComponent from "./components/Emma"
 import BellaComponent from "./components/Bella"
 import AbbyComponent from "./components/Abby"
 import ProofOfConceptComponent from "./components/ProofOfConcept"
+import YahiyaHomeComponent from "./components/YahiyaTesting/YahiyaHome.js"
 
 import {
   BrowserRouter as Router,
@@ -19,43 +20,43 @@ import {
 } from "react-router-dom";
 
 
-import raw from "./example_SETUP.SQL";
+// import raw from "./example_SETUP.SQL";
 
 function App() {
   // file read callback
-  var showFile = async (fileName) => {
-    fileName.preventDefault()
-    const reader = new FileReader()
-    reader.onload = async (fileName) => { 
-      const text = (fileName.target.result)
-      console.log(text)
-      alert(text)
-    };
-    reader.readAsText(fileName.target.files[0])
-  }	
-  var setup_lines = null;
-  var create_index = null;
-  var end_index = null;
-  var column_lines = null;
+  // var showFile = async (fileName) => {
+  //   fileName.preventDefault()
+  //   const reader = new FileReader()
+  //   reader.onload = async (fileName) => { 
+  //     const text = (fileName.target.result)
+  //     console.log(text)
+  //     alert(text)
+  //   };
+  //   reader.readAsText(fileName.target.files[0])
+  // }	
+  // var setup_lines = null;
+  // var create_index = null;
+  // var end_index = null;
+  // var column_lines = null;
 
-  fetch(raw)
-	.then(r => r.text())
-	.then(text => {
-		return text.split("\n").map((x)=>x.trim());
-	})
-	.then(lines => {
-		console.log(lines.indexOf("CREATE TABLE per_object \("));
-    console.log(lines.indexOf("PRIMARY KEY  (ImageNumber,ObjectNumber)"));
-    setup_lines = lines;
-    create_index = lines.indexOf("CREATE TABLE per_object \(");
-    end_index = lines.indexOf("PRIMARY KEY  (ImageNumber,ObjectNumber)");
-    column_lines = lines.slice(create_index + 1, end_index);
-    console.log(column_lines);
+  // fetch(raw)
+	// .then(r => r.text())
+	// .then(text => {
+	// 	return text.split("\n").map((x)=>x.trim());
+	// })
+	// .then(lines => {
+	// 	console.log(lines.indexOf("CREATE TABLE per_object \("));
+  //   console.log(lines.indexOf("PRIMARY KEY  (ImageNumber,ObjectNumber)"));
+  //   setup_lines = lines;
+  //   create_index = lines.indexOf("CREATE TABLE per_object \(");
+  //   end_index = lines.indexOf("PRIMARY KEY  (ImageNumber,ObjectNumber)");
+  //   column_lines = lines.slice(create_index + 1, end_index);
+  //   console.log(column_lines);
 
-   // console.log(lines[1287]);
-   // console.log(lines[1287] === "PRIMARY KEY  (ImageNumber,ObjectNumber)")
-		//console.log(lines.indexOf(" PRIMARY KEY  \(ImageNumber,ObjectNumber\)"));
-	})
+  //  // console.log(lines[1287]);
+  //  // console.log(lines[1287] === "PRIMARY KEY  (ImageNumber,ObjectNumber)")
+	// 	//console.log(lines.indexOf(" PRIMARY KEY  \(ImageNumber,ObjectNumber\)"));
+	// })
 
 
   return (
@@ -100,6 +101,9 @@ function App() {
             <li>
                 <Link to="/ProofOfConcept">ProofOfConcept</Link>
             </li>
+            <li>
+                <Link to="/YahiyaHome">Yahiya's Home of Testing</Link>
+            </li>
           </ul>
 
           <hr />
@@ -129,6 +133,9 @@ function App() {
             </Route>
             <Route path="/ProofOfConcept">
               <ProofOfConcept />
+            </Route>
+            <Route path="/YahiyaHome">
+              <YahiyaHome />
             </Route>
           </Switch>
         </div>
@@ -165,6 +172,9 @@ function Bella() {
 
 function ProofOfConcept() {
   return <ProofOfConceptComponent></ProofOfConceptComponent>
+}
+function YahiyaHome() {
+  return <YahiyaHomeComponent></YahiyaHomeComponent>
 }
 
 function Abby() {

@@ -5,6 +5,8 @@ import LogisticRegression, * as lgreg from "ml-logistic-regression";
 // import * as prprcss from "ml-preprocess";
 import {normal} from 'ml-preprocess'; // replaces StandardScaler
 import {Matrix} from 'ml-matrix';
+import DatGui, { DatBoolean, DatColor, DatNumber, DatString } from 'react-dat-gui';
+
 // example:
 // let matrix = [
 //     [2000, 1000, 3000],

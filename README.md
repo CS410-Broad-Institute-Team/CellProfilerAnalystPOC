@@ -70,8 +70,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
 
-<object data="https://github.com/YahtzeeRage/CellProfilerAnalystPOC/blob/fedabe93232339b0df3a07674355e727129963c0/CellProfiler_Analyst_ForThe_Web_Proposal.pdf" type="application/pdf" width="700px" height="700px">
-    <embed src="https://github.com/YahtzeeRage/CellProfilerAnalystPOC/blob/fedabe93232339b0df3a07674355e727129963c0/CellProfiler_Analyst_ForThe_Web_Proposal.pdf">
-        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="http://yoursite.com/the.pdf">Download PDF</a>.</p>
-    </embed>
-</object>
+<p>This browser does not support PDFs. Please download the PDF to view it: <a href="https://github.com/YahtzeeRage/CellProfilerAnalystPOC/blob/fedabe93232339b0df3a07674355e727129963c0/CellProfiler_Analyst_ForThe_Web_Proposal.pdf">Download The Project Proposal Document!</a>.</p>

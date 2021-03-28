@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/CellProfilerAnalystPOC/static/css/main.62fdc471.chunk.css",
-    "main.js": "/CellProfilerAnalystPOC/static/js/main.f40b806d.chunk.js",
-    "main.js.map": "/CellProfilerAnalystPOC/static/js/main.f40b806d.chunk.js.map",
+    "main.js": "/CellProfilerAnalystPOC/static/js/main.bb9426d6.chunk.js",
+    "main.js.map": "/CellProfilerAnalystPOC/static/js/main.bb9426d6.chunk.js.map",
     "runtime-main.js": "/CellProfilerAnalystPOC/static/js/runtime-main.31eef78c.js",
     "runtime-main.js.map": "/CellProfilerAnalystPOC/static/js/runtime-main.31eef78c.js.map",
     "static/css/2.658248ec.chunk.css": "/CellProfilerAnalystPOC/static/css/2.658248ec.chunk.css",
-    "static/js/2.46a811c9.chunk.js": "/CellProfilerAnalystPOC/static/js/2.46a811c9.chunk.js",
-    "static/js/2.46a811c9.chunk.js.map": "/CellProfilerAnalystPOC/static/js/2.46a811c9.chunk.js.map",
+    "static/js/2.9d88b5a9.chunk.js": "/CellProfilerAnalystPOC/static/js/2.9d88b5a9.chunk.js",
+    "static/js/2.9d88b5a9.chunk.js.map": "/CellProfilerAnalystPOC/static/js/2.9d88b5a9.chunk.js.map",
     "static/js/3.8cbea0b5.chunk.js": "/CellProfilerAnalystPOC/static/js/3.8cbea0b5.chunk.js",
     "static/js/3.8cbea0b5.chunk.js.map": "/CellProfilerAnalystPOC/static/js/3.8cbea0b5.chunk.js.map",
     "index.html": "/CellProfilerAnalystPOC/index.html",
     "static/css/2.658248ec.chunk.css.map": "/CellProfilerAnalystPOC/static/css/2.658248ec.chunk.css.map",
     "static/css/main.62fdc471.chunk.css.map": "/CellProfilerAnalystPOC/static/css/main.62fdc471.chunk.css.map",
-    "static/js/2.46a811c9.chunk.js.LICENSE.txt": "/CellProfilerAnalystPOC/static/js/2.46a811c9.chunk.js.LICENSE.txt",
+    "static/js/2.9d88b5a9.chunk.js.LICENSE.txt": "/CellProfilerAnalystPOC/static/js/2.9d88b5a9.chunk.js.LICENSE.txt",
     "static/media/example_SETUP.c8183f4e.SQL": "/CellProfilerAnalystPOC/static/media/example_SETUP.c8183f4e.SQL",
     "static/media/jones.88567442.jpg": "/CellProfilerAnalystPOC/static/media/jones.88567442.jpg",
     "static/media/logo.6ce24c58.svg": "/CellProfilerAnalystPOC/static/media/logo.6ce24c58.svg"
@@ -21,8 +21,8 @@
   "entrypoints": [
     "static/js/runtime-main.31eef78c.js",
     "static/css/2.658248ec.chunk.css",
-    "static/js/2.46a811c9.chunk.js",
+    "static/js/2.9d88b5a9.chunk.js",
     "static/css/main.62fdc471.chunk.css",
-    "static/js/main.f40b806d.chunk.js"
+    "static/js/main.bb9426d6.chunk.js"
   ]
 }

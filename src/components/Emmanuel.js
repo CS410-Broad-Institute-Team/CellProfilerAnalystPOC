@@ -17,25 +17,28 @@ export default class Emmanuel extends React.Component {
   //what do these two do?
   componentDidMount(){};
   componentWillUnmount(){};
-
   //point of render?
   render(){
 
     let new_cell_indices = []
-    let num_checked = 0
+    var name = window.prompt("Enter desired CellType")
 
     while(new_cell_indices.length < 50){
-
-        num_checked += 50
         
-        let data = tf.tensor2d([[20,30,40], [23,90, 28]])
+        let data = tf.tensor2d([[20,30,40], [23,90, 28], [39, 42, 57], [51, 54, 56],
+          [67, 68, 70], [53, 44, 48], [32, 23, 45], [88, 87, 95], [12, 11, 12], [14, 15, 17]
+        ])
         let df = new dfd.DataFrame(data)
         let tf_tensor = df.tensor
-        console.log(tf_tensor);
 
-        let random_cells = df.sample(10)
-        tf_tensor.print()
-        console.log(random_cells)
+        //random integer between 0 and length of object data
+        let margin = Math.floor(Math.random() * tf_tensor.shape[0])
+
+        let random_cells = df.sample(margin)
+        //tf_tensor.print()
+        random_cells.print()
+        //console.log(random_cells)
+        break
         
 
     }   

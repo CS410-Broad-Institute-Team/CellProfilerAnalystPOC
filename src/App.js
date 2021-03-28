@@ -8,6 +8,10 @@ import * as prprcss from "ml-preprocess";
 
 import EmmaComponent from "./components/Emma"
 import EmmanuelComponent from "./components/Emmanuel"
+import BellaComponent from "./components/Bella"
+import AbbyComponent from "./components/Abby"
+import ProofOfConceptComponent from "./components/ProofOfConcept"
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -88,6 +92,15 @@ function App() {
             </li>
             <li>
               <Link to="/Emmanuel">Emmanuel</Link>
+            </li>
+            <li>
+              <Link to="/ProofOfConcept">ProofOfConcept</Link>
+            </li>
+            <li>
+              <Link to="/Bella">Bella</Link>
+            </li>
+            <li>
+              <Link to="/Abby">Abby</Link>
             </li>
           </ul>
 

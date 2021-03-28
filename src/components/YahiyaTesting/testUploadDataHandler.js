@@ -21,13 +21,13 @@ const onFinishUpload_Callback = async function(fileListObject) {
     const test_size = 0.1;
     const batch_size = 16;
 
-    const [preds, pred_labels] = await classifier.convertThenFullRun(data, feature_names, test_size, batch_size, {lossContainer, accContainer}, data_labels);
+    const [preds, pred_labels] = await classifier.fullrun(data, feature_names, test_size, batch_size, {lossContainer, accContainer}, data_labels);
     // console.log(preds, pred_labels);
     preds.print();
     pred_labels.print();
 
-    // const tick_labels = ["Positive", "Negative"];
-    // await LogRegClassifier.renderConfusionMatrix_utility(preds, pred_labels, confusion_container, tick_labels);
+    const tick_labels = ["Positive", "Negative"];
+    await LogRegClassifier.renderConfusionMatrix_utility(preds, pred_labels, confusion_container, tick_labels);
 
     
 }

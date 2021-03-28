@@ -48,7 +48,9 @@ export default class LogisticRegressionClassifier {
         return {...data_row, Outcome: data_labels[idx]}
       })
 
-      return await this.fullrun(data_plusOutcome, features, test_size, batch_size, render)
+      const shuffled_data = _.shuffle(data_plusOutcome)
+
+      return await this.fullrun_overfit(shuffled_data, features, test_size, batch_size, render)
     }
 
     static renderConfusionMatrix_utility = async (predictions, labels, confusion_container, tick_labels) => {
@@ -58,17 +60,68 @@ export default class LogisticRegressionClassifier {
           tickLabels: tick_labels
         });
     }
+    trainComplexModel = async (featureCount, trainDs, validDs) => {
+      const model = tf.sequential()
+      model.add(
+        tf.layers.dense({
+          units: 16,
+          activation: "relu",
+          inputShape: [featureCount],
+        })
+      )
+      model.add(
+        tf.layers.dropout({
+          rate: 0.3
+        })
+      )
+      model.add(
+        tf.layers.dense({
+          units: 2,
+          activation: "softmax",
+        })
+      )
+      const optimizer = tf.train.adam(0.001);
+        model.compile({
+          optimizer: optimizer,
+          loss: "binaryCrossentropy",
+          metrics: ["accuracy"]
+        });
+        const trainLogs = [];
+        const lossContainer = document.getElementById("loss-cont");
+        const accContainer = document.getElementById("acc-cont");
+        console.log("Training...");
+        await model.fitDataset(trainDs, {
+          epochs: 100,
+          validationData: validDs,
+          callbacks: {
+            onEpochEnd: async (epoch, logs) => {
+              trainLogs.push(logs);
+              console.log("epoch end:", epoch)
+              tfvis.show.history(lossContainer, trainLogs, ["loss", "val_loss"]);
+              tfvis.show.history(accContainer, trainLogs, ["acc", "val_acc"]);
+            }
+          }
+        });
+    
+        this.model = model;
+    }
 
     
     train = async (featureCount, trainDs, validDs, render=null) => {
         const model = tf.sequential();
+
         model.add(
         tf.layers.dense({
             units: 2,
             activation: "softmax",
             inputShape: [featureCount]
-        })
-        );
+        }));
+
+        model.add(
+        tf.layers.dropout({
+          rate: 0.3
+        }));
+
         const optimizer = tf.train.adam(0.001);
         model.compile({
         optimizer: optimizer,
@@ -83,7 +136,7 @@ export default class LogisticRegressionClassifier {
         
         console.log("Training...");
         await model.fitDataset(trainDs, {
-        epochs: 1,
+        epochs: 100,
         validationData: validDs,
         callbacks: {
             onEpochEnd: async (epoch, logs) => {
@@ -102,9 +155,51 @@ export default class LogisticRegressionClassifier {
     };
 
     predict = (xTest) => {
-        return this.model.predict(xTest).argMax(-1);
+        return this.model.predict(xTest);
     }
-    se
+  
+
+    fullrun_overfit = async (data, features, test_size, batch_size, render=null) => {
+
+      const [trainDs, validDs, xTest, yTest] = this.constructor.createDataSets_utility(
+          data,
+          features,
+          0,
+          batch_size
+      );
+
+      await this.train(
+          features.length,
+          trainDs,
+          trainDs,
+          render
+      );
+
+        
+
+      const preds = this.predict(xTest).argMax(-1);
+      const labels = yTest.argMax(-1);
+      
+
+      
+      
+      labels.print();
+
+      if (render?.tick_labels){
+        const confusionMatrix = await tfvis.metrics.confusionMatrix(labels, preds);
+
+
+      tfvis.render.confusionMatrix(render.confusion_container, {
+        values: confusionMatrix,
+        tickLabels: render.tick_labels
+      });
+      }
+
+
+      return [preds, labels];
+
+  }
+
 
     fullrun = async (data, features, test_size, batch_size, render=null) => {
 
@@ -122,11 +217,15 @@ export default class LogisticRegressionClassifier {
             render
         );
 
+          
+        xTest.print();
+        yTest.print();
         const preds = this.predict(xTest).argMax(-1);
         const labels = yTest.argMax(-1);
         
-        xTest.print();
-        preds.print();
+
+        
+        
         labels.print();
 
         if (render?.tick_labels){

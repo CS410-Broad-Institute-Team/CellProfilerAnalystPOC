@@ -32,7 +32,7 @@ export default class LogisticRegressionClassifier {
     
       const ds = tf.data
         .zip({ xs: tf.data.array(X), ys: tf.data.array(y) })
-        .shuffle(data.length, 42);
+        .shuffle(data.length, Date.now()%100000);
     
       return [
         ds.take(splitIdx).batch(batchSize),

@@ -11,6 +11,8 @@ import {
 
   import TestTheLogisticClassifierComponent from "./TestTheLogisticClassifier"
 
+  import TestCanvasComponent from "./TestCanvas"
+
   function TestingHome () {
     return (
         <div>
@@ -29,6 +31,9 @@ import {
                         <li>
                             <Link to="/TestTheLogisticClassifier">Test The Logistic Classifier</Link>
                         </li>
+                        <li>
+                            <Link to="/canvas">Test the Canvas</Link>
+                        </li>
                     </ul>
 
                     <hr />
@@ -45,6 +50,9 @@ import {
                         </Route>
                         <Route exact path="/TestTheLogisticClassifier">
                             <TestTheLogisticClassifierComponent />
+                        </Route>
+                        <Route exact path="/canvas">
+                            <TestCanvasComponent />
                         </Route>
                     </Switch>
                 </div>

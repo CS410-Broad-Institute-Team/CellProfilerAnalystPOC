@@ -7,6 +7,7 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import Papa from 'papaparse'
 import * as tf from '@tensorflow/tfjs'
+
 import jones from '../jones.jpg'
 import { findRenderedComponentWithType } from "react-dom/test-utils";
 import { Matrix } from 'ml-matrix';
@@ -182,9 +183,28 @@ export default class ProofOfConcept extends React.Component {
 
         await Promise.all(Array.from({length: 9}, (_,idx)=>
         // the 6th item is an image and a lot of items after are images, obviously we need a better implementation lol
-            this.fileReaderPromiseImage(fileListObject, idx+6).then(img=>{
-                this.state.imageSources[idx] = img;
-                this.setState({imageSources: this.state.imageSources})
+            this.fileReaderPromiseImage(fileListObject, idx+6).then(img_data=>{
+                // this.state.imageSources[idx] = img_data;
+                // this.setState({imageSources: this.state.imageSources})
+                console.log(img_data)
+                new Promise(resolve => {
+                    const img = new Image();
+                    img.onload = () => {
+                        resolve(img);
+                    }
+                    img.src = img_data;
+                }).then(img => {
+                    console.log(img);
+                    const img_tensor = tf.browser.fromPixels(img)
+                    console.log(img);
+                    console.log(img_tensor);
+                    tf.browser.toPixels(img_tensor, document.getElementById(`canvas: ${idx}`)) 
+                })
+                
+
+                
+
+                
             }
         )))
         .then(()=>console.log("Finished Loading Images"))
@@ -496,10 +516,11 @@ export default class ProofOfConcept extends React.Component {
                
             
                 <GridList cellHeight="auto" cols={3}>
-                    {[0,1,2,3,4,5,6,7,8].map((tile) => (
-                    <GridListTile key={tile} cols={ 1} spacing={0}>
-                        <Button  onClick={()=>console.log(`Click Image: ${tile}!`)}>
-                            <img  width={'100%'} src={this.state.imageSources[tile]} alt={"jones"} />
+                    {[0,1,2,3,4,5,6,7,8].map((tile_idx) => (
+                    <GridListTile key={tile_idx} cols={ 1} spacing={0}>
+                        <Button  onClick={()=>console.log(`Click Image: ${tile_idx}!`)}>
+                            {/* <img  width={'100%'} src={this.state.imageSources[tile_idx]} alt={"jones"} /> */}
+                            <canvas color="black" height={'100%'} width="100%" id={`canvas: ${tile_idx}`}></canvas>
                         </Button>
                     </GridListTile>
                     ))}

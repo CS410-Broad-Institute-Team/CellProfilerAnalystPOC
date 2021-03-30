@@ -6,14 +6,14 @@ import Grid from '@material-ui/core/Grid';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import Papa from 'papaparse'
+import * as tf from '@tensorflow/tfjs'
 import jones from '../jones.jpg'
 import { findRenderedComponentWithType } from "react-dom/test-utils";
 import { Matrix } from 'ml-matrix';
 import {normal, center, level} from 'ml-preprocess';
 import LogisticRegression, * as lgreg from "ml-logistic-regression";
 // modified from emma.js
-
-
+import DatGui, { DatBoolean, DatColor, DatNumber, DatString } from '@tim-soft/react-dat-gui';
 
 
 export default class ProofOfConcept extends React.Component {
@@ -63,8 +63,21 @@ export default class ProofOfConcept extends React.Component {
     }
     
     state = {
-        imageSources: new Array(9).fill(jones)
+        imageSources: new Array(9).fill(jones),
+        data: {
+            package: 'react-dat-gui',
+            power: 9000,
+            isAwesome: true,
+            feelsLike: '#2FA1D6',
+          },
+        buttonsDisabled: true
     }
+
+    handleUpdate = newData =>
+    {
+        this.setState(prevState => ({
+      data: { ...prevState.data, ...newData }
+    }))};
 
     // modified from emma.js  
     findFileIndex (fileListObject, fileName) {
@@ -95,12 +108,79 @@ export default class ProofOfConcept extends React.Component {
         })
     }
 
+    on_model_uploaded_callback = async function(fileListObject) {
+        
+
+        
+        return new Promise(async resolve => {
+
+            this.model = tf.sequential();
+            this.model.add(
+                tf.layers.dense({
+                units: 2,
+                activation: "softmax",
+                inputShape: [616]
+                })
+            );
+            const optimizer = tf.train.adam(0.001);
+            // this.model = await tf.loadLayersModel(tf.io.browserFiles(
+            //     [fileListObject.target.files[0]]));
+    
+            this.model.compile({optimizer: optimizer, loss: 'binaryCrossentropy', metrics: ["accuracy"]});
+
+            this.model.fit(this.standardized_features, this.label, {
+                epochs: 500, callbacks: {onEpochBegin: ()=>console.log("start epoch"),
+                                         onEpochEnd:async (epoch, logs)=>console.log("Epoch:" + epoch + " Loss:" + logs.loss)}
+            }).then(()=>{
+                let prediction = this.model.predict(this.standardized_features);this.model.summary()
+
+                prediction.data().then((data_array) => {
+                    console.log(data_array);
+                    
+                });
+                resolve('resolved');
+                prediction.dispose();  
+            })
+            
+            
+            
+        })
+
+        // console.log(fileListObject.target.files[0])
+        // const model = await tf.loadLayersModel(
+        //     tf.io.browserFiles([fileListObject.target.files[0], null]));
+        // model.summary();
+
+        // testing tensorflow
+        
+        
+        {
+            const model = await tf.loadLayersModel(tf.io.browserFiles(
+                [fileListObject.target.files[0]]));
+            // console.log(model.summary());
+
+            // model.fit(this.standardized_features, this.label);
+            // model.summary()
+            // console.log(model.summary())
+
+            model.compile({optimizer: 'sgd', loss: 'categoricalCrossentropy'});
+            model.fit(this.standardized_features, this.label)
+            .then(()=>{model.predict(this.standardized_features);model.summary()});
+            
+            // console.log(model.summary())
+            // console.log()
+        }
+    }
+
 
     on_folder_uploaded_callback = async function(fileListObject) {
+
         console.log("folder upload done!")
+
+
     
 
-        Promise.all(Array.from({length: 9}, (_,idx)=>
+        await Promise.all(Array.from({length: 9}, (_,idx)=>
         // the 6th item is an image and a lot of items after are images, obviously we need a better implementation lol
             this.fileReaderPromiseImage(fileListObject, idx+6).then(img=>{
                 this.state.imageSources[idx] = img;
@@ -114,12 +194,16 @@ export default class ProofOfConcept extends React.Component {
         const image_csv_index = this.findFileIndex(fileListObject, "per_image.csv");
         const setup_sql_index = this.findFileIndex(fileListObject, "example_SETUP.SQL");
         const training_data_index = this.findFileIndex(fileListObject, "MyTrainingSet.txt");
-        console.log(setup_sql_index)
-        console.log(fileListObject.target.files[setup_sql_index])
+
+        
+        
+
+
+        
 
         await Promise.all([
             Papa.parsePromise(fileListObject.target.files[object_csv_index],
-                {...this.basicPapaConfig, fastMode: true } // luckily it has no quotes so we can use fastmode
+                {...this.basicPapaConfig, fastMode: true,} // luckily it has no quotes so we can use fastmode
             )
             .then((result)=> result.data)
             .notify("Finished Loading Object Data"),
@@ -128,6 +212,7 @@ export default class ProofOfConcept extends React.Component {
             Papa.parsePromise(fileListObject.target.files[image_csv_index],
                 this.basicPapaConfig
             )
+            .then((result)=> result.data)
             .notify("Finished Loading Image Data"),
 
 
@@ -149,34 +234,78 @@ export default class ProofOfConcept extends React.Component {
         })
         
         console.log(this.object_data, this.image_data, this.setup_lines, this.training_data)
-        
-        
-         
-        
+        window.object_data = this.object_data
+        window.image_data = this.image_data
+        window.setup_lines = this.setup_lines
+        window.training_data = this.training_data
 
-        
-         
-        
-
-        
-         
-
-        this.labeled_cells = this.training_data.map(training_row=>{
-            return this.object_data.find((data_row)=>data_row[0] === training_row[1] && data_row[1] === training_row[2]);
-        });
 
         this.object_column_lines = this.setup_lines.sliceByValue(
-            "CREATE TABLE per_object (", "PRIMARY KEY  (ImageNumber,ObjectNumber)"
+            "CREATE TABLE per_object (", 
+            "PRIMARY KEY  (ImageNumber,ObjectNumber)"
         );
         this.object_column_names = this.object_column_lines.map((name)=>name.split(' ')[0]);
         console.log(this.object_column_names)
 
         this.image_column_lines = this.setup_lines.sliceByValue(
-            "CREATE TABLE per_image (", "PRIMARY KEY  (ImageNumber)"
+            "CREATE TABLE per_image (", 
+            "PRIMARY KEY  (ImageNumber)"
         );
         this.image_column_names = this.image_column_lines.map((name)=>name.split(' ')[0]);
+
+
+        this.labeled_cells = this.training_data.map(training_row=>{
+            return this.object_data.find((data_row)=>data_row[0] === training_row[1] && data_row[1] === training_row[2]);
+        });
         this.training_data_column_names = "label imagenum objectnum x y".split(" ")
-        console.log(this.image_column_names)
+
+
+
+        this.object_features_to_use = this.object_column_lines.filter((elem)=>!elem.includes("Location"));
+        this.object_features_to_use_indices = this.object_features_to_use.map((elem)=>this.object_column_lines.indexOf(elem));
+        this.labeled_features = this.labeled_cells.map(row=>{
+                return this.object_features_to_use_indices.map((idx)=>row[idx]);
+        })
+
+        const labeled_features_tensor = new tf.tensor2d(this.labeled_features);
+
+        const labeled_features_tensor_std_dev = tf.moments(labeled_features_tensor, 0).variance.sqrt();
+
+        const standardized_features_tensor = (labeled_features_tensor.sub(labeled_features_tensor.mean(0)).div(labeled_features_tensor_std_dev))
+        
+        this.standardized_features = await standardized_features_tensor.array();
+        console.log(this.standardized_features)
+        const standardized_features_matrix = new Matrix(this.standardized_features)
+        // const a = new tf.tensor2d();
+        // a.print();
+        
+        // tf.batchNorm(a, a.mean(0), tf.moments(a, 0).variance).print();
+
+        this.labels = [this.training_data.map((row)=> row[0]==='positive'? 1:0).slice(0,613)];
+        console.log(this.labels);
+        const labels_matrix = new Matrix(this.labels);
+        
+        this.classifier = new LogisticRegression({ numSteps: 10000, learningRate: 5e-2 });
+        this.classifier.train(standardized_features_matrix, labels_matrix);
+        console.log(this.classifier.predict(standardized_features_matrix))
+        
+        // console.log(this.image_column_names)
+        
+         
+        this.setState({buttonsDisabled: false})
+
+        // hack
+        // this.on_model_uploaded_callback()
+         
+        
+
+        
+         
+
+        
+
+        
+        
 
         // END OF THE TRUSTWORTHY CODE
 
@@ -270,34 +399,59 @@ export default class ProofOfConcept extends React.Component {
         }
     }
 
-    componentDidMount(){};
+    componentDidMount(){
+
+    };
     componentWillUnmount(){};
+
+    handleUpdate = newData =>
+    this.setState(prevState => ({
+      data: { ...prevState.data, ...newData }
+    }));
+
     render(){
 
 
+        // const a = new tf.tensor2d([[1,1000, 300],[110,222, 600], [110,222, 600]]);
+        // a.print();
+        // const mean = a.mean(0)
+        // const std_dev = tf.moments(a,0).variance.sqrt()
+        // (a.sub(mean).div(std_dev)).print();
+        // // tf.batchNorm(a, a.mean(0), tf.moments(a, 0).variance).print();
+
         // JSX goes here:
+        
         return (<div>
+
+            <DatGui data={this.state.data} onUpdate={this.handleUpdate}>
+                <DatString path='package' label='Package' />
+                <DatNumber path='power' label='Power' min={9000} max={9999} step={1} />
+                <DatBoolean path='isAwesome' label='Awesome?' />
+                <DatColor path='feelsLike' label='Feels Like' />
+            </DatGui>
+                
+            
 
             <Grid container justify="center" spacing={2} style={{ backgroundColor: '#cfe8fc'}}>
                 <Grid key={0} item>
-                    <Button variant="contained"
+                    <Button disabled={this.state.buttonsDisabled} variant="contained"
                             onClick={()=>{console.log("Fetch!");this.on_fetch_button_callback();}}>Fetch</Button>
                 </Grid>
 
                 <Grid key={1} item>
-                    <Button variant="contained"
+                    <Button disabled={this.state.buttonsDisabled} variant="contained"
                             onClick={()=>console.log("Train!")}>Train</Button>
                 </Grid>
 
                 <Grid key={2} item>
-                    <Button variant="contained"
+                    <Button disabled={this.state.buttonsDisabled} variant="contained"
                             onClick={()=>console.log("Evaluate!")}>Evaluate</Button>    
                 </Grid>
 
                 <Grid key={3} item>
                     <Button variant="contained" component="label"
-                            onClick={()=>console.log("Upload!")}>
-                        Upload
+                            onClick={()=>console.log("Upload Folder!")}>
+                        Upload Data
                         <input  type="file" 
                                 hidden webkitdirectory="true" 
                                 mozdirectory="true" 
@@ -309,13 +463,42 @@ export default class ProofOfConcept extends React.Component {
                                 />
                     </Button>    
                 </Grid>
+
+                <Grid key={4} item>
+                    <Button disabled={this.state.buttonsDisabled} variant="contained" component="label"
+                            onClick={()=>console.log("Upload Model!")}>
+                        Upload Model
+                        <input  type="file" 
+                                // hidden webkitdirectory="true" 
+                                // mozdirectory="true" 
+                                // msdirectory="true" 
+                                // odirectory="true" 
+                                // directory="true" 
+                                // multiple 
+                                onChange = {(fileName) => this.on_model_uploaded_callback(fileName)}
+                                />
+                    </Button>    
+                </Grid>
+
+                <Grid key={5} item>
+                    
+                    <Button disabled={this.state.buttonsDisabled} variant="contained"  component="label" onClick={()=>console.log("Download!")}>     
+                        <a style={{color: 'black', textDecoration: 'none'}} href={jones} download="jones.jpg">        
+                        Download
+                        </a>
+                    </Button>
+
+                </Grid>
             </Grid>
 
-            <Container  maxWidth="sm" spacing={0}>    
+            <Container  maxWidth="sm" spacing={0}> 
+            
+               
+            
                 <GridList cellHeight="auto" cols={3}>
                     {[0,1,2,3,4,5,6,7,8].map((tile) => (
                     <GridListTile key={tile} cols={ 1} spacing={0}>
-                        <Button onClick={()=>console.log(`Click Image: ${tile}!`)}>
+                        <Button  onClick={()=>console.log(`Click Image: ${tile}!`)}>
                             <img  width={'100%'} src={this.state.imageSources[tile]} alt={"jones"} />
                         </Button>
                     </GridListTile>

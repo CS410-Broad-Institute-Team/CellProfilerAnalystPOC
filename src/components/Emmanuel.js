@@ -6,6 +6,7 @@ import * as tf from "@tensorflow/tfjs";
 import * as dfd from "danfojs/src/index";
 import * as lgreg from "ml-logistic-regression";
 import * as prprcss from "ml-preprocess";
+import _ from "lodash";
 
 export default class Emmanuel extends React.Component {
    
@@ -21,27 +22,32 @@ export default class Emmanuel extends React.Component {
   render(){
 
     let new_cell_indices = []
-    var name = window.prompt("Enter desired CellType")
+    //var name = window.prompt("Enter desired CellType")
 
-    while(new_cell_indices.length < 50){
+    let data = [{a:1, b:2, c:3, d:7}, {a:4, b:5, c:6, d:7}, {a:7, b:8, c:9, d:7}]
+
+    let cell_features = ["a", "b", "c"]
+
+    let n = 5
+    while(new_cell_indices.length < n){
         
-        let data = tf.tensor2d([[20,30,40], [23,90, 28], [39, 42, 57], [51, 54, 56],
-          [67, 68, 70], [53, 44, 48], [32, 23, 45], [88, 87, 95], [12, 11, 12], [14, 15, 17]
-        ])
-        let df = new dfd.DataFrame(data)
-        let tf_tensor = df.tensor
-
+        
         //random integer between 0 and length of object data
-        let margin = Math.floor(Math.random() * tf_tensor.shape[0])
+        let random_data_index = Math.floor(Math.random() * data.length)
 
-        let random_cells = df.sample(margin)
+        let new_features = _.pick(data[random_data_index], cell_features)
+
+        new_cell_indices.push(new_features)
+        console.log(new_features)
         //tf_tensor.print()
-        random_cells.print()
+        //random_cells.print()
         //console.log(random_cells)
-        break
+        //break
         
 
-    }   
+    }
+    
+    console.log(new_cell_indices)
         return (
             <div>
                 <h2>Emmanuel</h2>

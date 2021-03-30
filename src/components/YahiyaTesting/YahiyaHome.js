@@ -7,8 +7,11 @@ import {
 
   import YahiyaTensorflowExampleComponent from "./YahiyaTensorflowExample"
   import YahiyaTensorflowAbstractedComponent from "./YahiyaTensorflowAbstracted"
-  import LogRegOnUploadComponent from "./LogRegOnUpload"
   import TestUploadDataHandlerComponent from "./testUploadDataHandler"
+
+  import TestTheLogisticClassifierComponent from "./TestTheLogisticClassifier"
+
+  import TestCanvasComponent from "./TestCanvas"
 
   function TestingHome () {
     return (
@@ -23,28 +26,34 @@ import {
                             <Link to="/YahiyaTensorflowAbstracted">Yahiya Tensorflow Abstracted</Link>
                         </li>
                         <li>
-                            <Link to="/LogRegOnUpload">Logistic Regression on Upload</Link>
+                            <Link to="/UploadDataHandler">Test Upload Data Handler</Link>
                         </li>
                         <li>
-                            <Link to="/UploadDataHandler">Test Upload Data Handler</Link>
+                            <Link to="/TestTheLogisticClassifier">Test The Logistic Classifier</Link>
+                        </li>
+                        <li>
+                            <Link to="/canvas">Test the Canvas</Link>
                         </li>
                     </ul>
 
                     <hr />
 
                     <Switch>
-                    <Route exact path="/YahiyaTensorflowExample">
-                        <YahiyaTensorflowExampleComponent />
-                    </Route>
-                    <Route exact path="/YahiyaTensorflowAbstracted">
-                        <YahiyaTensorflowAbstractedComponent />
-                    </Route>
-                    <Route exact path="/LogRegOnUpload">
-                        <LogRegOnUploadComponent />
-                    </Route>
-                    <Route exact path="/UploadDataHandler">
-                        <TestUploadDataHandlerComponent />
-                    </Route>
+                        <Route exact path="/YahiyaTensorflowExample">
+                            <YahiyaTensorflowExampleComponent />
+                        </Route>
+                        <Route exact path="/YahiyaTensorflowAbstracted">
+                            <YahiyaTensorflowAbstractedComponent />
+                        </Route>
+                        <Route exact path="/UploadDataHandler">
+                            <TestUploadDataHandlerComponent />
+                        </Route>
+                        <Route exact path="/TestTheLogisticClassifier">
+                            <TestTheLogisticClassifierComponent />
+                        </Route>
+                        <Route exact path="/canvas">
+                            <TestCanvasComponent />
+                        </Route>
                     </Switch>
                 </div>
             </Router>

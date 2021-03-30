@@ -75,7 +75,7 @@ export default class LogisticRegressionClassifier {
 
     
 
-    static basicTrainset = async ( training_dataset, feature_count, number_epochs, render_containers=null ) => {
+    static createBasicTrainset = async ( training_dataset, feature_count, number_epochs, render_containers=null ) => {
         console.log(feature_count)
         const model = LogisticRegressionClassifier.createLogisticRegressionModel(feature_count);
 

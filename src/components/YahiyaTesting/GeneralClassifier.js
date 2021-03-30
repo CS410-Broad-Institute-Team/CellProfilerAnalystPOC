@@ -41,7 +41,7 @@ export default class LogisticRegressionClassifier {
 
     }
 
-    static createBasicTestset = (data, feature_names) => {
+    static createBasicTestset = (data, feature_names, labels=null) => {
         const X = data.map(data_row =>
             feature_names.map(feature_name => {
                 const feature_value = data_row[feature_name];
@@ -49,7 +49,17 @@ export default class LogisticRegressionClassifier {
             })
         )
 
-        return tf.tensor(X)
+        if(!labels) {
+            return tf.tensor(X)
+        }
+
+        const Y = labels.map(label => {
+            const outcome = label === undefined ? 0 : label;
+            return Array.from(tf.oneHot(outcome, 2).dataSync());
+        })
+
+        return [tf.tensor(X), tf.tensor(Y)]
+        
     }
 
     static createLogisticRegressionModel = (feature_count) => {

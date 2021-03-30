@@ -7,7 +7,7 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import Papa from 'papaparse'
 import * as tf from '@tensorflow/tfjs'
-import jones from '../jones.jpg'
+import jones from '/home/emmakelm/cpa_app/CellProfilerAnalystPOC/src/jones.jpg'
 import { findRenderedComponentWithType } from "react-dom/test-utils";
 import { Matrix } from 'ml-matrix';
 import {normal, center, level} from 'ml-preprocess';

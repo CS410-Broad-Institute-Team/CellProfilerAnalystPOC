@@ -185,20 +185,28 @@ export default class ProofOfConcept extends React.Component {
         // the 6th item is an image and a lot of items after are images, obviously we need a better implementation lol
             this.fileReaderPromiseImage(fileListObject, idx+6).then(img_data=>{
                 // this.state.imageSources[idx] = img_data;
-                // this.setState({imageSources: this.state.imageSources})
-                console.log(img_data)
+
+                // promise to turn the base64 data returned by the fileReaderPromiseImage into a proper Image object
                 new Promise(resolve => {
                     const img = new Image();
                     img.onload = () => {
+                        // return the image to .then once it has been loaded from the src
                         resolve(img);
                     }
                     img.src = img_data;
-                }).then(img => {
-                    console.log(img);
+                })
+                .then(img => {
+                    // for a test, let's turn the Image object into a tensor
                     const img_tensor = tf.browser.fromPixels(img)
-                    console.log(img);
-                    console.log(img_tensor);
-                    tf.browser.toPixels(img_tensor, document.getElementById(`canvas: ${idx}`)) 
+                    // let's grab
+                    var canvas_at_index = document.getElementById(`canvas: ${idx}`);
+                    var ctx_at_index = canvas_at_index.getContext("2d");
+                    var temp_canvas = document.createElement('canvas');
+                    
+                    tf.browser.toPixels(img_tensor, temp_canvas).then(()=>{
+                        ctx_at_index.drawImage(temp_canvas, 0, 0, canvas_at_index.width, canvas_at_index.height)
+                        temp_canvas.remove();
+                    })     
                 })
                 
 
@@ -511,7 +519,7 @@ export default class ProofOfConcept extends React.Component {
                 </Grid>
             </Grid>
 
-            <Container  maxWidth="sm" spacing={0}> 
+            <Container  maxWidth="xs" spacing={0}> 
             
                
             
@@ -520,7 +528,7 @@ export default class ProofOfConcept extends React.Component {
                     <GridListTile key={tile_idx} cols={ 1} spacing={0}>
                         <Button  onClick={()=>console.log(`Click Image: ${tile_idx}!`)}>
                             {/* <img  width={'100%'} src={this.state.imageSources[tile_idx]} alt={"jones"} /> */}
-                            <canvas color="black" height={'100%'} width="100%" id={`canvas: ${tile_idx}`}></canvas>
+                            <canvas color="black" height="100%" width="100%" id={`canvas: ${tile_idx}`}></canvas>
                         </Button>
                     </GridListTile>
                     ))}

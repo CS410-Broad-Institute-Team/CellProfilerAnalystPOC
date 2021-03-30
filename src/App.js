@@ -149,6 +149,9 @@ function App() {
             <Route path="/Emmanuel">
               <Emmanuel />
             </Route>
+            <Route path="/YahiyaHome">
+              <YahiyaHomeComponent></YahiyaHomeComponent>
+            </Route>
 
           </Switch>
         </div>

@@ -1,7 +1,7 @@
 
 import Button from '@material-ui/core/Button'
 import * as tf from '@tensorflow/tfjs'
-import { getImgFromArr } from 'array-to-image';
+// import { getImgFromArr } from 'array-to-image';
 import jones from './jones.jpg'
 import React, {useState} from 'react'
 import UploadDataHandlerE from "./UploadDataHandlerE"
@@ -11,7 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import DatGui, { DatBoolean, DatColor, DatNumber, DatString } from '@tim-soft/react-dat-gui';
-import { bytesToBase64 } from "./base64.js";
+// import { bytesToBase64 } from "./base64.js";
 var fileListObjects = null;
 var image_data = null;
 

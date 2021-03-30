@@ -31,9 +31,24 @@ const onFinishUpload_Callback = async function(fileListObject) {
     var example_canvas = document.getElementById("example_canvasid");
     var example_ctx = example_canvas.getContext("2d");
 
-    const img_file = findFile(fileListObject, "AS_09125_050116000001_A01f00d0.png")
-    const img = await loadImageFromFilePromise(img_file);
-    const img_tensor = tf.browser.fromPixels(img)
+    const img_act_file = findFile(fileListObject, "AS_09125_050116000001_A01f00d2.png")
+    const img_ph3_file = findFile(fileListObject, "AS_09125_050116000001_A01f00d1.png")
+    const img_dna_file = findFile(fileListObject, "AS_09125_050116000001_A01f00d0.png")
+
+    const img_act = await loadImageFromFilePromise(img_act_file);
+    const img_ph3 = await loadImageFromFilePromise(img_ph3_file);
+    const img_dna = await loadImageFromFilePromise(img_dna_file);
+
+    const tensor_act = tf.browser.fromPixels(img_act, 1);
+    const tensor_ph3 = tf.browser.fromPixels(img_ph3, 1);
+    const tensor_dna = tf.browser.fromPixels(img_dna, 1);
+
+    // Actin/PH3/DNA === RGB
+    // stack into rgb channels, squeeze to remove the 4th dimension that is of length 1
+    const img_tensor = tf.stack([tensor_act, tensor_ph3, tensor_dna], 2).squeeze()
+    console.log(img_tensor)
+    img_tensor.print()
+    // const img_tensor = tf.browser.fromPixels(img)
 
     var temp_canvas = document.createElement('canvas');
     await tf.browser.toPixels(img_tensor, temp_canvas );

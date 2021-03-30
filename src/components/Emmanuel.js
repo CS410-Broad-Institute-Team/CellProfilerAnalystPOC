@@ -7,6 +7,8 @@ import * as dfd from "danfojs/src/index";
 import * as lgreg from "ml-logistic-regression";
 import * as prprcss from "ml-preprocess";
 import _ from "lodash";
+import General_Classifier from "./YahiyaTesting/GeneralClassifier"
+import Training_Set_Handler from "./YahiyaTesting/TrainingSetHandler"
 
 export default class Emmanuel extends React.Component {
    
@@ -29,6 +31,8 @@ export default class Emmanuel extends React.Component {
     let cell_features = ["a", "b", "c"]
 
     let n = 5
+    const classifier = General_Classifier.createLogisticRegressionModel(cell_features.length)
+
     while(new_cell_indices.length < n){
         
         
@@ -37,17 +41,22 @@ export default class Emmanuel extends React.Component {
 
         let new_features = _.pick(data[random_data_index], cell_features)
 
-        new_cell_indices.push(new_features)
-        console.log(new_features)
-        //tf_tensor.print()
-        //random_cells.print()
-        //console.log(random_cells)
-        //break
+        //new_cell_indices.push(new_features)
+        //console.log(new_features)
+
+        const classifier_input = General_Classifier.createBasicTestset([new_features], cell_features)
+   
+        let prediction = classifier.predict(classifier_input)
         
+        if(prediction.argMax(-1).arraySync()[0] === 1){
+          new_cell_indices.push(new_features)
+
+        }
 
     }
     
     console.log(new_cell_indices)
+    
         return (
             <div>
                 <h2>Emmanuel</h2>

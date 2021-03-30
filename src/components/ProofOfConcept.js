@@ -521,7 +521,7 @@ export default class ProofOfConcept extends React.Component {
                 </Grid>
             </Grid>
 
-            <Container  maxWidth="0" spacing={0}> 
+            <Container  maxWidth="xs" spacing={0}> 
             
                
             

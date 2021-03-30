@@ -2727,6 +2727,11 @@ array-includes@^3.1.1, array-includes@^3.1.2:
     get-intrinsic "^1.1.1"
     is-string "^1.0.5"
 
+array-to-image@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/array-to-image/-/array-to-image-1.0.0.tgz#3ccb4761ca355a044b0e46f96bca22c9600d0f5b"
+  integrity sha1-PMtHYco1WgRLDkb5a8oiyWAND1s=
+
 array-union@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/array-union/-/array-union-1.0.2.tgz"

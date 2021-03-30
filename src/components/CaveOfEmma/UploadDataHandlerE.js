@@ -133,21 +133,8 @@ export default class UploadDataHandlerE {
         this.data.image_column_names = image_column_names;
         //this.grabCellImages(2,4);
     }
-    grabCellImages(img, cell) {
-        var channels = "Image_FileNames_Filename_OrigActin Image_FileNames_Filename_OrigpH3 Image_FileNames_Filename_OrigDNA ".split();
-        console.log(channels);
-                // var image_paths = channels.map(path => {    
-                     
-        //       return _.find(this.image_data, line => {
-        //         if (line.ImageNumber === img)
-        //             return line.path
-                                                    
-        //     })
-        // })
-        // console.log(image_paths)
-
-
-
+    getImageData() {
+        return this.data.image_data
     }
     findFileIndex = (fileListObject, fileName) => {
         var index = Array.from(fileListObject.target.files).findIndex((elem) => {

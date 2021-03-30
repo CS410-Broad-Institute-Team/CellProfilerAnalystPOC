@@ -41,6 +41,17 @@ export default class LogisticRegressionClassifier {
 
     }
 
+    static createBasicTestset = (data, feature_names) => {
+        const X = data.map(data_row =>
+            feature_names.map(feature_name => {
+                const feature_value = data_row[feature_name];
+                return feature_value === undefined ? 0 : feature_value;
+            })
+        )
+
+        return tf.tensor(X)
+    }
+
     static createLogisticRegressionModel = (feature_count) => {
         const model = tf.sequential();
 
@@ -61,6 +72,8 @@ export default class LogisticRegressionClassifier {
 
         return model;
     }
+
+    
 
     static basicTrain = async ( training_dataset, feature_count, number_epochs, render_containers=null ) => {
         console.log(feature_count)

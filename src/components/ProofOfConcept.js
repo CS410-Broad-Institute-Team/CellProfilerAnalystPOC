@@ -190,7 +190,7 @@ export default class ProofOfConcept extends React.Component {
                 new Promise(resolve => {
                     const img = new Image();
                     img.onload = () => {
-                        // return the image to .then once it has been loaded from the src
+                        // return the image to .then() once it has been loaded from the src
                         resolve(img);
                     }
                     img.src = img_data;
@@ -198,11 +198,13 @@ export default class ProofOfConcept extends React.Component {
                 .then(img => {
                     // for a test, let's turn the Image object into a tensor
                     const img_tensor = tf.browser.fromPixels(img)
-                    // let's grab
+                    // let's grab the canvas at the index and create a temporary canvas to store tensorflow image
                     var canvas_at_index = document.getElementById(`canvas: ${idx}`);
+                    // thing that draws on canvas
                     var ctx_at_index = canvas_at_index.getContext("2d");
                     var temp_canvas = document.createElement('canvas');
                     
+                    // alright this promise will resolve when canvas is loaded with the tensorflow image
                     tf.browser.toPixels(img_tensor, temp_canvas).then(()=>{
                         ctx_at_index.drawImage(temp_canvas, 0, 0, canvas_at_index.width, canvas_at_index.height)
                         temp_canvas.remove();

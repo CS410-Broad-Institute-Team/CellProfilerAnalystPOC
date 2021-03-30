@@ -12,6 +12,7 @@ import BellaComponent from "./components/Bella"
 import AbbyComponent from "./components/Abby"
 import ProofOfConceptComponent from "./components/ProofOfConcept"
 import YahiyaHomeComponent from "./components/YahiyaTesting/YahiyaHome.js"
+import EmmmmmmaComponent from "./components/CaveOfEmma/Emmmmmma.js"
 
 import {
   BrowserRouter as Router,
@@ -101,10 +102,16 @@ function App() {
               <Link to="/Bella">Bella</Link>
             </li>
             <li>
-              <Link to="/Abby">Abby</Link>
+                <Link to="/Emmmmmma">Emmmmmma</Link>
+            </li>
+            <li>
+                <Link to="/ProofOfConcept">ProofOfConcept</Link>
             </li>
             <li>
                 <Link to="/YahiyaHome">Yahiya's Home of Testing</Link>
+            </li>
+            <li>
+            <Link to="/Abby">Abby</Link>
             </li>
           </ul>
 
@@ -120,6 +127,9 @@ function App() {
           <Switch>
             <Route exact path="/Yahiya">
               <Yahiya />
+            </Route>
+            <Route path="/Emmmmmma">
+              <Emmmmmma />
             </Route>
             <Route path="/Alex">
               <Alex />
@@ -139,6 +149,7 @@ function App() {
             <Route path="/Emmanuel">
               <Emmanuel />
             </Route>
+
           </Switch>
         </div>
       </Router>
@@ -182,7 +193,9 @@ function ProofOfConcept() {
 function YahiyaHome() {
   return <YahiyaHomeComponent></YahiyaHomeComponent>
 }
-
+function Emmmmmma() {
+  return <EmmmmmmaComponent></EmmmmmmaComponent>
+}
 function Abby() {
   return <AbbyComponent></AbbyComponent>
 }

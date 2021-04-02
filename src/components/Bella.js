@@ -6,14 +6,10 @@ import {Image, Dropdown, DropdownMenu, DropdownButton} from 'react-bootstrap'
 import CloseIcon from '@material-ui/icons/Close';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import jones from '../jones.jpg'
-<<<<<<< HEAD
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import ReactDOM from "react-dom";
 import {GridContext, GridDropZone, GridItem, swap, move} from "react-grid-dnd";
-
-=======
 import React from 'react';
->>>>>>> bba17dffee1571cee26e8b2b352a083a297e1860
 import "bootstrap/dist/css/bootstrap.css";
 
 

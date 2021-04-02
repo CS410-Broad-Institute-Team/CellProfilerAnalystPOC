@@ -124,11 +124,10 @@ function App() {
                 <Link to="/YahiyaHome">Yahiya's Home of Testing</Link>
             </li>
             <li>
-<<<<<<< HEAD
                 <Link to="/BelladndTest">BelladndTest</Link>
-=======
+     </li>
+            <li>
             <Link to="/Abby">Abby</Link>
->>>>>>> bba17dffee1571cee26e8b2b352a083a297e1860
             </li>
           </ul>
 

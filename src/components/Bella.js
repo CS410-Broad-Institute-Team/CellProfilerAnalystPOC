@@ -7,6 +7,9 @@ import {Image, Dropdown, DropdownMenu, DropdownButton} from 'react-bootstrap'
 import CloseIcon from '@material-ui/icons/Close';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import jones from '../jones.jpg'
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import ReactDOM from "react-dom";
+import {GridContext, GridDropZone, GridItem, swap, move} from "react-grid-dnd";
 
 import "bootstrap/dist/css/bootstrap.css";
 
@@ -19,6 +22,9 @@ export default class Bella extends React.Component {
 
         componentDidMount(){};
         componentWillUnmount(){};
+
+
+
          
     render(){     
      
@@ -58,34 +64,74 @@ export default class Bella extends React.Component {
         </Grid>
         </Row>
         
+
             <Row>
             <Col md= {12} >
-            <Box style = {{backgroundColor: 'black', color: 'white', height: '93%', marginBottom: 25, textAlign: "left", paddingLeft:"5px"}}> Unclassified 
+            <Box  style = {{backgroundColor: 'black', color: 'white', height: '93%', marginBottom: 25, textAlign: "left", paddingLeft:"5px"}}> Unclassified 
             
-            <GridList cellHeight="auto" cols={5} >
-            {[0,1,2,3,4,5,6,7,8, 9].map((tile) => (
+      
+                    <GridList  cellHeight="auto" cols={5} >
+                        {[0,1,2,3,4,5,6,7,8,9].map((tile) => (
+                                    <GridListTile  key={tile} cols={ 1} spacing={0} > 
+                                        <Button >
+                                            <img  width={'100%'} src={jones} />
+                                        </Button>       
+                                        </GridListTile>    
+                                    ))}        
+                        </GridList>
+               
+        
+                
+                    </Box>
+            
+            </Col>
+            </Row>
+            
+            <Row>
+            <Col xs={6} >
+            
+ 
+            <Box style = {{backgroundColor: 'black', color: 'white',  marginBottom: 20, textAlign: "left", paddingLeft:"5px", height: '100%'}}> Positive
+            
+        
+             
+                    <GridList  cellHeight="auto" cols={3} >
+                    {[0,1,2,3,4,5,6,7,8].map((tile) => (
+                                <GridListTile key={tile} cols={ 1} spacing={0} > 
+                                    <Button >
+                                        <img  width={'100%'}  />
+                                    </Button>       
+                                    </GridListTile>
+                                    ))}
+                        </GridList>
+                   
+              
+            
+            </Box>
+          
+           
+            </Col>
+            <Col xs={6} >
+           
+           
+            <Box style = {{backgroundColor: 'black', color: 'white', marginBottom: 20, textAlign: "left", paddingLeft:"5px", height: '100%'}}> Negative 
+            <GridList cellHeight="auto" cols={3} >
+            {[0,1,2,3,4,5,6,7,8].map((tile) => (
                         <GridListTile key={tile} cols={ 1} spacing={0} > 
-                            <Button onClick={()=>console.log()}>
-                                <img  width={'100%'} src={jones} />
+                            <Button >
+                                <img  width={'100%'} />
                             </Button>       
                             </GridListTile>
                             ))}
                 </GridList>
             
-            
             </Box>
+          
             
             </Col>
             </Row>
-            
-            <Row>
-            <Col xs={6} >
-            <Box style = {{backgroundColor: 'black', color: 'white', height: '425%', marginBottom: 20, textAlign: "left", paddingLeft:"5px"}}> Positive</Box>
-            </Col>
-            <Col xs={6} >
-            <Box style = {{backgroundColor: 'black', color: 'white', height: '425%', marginBottom: 20, textAlign: "left", paddingLeft:"5px" }}> Negative </Box>
-            </Col>
-            </Row>
+        
+           
         </Container>
         
         </div>)

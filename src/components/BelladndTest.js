@@ -1,6 +1,6 @@
 import React from 'react';
 import jones from '../jones.jpg'
-import { Container, Row, Col} from "reactstrap";
+import {Image} from 'react-bootstrap'
 
 import ReactDOM from "react-dom";
 import {
@@ -17,12 +17,12 @@ function BelladndTest() {
     
     const [items, setItems] = React.useState({
         unclassifed: [
-            { id: 1 },
-            { id: 2 },
-            { id: 3},
-            { id: 4 },
-            { id: 5 },
-            { id: 6 }
+            { id: 1, img: "test" },
+            { id: 2, img: "test" },
+            { id: 3, img: "test"},
+            { id: 4, img: "test" },
+            { id: 5, img: "test" },
+            { id: 6, img: "test"  }
           ],
         left: [
           { id: 7 },
@@ -42,6 +42,8 @@ function BelladndTest() {
         ]
 
       });
+
+      
     
       function onChange(sourceId, sourceIndex, targetIndex, targetId) {
         if (targetId) {
@@ -80,7 +82,9 @@ function BelladndTest() {
             {items.unclassifed.map(item => (
               <GridItem key={item.id}>
                 <div className="grid-item">
-                         <img  width={'100%'} src={jones} />     
+                    <div className="grid-item-content">
+                        
+                        </div> 
                 </div>
               </GridItem>
             ))}
@@ -96,10 +100,10 @@ function BelladndTest() {
           >
             {items.left.map(item => (
               <GridItem key={item.id}>
-                <div className="grid-item">
-                
-                         <img  width={'100%'} src={jones} />
-                
+                <div className="grid-item"> 
+                    <div className="grid-item-content">
+                        
+                        </div>  
                 </div>
               </GridItem>
             ))}
@@ -114,7 +118,9 @@ function BelladndTest() {
             {items.right.map(item => (
               <GridItem key={item.id}>
                 <div className="grid-item">
-                         <img  width={'100%'} src={jones} />     
+                <div className="grid-item-content">
+                        
+                        </div>      
                 </div>
               </GridItem>
             ))}

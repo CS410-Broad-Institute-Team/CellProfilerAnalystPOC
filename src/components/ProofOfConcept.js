@@ -7,6 +7,7 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import Papa from 'papaparse'
 import * as tf from '@tensorflow/tfjs'
+
 import jones from '../jones.jpg'
 import { findRenderedComponentWithType } from "react-dom/test-utils";
 import { Matrix } from 'ml-matrix';
@@ -182,9 +183,38 @@ export default class ProofOfConcept extends React.Component {
 
         await Promise.all(Array.from({length: 9}, (_,idx)=>
         // the 6th item is an image and a lot of items after are images, obviously we need a better implementation lol
-            this.fileReaderPromiseImage(fileListObject, idx+6).then(img=>{
-                this.state.imageSources[idx] = img;
-                this.setState({imageSources: this.state.imageSources})
+            this.fileReaderPromiseImage(fileListObject, idx+6).then(img_data=>{
+                // this.state.imageSources[idx] = img_data;
+
+                // promise to turn the base64 data returned by the fileReaderPromiseImage into a proper Image object
+                new Promise(resolve => {
+                    const img = new Image();
+                    img.onload = () => {
+                        // return the image to .then() once it has been loaded from the src
+                        resolve(img);
+                    }
+                    img.src = img_data;
+                })
+                .then(img => {
+                    // for a test, let's turn the Image object into a tensor
+                    const img_tensor = tf.browser.fromPixels(img)
+                    // let's grab the canvas at the index and create a temporary canvas to store tensorflow image
+                    var canvas_at_index = document.getElementById(`canvas: ${idx}`);
+                    // thing that draws on canvas
+                    var ctx_at_index = canvas_at_index.getContext("2d");
+                    var temp_canvas = document.createElement('canvas');
+                    
+                    // alright this promise will resolve when canvas is loaded with the tensorflow image
+                    tf.browser.toPixels(img_tensor, temp_canvas).then(()=>{
+                        ctx_at_index.drawImage(temp_canvas, 0, 0, canvas_at_index.width, canvas_at_index.height)
+                        temp_canvas.remove();
+                    })     
+                })
+                
+
+                
+
+                
             }
         )))
         .then(()=>console.log("Finished Loading Images"))
@@ -491,15 +521,16 @@ export default class ProofOfConcept extends React.Component {
                 </Grid>
             </Grid>
 
-            <Container  maxWidth="sm" spacing={0}> 
+            <Container  maxWidth="xs" spacing={0}> 
             
                
             
                 <GridList cellHeight="auto" cols={3}>
-                    {[0,1,2,3,4,5,6,7,8].map((tile) => (
-                    <GridListTile key={tile} cols={ 1} spacing={0}>
-                        <Button  onClick={()=>console.log(`Click Image: ${tile}!`)}>
-                            <img  width={'100%'} src={this.state.imageSources[tile]} alt={"jones"} />
+                    {[0,1,2,3,4,5,6,7,8].map((tile_idx) => (
+                    <GridListTile key={tile_idx} cols={ 1} spacing={0}>
+                        <Button  onClick={()=>console.log(`Click Image: ${tile_idx}!`)}>
+                            {/* <img  width={'100%'} src={this.state.imageSources[tile_idx]} alt={"jones"} /> */}
+                            <canvas color="black" height="100%" width="100%" id={`canvas: ${tile_idx}`}></canvas>
                         </Button>
                     </GridListTile>
                     ))}

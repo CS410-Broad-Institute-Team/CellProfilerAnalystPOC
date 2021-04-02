@@ -7,6 +7,7 @@ import * as lgreg from "ml-logistic-regression";
 import * as prprcss from "ml-preprocess";
 
 import EmmaComponent from "./components/Emma"
+import EmmanuelComponent from "./components/Emmanuel"
 import BellaComponent from "./components/Bella"
 import AbbyComponent from "./components/Abby"
 import ProofOfConceptComponent from "./components/ProofOfConcept"
@@ -105,12 +106,13 @@ function App() {
               <Link to="/Emma">Emma</Link>
             </li>
             <li>
-
-              <Link to="/Bella">Bella</Link>
-
+              <Link to="/Emmanuel">Emmanuel</Link>
             </li>
             <li>
-                <Link to="/Abby">Abby</Link>
+              <Link to="/ProofOfConcept">ProofOfConcept</Link>
+            </li>
+            <li>
+              <Link to="/Bella">Bella</Link>
             </li>
             <li>
                 <Link to="/Emmmmmma">Emmmmmma</Link>
@@ -122,7 +124,11 @@ function App() {
                 <Link to="/YahiyaHome">Yahiya's Home of Testing</Link>
             </li>
             <li>
+<<<<<<< HEAD
                 <Link to="/BelladndTest">BelladndTest</Link>
+=======
+            <Link to="/Abby">Abby</Link>
+>>>>>>> bba17dffee1571cee26e8b2b352a083a297e1860
             </li>
           </ul>
 
@@ -157,8 +163,11 @@ function App() {
             <Route path="/ProofOfConcept">
               <ProofOfConcept />
             </Route>
+            <Route path="/Emmanuel">
+              <Emmanuel />
+            </Route>
             <Route path="/YahiyaHome">
-              <YahiyaHome />
+              <YahiyaHomeComponent></YahiyaHomeComponent>
             </Route>
             <Route path="/BelladndTest">
               <BelladndTest />
@@ -216,6 +225,10 @@ function Abby() {
 }
 function BelladndTest() {
   return <BelladndTestComponent></BelladndTestComponent>
+}
+
+function Emmanuel() {
+  return <EmmanuelComponent></EmmanuelComponent>
 }
 
 export default App;

@@ -106,6 +106,7 @@ export default class UploadDataHandler {
         object_data = object_data.map(data_row=>{ return _.zipObject(object_column_names, data_row)})
         console.timeEnd('object data finished')
         console.log(object_data)
+        window.object_data = object_data
 
         
 

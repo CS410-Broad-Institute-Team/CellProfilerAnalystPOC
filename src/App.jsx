@@ -11,9 +11,9 @@ import EmmanuelComponent from "./components/Emmanuel"
 import BellaComponent from "./components/Bella"
 import AbbyComponent from "./components/Abby"
 import ProofOfConceptComponent from "./components/ProofOfConcept"
-import YahiyaHomeComponent from "./components/YahiyaTesting/YahiyaHome.js"
-import EmmmmmmaComponent from "./components/CaveOfEmma/Emmmmmma.js"
-import BelladndTestComponent from "./components/BelladndTest.js"
+import YahiyaHomeComponent from "./components/YahiyaTesting/YahiyaHome"
+import EmmmmmmaComponent from "./components/CaveOfEmma/Emmmmmma"
+import BelladndTestComponent from "./components/BelladndTest"
 
 
 

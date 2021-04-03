@@ -6,7 +6,7 @@ import _ from "lodash";
 
 
 // expects data to be an array of objects where each object includes the fields of the elements of columns
-export default class LogisticRegressionClassifier {
+export default class GeneralClassifier {
     
     static hasMultiple = (feature_names, object) => {
         return _.every(feature_names, _.partial(_.has, object));
@@ -15,7 +15,7 @@ export default class LogisticRegressionClassifier {
 
     static createBasicDataset = (data, labels, feature_names, batchSize) => {
         console.assert(Object.values(data[0]).reduce((accum, currVal)=>accum&&(typeof currVal === "number")), "First row object is numbers")
-        console.assert(LogisticRegressionClassifier.hasMultiple(feature_names, data[0]), "First row object has all the feature columns fields");
+        console.assert(GeneralClassifier.hasMultiple(feature_names, data[0]), "First row object has all the feature columns fields");
         console.assert(data.length===labels.length, "data and labels match in length")
 
         // turn data into a 2d array, and make all undefined data_row fields 0
@@ -70,7 +70,7 @@ export default class LogisticRegressionClassifier {
             units: 2,
             activation: "softmax",
             inputShape: [feature_count],
-            kernelRegularizer: tf.regularizers.l1({l1: 0.3})
+            kernelRegularizer: tf.regularizers.l1({l1: 0.1})
         }));
 
         const optimizer = tf.train.adam(0.001);
@@ -85,9 +85,9 @@ export default class LogisticRegressionClassifier {
 
     
 
-    static createBasicTrainset = async ( training_dataset, feature_count, number_epochs, render_containers=null ) => {
+    static basicTrain = async ( training_dataset, feature_count, number_epochs, render_containers=null ) => {
         console.log(feature_count)
-        const model = LogisticRegressionClassifier.createLogisticRegressionModel(feature_count);
+        const model = GeneralClassifier.createLogisticRegressionModel(feature_count);
 
         
         if (render_containers !== null) {

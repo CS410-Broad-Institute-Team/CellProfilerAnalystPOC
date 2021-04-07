@@ -32,7 +32,9 @@ export default class UploadDataHandler {
         Papa.papaparseFilePromise = function(file, options={}, onEndMsg="") {
 
             return Papa.parsePromise(file,
-                {...this.basicPapaConfig, ...options} 
+                {worker: true,
+                    skipEmptyLines: true,
+                    dynamicTyping: true, ...options} 
             )
             .then((result)=> result.data)
             .notify(onEndMsg);

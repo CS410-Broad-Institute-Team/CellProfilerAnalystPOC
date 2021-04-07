@@ -13,6 +13,12 @@ import {
 
   import TestCanvasComponent from "./TestCanvas"
 
+  import CopiedDragNDropComponent from "./CopiedDragNDrop"
+
+  import CopiedWebWorkersDemoComponent from "./CopiedWebWorkersDemo"
+
+  import DumbWWEx from "./DumbWebWorkerExample"
+
   function TestingHome () {
     return (
         <div>
@@ -34,6 +40,15 @@ import {
                         <li>
                             <Link to="/canvas">Test the Canvas</Link>
                         </li>
+                        <li>
+                            <Link to="/CopiedDragNDrop">Copied Tutorial for Drag and Drop</Link>
+                        </li>
+                        <li>
+                            <Link to="/CopiedWebWorkersDemo">Copied Tutorial for WebWorkers!</Link>
+                        </li>
+                        <li>
+                            <Link to="/dumbww">Example of Simple Webworker usage!</Link>
+                        </li>
                     </ul>
 
                     <hr />
@@ -53,6 +68,15 @@ import {
                         </Route>
                         <Route exact path="/canvas">
                             <TestCanvasComponent />
+                        </Route>
+                        <Route exact path="/CopiedDragNDrop">
+                            <CopiedDragNDropComponent />
+                        </Route>
+                        <Route exact path="/CopiedWebWorkersDemo">
+                            <CopiedWebWorkersDemoComponent/>
+                        </Route>
+                        <Route exact path="/dumbww">
+                            <DumbWWEx/>
                         </Route>
                     </Switch>
                 </div>

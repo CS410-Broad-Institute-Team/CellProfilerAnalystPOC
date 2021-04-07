@@ -13,6 +13,11 @@ import AbbyComponent from "./components/Abby"
 import ProofOfConceptComponent from "./components/ProofOfConcept"
 import YahiyaHomeComponent from "./components/YahiyaTesting/YahiyaHome.js"
 import EmmmmmmaComponent from "./components/CaveOfEmma/Emmmmmma.js"
+import BelladndTestComponent from "./components/BelladndTest.js"
+
+
+
+
 
 import {
   BrowserRouter as Router,
@@ -62,7 +67,15 @@ function App() {
 
 
   return (
+    
     <div className="App">
+      
+
+    
+          
+      
+
+
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -111,6 +124,9 @@ function App() {
                 <Link to="/YahiyaHome">Yahiya's Home of Testing</Link>
             </li>
             <li>
+                <Link to="/BelladndTest">BelladndTest</Link>
+     </li>
+            <li>
             <Link to="/Abby">Abby</Link>
             </li>
           </ul>
@@ -149,6 +165,13 @@ function App() {
             <Route path="/Emmanuel">
               <Emmanuel />
             </Route>
+            <Route path="/YahiyaHome">
+              <YahiyaHomeComponent></YahiyaHomeComponent>
+            </Route>
+            <Route path="/BelladndTest">
+              <BelladndTest />
+            </Route>
+            
 
           </Switch>
         </div>
@@ -198,6 +221,9 @@ function Emmmmmma() {
 }
 function Abby() {
   return <AbbyComponent></AbbyComponent>
+}
+function BelladndTest() {
+  return <BelladndTestComponent></BelladndTestComponent>
 }
 
 function Emmanuel() {

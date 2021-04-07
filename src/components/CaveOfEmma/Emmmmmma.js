@@ -39,7 +39,7 @@ export default class Emmmmmma extends React.Component {
     
 }
     on_fetch_button_callback = async function() {
-    const Fetch = new FetchHandler(fileListObjects, this.image_data, this.object_data);
+    const Fetch = new FetchHandler(fileListObjects, this.image_data, this.object_data);  //All this for displaying cells on canvas object
      var images = await Fetch.handleFetch(9);
 
      await Promise.all(Array.from({length: 9}, (_,idx)=> {
@@ -55,7 +55,8 @@ export default class Emmmmmma extends React.Component {
     
      })
      }));
-        // )
+     
+        //Quick getDataURLS API to use
         const urls = new GetDataURLS(fileListObjects, this.image_data, this.object_data);
         var test_urls = await urls.nRandDataURLS(9);
         console.log(test_urls)

@@ -25,3 +25,4 @@ yarn-error.log*
 # no huge fileset
 /**/*.png
 /**/*.csv
+!**/CPA_newlogo.png

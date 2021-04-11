@@ -15,10 +15,11 @@ export default class FetchHandler {
             var objects = this.getNrandomObjs(n);
             var images = [];
             var j;
+            var i = 1;
             for (j = 0; j < n; j++) {
                 var rgb_images = [];
                 var channels = "Image_FileNames_Filename_OrigActin Image_FileNames_Filename_OrigpH3 Image_FileNames_Filename_OrigDNA".split(" ");
-                var imagecur = _.find(this.image_data, {'ImageNumber': objects[j].ImageNumber.toString()});
+                var imagecur = _.find(this.image_data, {'ImageNumber': i.toString()});
                 var image_paths = channels.map(path => {          
                     return _.get(imagecur, path)
                 });
@@ -31,9 +32,9 @@ export default class FetchHandler {
                 for (i = 0; i < file_indexes.length; i++) {
                     rgb_images.push(await this.createRGB(file_indexes[i]))
                 }
-                var cords = this.getCords(objects[j].ImageNumber, objects[j].ObjectNumber)
+               // var cords = this.getCords(objects[j].ImageNumber, objects[j].ObjectNumber)
                 var stack = tf.stack(rgb_images,2).squeeze()
-                images.push({'lo_x' : cords[0], 'lo_y': cords[1], 'img_tf': stack});
+                images.push({'lo_x' : 0, 'lo_y': 1, 'img_tf': stack});
             }
             var data_url = await this.createDataURL(images);
 
@@ -82,7 +83,6 @@ export default class FetchHandler {
 
      createRGB = async function (index) {
         var img = await this.fileReaderPromiseImage(index);
-        //console.log(img);
         return new Promise((resolve, reject)=> {
             var img_tf;
             var newImg = new Image();
@@ -93,11 +93,7 @@ export default class FetchHandler {
         newImg.src = img
         })
      }
-    findFile = (fileName) => {
-        return Array.from(this.fileListObject.target.files).findIndex((elem) => {
-            return elem.name === fileName;
-        });
-    };
+
 
     fileReaderPromiseImage(fileIndex) {
         return new Promise((resolve, reject)=> {

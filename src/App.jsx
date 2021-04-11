@@ -1,19 +1,14 @@
-import logo from './logo.svg';
 import './App.css';
 
-import * as tf from "@tensorflow/tfjs";
-import * as dfd from "danfojs/src/index";
-import * as lgreg from "ml-logistic-regression";
-import * as prprcss from "ml-preprocess";
 
 import EmmaComponent from "./components/Emma"
 import EmmanuelComponent from "./components/Emmanuel"
 import BellaComponent from "./components/Bella"
 import AbbyComponent from "./components/Abby"
 import ProofOfConceptComponent from "./components/ProofOfConcept"
-import YahiyaHomeComponent from "./components/YahiyaTesting/YahiyaHome.js"
-import EmmmmmmaComponent from "./components/CaveOfEmma/Emmmmmma.js"
-import BelladndTestComponent from "./components/BelladndTest.js"
+import YahiyaHomeComponent from "./components/YahiyaTesting/YahiyaHome"
+import EmmmmmmaComponent from "./components/CaveOfEmma/Emmmmmma"
+import BelladndTestComponent from "./components/BelladndTest"
 
 
 

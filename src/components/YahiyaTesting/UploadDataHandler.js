@@ -10,7 +10,7 @@ export default class UploadDataHandler {
     constructor() {
        
         Promise.prototype.notify = function(strMsg) {
-            return this.then(x=>{console.log(strMsg); return x});
+                     return this.then(x=>{console.log(strMsg); return x});
           }
           Promise.prototype.debugPrint = function() {
             return this.then(x=>{console.log(x); return x});
@@ -103,8 +103,9 @@ export default class UploadDataHandler {
             {fastMode: true, error: (e)=>console.error(e)} 
         ))
         object_data = object_data.map(data_row=>{ return _.zipObject(object_column_names, data_row)})
-       // console.timeEnd('object data finished')
-        //console.log(object_data)
+        console.timeEnd('object data finished')
+        console.log(object_data)
+        window.object_data = object_data
 
         
 

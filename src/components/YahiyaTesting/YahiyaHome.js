@@ -19,6 +19,8 @@ import {
 
   import DumbWWEx from "./DumbWebWorkerExample"
 
+  import MainProofOfConcept from "./MainProofOfConcept"
+
   function TestingHome () {
     return (
         <div>
@@ -49,6 +51,9 @@ import {
                         <li>
                             <Link to="/dumbww">Example of Simple Webworker usage!</Link>
                         </li>
+                        <li>
+                            <Link to="/MainPOC">Main Test of proof of concept</Link>
+                        </li>
                     </ul>
 
                     <hr />
@@ -77,6 +82,9 @@ import {
                         </Route>
                         <Route exact path="/dumbww">
                             <DumbWWEx/>
+                        </Route>
+                        <Route exact path="/MainPOC">
+                            <MainProofOfConcept/>
                         </Route>
                     </Switch>
                 </div>

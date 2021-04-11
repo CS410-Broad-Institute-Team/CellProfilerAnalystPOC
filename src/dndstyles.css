@@ -1,28 +1,29 @@
     .topContainer {
-        width: 69%;
+        width: 80%;
         height: 200px;
         background-color: black;
-        margin: 1rem auto;
+        margin: 2rem auto;
         flex: 1;
         touch-action: none;
+        margin-bottom: 175px;
     }
 
 
 .container {
     display: flex;
     touch-action: none;
-    width: 800px;
+    width: 100%;
     margin: 1rem auto;
     
   }
   
   .dropzone {
     flex: 1;
-    height: 200px;
+    height: 350px;
     background-color: black;
   }
   
-  .dropzone.left {
+  .dropzone.positive {
     margin-right: 10px;
   }
   
@@ -49,7 +50,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url('./jones.jpg');
+   
     background-size: cover; 
   }
   

@@ -2,7 +2,7 @@ import Button from '@material-ui/core/Button'
 import * as tf from '@tensorflow/tfjs'
 import _ from "lodash";
 // import { getImgFromArr } from 'array-to-image';
-import jones from '/home/emmakelm/cpa_app/CellProfilerAnalystPOC/src/jones.jpg'
+import jones from './jones.jpg'
 import React, {useState} from 'react'
 import UploadDataHandlerE from "./UploadDataHandlerE"
 import GetDataURLS from "./GetDataURLS"

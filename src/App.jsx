@@ -1,10 +1,5 @@
-import logo from './logo.svg';
 import './App.css';
 
-import * as tf from "@tensorflow/tfjs";
-import * as dfd from "danfojs/src/index";
-import * as lgreg from "ml-logistic-regression";
-import * as prprcss from "ml-preprocess";
 
 import EmmaComponent from "./components/Emma"
 import EmmanuelComponent from "./components/Emmanuel"

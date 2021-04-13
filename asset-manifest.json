@@ -1,28 +1,27 @@
 {
   "files": {
-    "main.css": "/CellProfilerAnalystPOC/static/css/main.62fdc471.chunk.css",
-    "main.js": "/CellProfilerAnalystPOC/static/js/main.df274144.chunk.js",
-    "main.js.map": "/CellProfilerAnalystPOC/static/js/main.df274144.chunk.js.map",
-    "runtime-main.js": "/CellProfilerAnalystPOC/static/js/runtime-main.31eef78c.js",
-    "runtime-main.js.map": "/CellProfilerAnalystPOC/static/js/runtime-main.31eef78c.js.map",
+    "main.css": "/CellProfilerAnalystPOC/static/css/main.50d2bde6.chunk.css",
+    "main.js": "/CellProfilerAnalystPOC/static/js/main.ec941be7.chunk.js",
+    "main.js.map": "/CellProfilerAnalystPOC/static/js/main.ec941be7.chunk.js.map",
+    "runtime-main.js": "/CellProfilerAnalystPOC/static/js/runtime-main.5b4689c4.js",
+    "runtime-main.js.map": "/CellProfilerAnalystPOC/static/js/runtime-main.5b4689c4.js.map",
     "static/css/2.658248ec.chunk.css": "/CellProfilerAnalystPOC/static/css/2.658248ec.chunk.css",
-    "static/js/2.9b3bbc8f.chunk.js": "/CellProfilerAnalystPOC/static/js/2.9b3bbc8f.chunk.js",
-    "static/js/2.9b3bbc8f.chunk.js.map": "/CellProfilerAnalystPOC/static/js/2.9b3bbc8f.chunk.js.map",
-    "static/js/3.8cbea0b5.chunk.js": "/CellProfilerAnalystPOC/static/js/3.8cbea0b5.chunk.js",
-    "static/js/3.8cbea0b5.chunk.js.map": "/CellProfilerAnalystPOC/static/js/3.8cbea0b5.chunk.js.map",
+    "static/js/2.05d4ecab.chunk.js": "/CellProfilerAnalystPOC/static/js/2.05d4ecab.chunk.js",
+    "static/js/2.05d4ecab.chunk.js.map": "/CellProfilerAnalystPOC/static/js/2.05d4ecab.chunk.js.map",
+    "static/js/3.362376f6.chunk.js": "/CellProfilerAnalystPOC/static/js/3.362376f6.chunk.js",
+    "static/js/3.362376f6.chunk.js.map": "/CellProfilerAnalystPOC/static/js/3.362376f6.chunk.js.map",
     "index.html": "/CellProfilerAnalystPOC/index.html",
     "static/css/2.658248ec.chunk.css.map": "/CellProfilerAnalystPOC/static/css/2.658248ec.chunk.css.map",
-    "static/css/main.62fdc471.chunk.css.map": "/CellProfilerAnalystPOC/static/css/main.62fdc471.chunk.css.map",
-    "static/js/2.9b3bbc8f.chunk.js.LICENSE.txt": "/CellProfilerAnalystPOC/static/js/2.9b3bbc8f.chunk.js.LICENSE.txt",
-    "static/media/example_SETUP.c8183f4e.SQL": "/CellProfilerAnalystPOC/static/media/example_SETUP.c8183f4e.SQL",
-    "static/media/jones.88567442.jpg": "/CellProfilerAnalystPOC/static/media/jones.88567442.jpg",
+    "static/css/main.50d2bde6.chunk.css.map": "/CellProfilerAnalystPOC/static/css/main.50d2bde6.chunk.css.map",
+    "static/js/2.05d4ecab.chunk.js.LICENSE.txt": "/CellProfilerAnalystPOC/static/js/2.05d4ecab.chunk.js.LICENSE.txt",
+    "static/media/jones.jpg": "/CellProfilerAnalystPOC/static/media/jones.88567442.jpg",
     "static/media/logo.6ce24c58.svg": "/CellProfilerAnalystPOC/static/media/logo.6ce24c58.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.31eef78c.js",
+    "static/js/runtime-main.5b4689c4.js",
     "static/css/2.658248ec.chunk.css",
-    "static/js/2.9b3bbc8f.chunk.js",
-    "static/css/main.62fdc471.chunk.css",
-    "static/js/main.df274144.chunk.js"
+    "static/js/2.05d4ecab.chunk.js",
+    "static/css/main.50d2bde6.chunk.css",
+    "static/js/main.ec941be7.chunk.js"
   ]
 }

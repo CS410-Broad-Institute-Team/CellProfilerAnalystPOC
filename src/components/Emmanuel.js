@@ -1,15 +1,12 @@
-import { render } from "@testing-library/react"
-import raw from "../example_SETUP.SQL";
 import React from 'react';
 
-import * as tf from "@tensorflow/tfjs";
-import * as dfd from "danfojs/src/index";
-import * as lgreg from "ml-logistic-regression";
-import * as prprcss from "ml-preprocess";
 import _ from "lodash";
 import General_Classifier from "./YahiyaTesting/GeneralClassifier"
+<<<<<<< HEAD
 import Training_Set_Handler from "./YahiyaTesting/TrainingSetHandler"
 import downloadTxtFile from "./downloadButtonDemo"
+=======
+>>>>>>> 02c6dc2f6301019948fb28080d49d91581de15d0
 
 export default class Emmanuel extends React.Component {
    

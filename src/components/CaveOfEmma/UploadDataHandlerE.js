@@ -120,7 +120,6 @@ export default class UploadDataHandlerE {
         ))
         image_data = image_data.map(data_row=>{ return _.zipObject(image_column_names, data_row)})
         console.timeEnd('image data finished')
-        console.log(image_data)
 
         
         
@@ -135,6 +134,9 @@ export default class UploadDataHandlerE {
     }
     getImageData() {
         return this.data.image_data
+    }
+    getObjectData() {
+        return this.data.object_data
     }
     findFileIndex = (fileListObject, fileName) => {
         var index = Array.from(fileListObject.target.files).findIndex((elem) => {

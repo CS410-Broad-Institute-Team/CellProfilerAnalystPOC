@@ -1,24 +1,27 @@
-
 import Button from '@material-ui/core/Button'
 import * as tf from '@tensorflow/tfjs'
+import _ from "lodash";
 // import { getImgFromArr } from 'array-to-image';
 import jones from './jones.jpg'
 import React, {useState} from 'react'
 import UploadDataHandlerE from "./UploadDataHandlerE"
+import GetDataURLS from "./GetDataURLS"
 import FetchHandler from "./FetchHandler"
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import DatGui, { DatBoolean, DatColor, DatNumber, DatString } from '@tim-soft/react-dat-gui';
+import { clipByValue } from '@tensorflow/tfjs';
 // import { bytesToBase64 } from "./base64.js";
 var fileListObjects = null;
-var image_data = null;
 
 export default class Emmmmmma extends React.Component {
     constructor() {
         super();
-        
+        this.image_data = null
+        this.object_data = null
+
     this.handleUpdate = newData =>
     {
         this.setState(prevState => ({
@@ -30,32 +33,34 @@ export default class Emmmmmma extends React.Component {
         fileListObjects = fileListObject;
         const DataModel = UploadDataHandlerE.getInstance();
         await DataModel.handleFolderUpload(fileListObject);
-        image_data = DataModel.getImageData();
-        
-
-   
-    // const tick_labels = ["Positive", "Negative"];
-    // await LogRegClassifier.renderConfusionMatrix_utility(preds, pred_labels, confusion_container, tick_labels);
+        this.image_data = DataModel.getImageData();
+        this.object_data = DataModel.getObjectData();
 
     
 }
     on_fetch_button_callback = async function() {
-       const Fetch = new FetchHandler(fileListObjects, image_data);
-     var img_tensor = await Fetch.handleFetch(1,2);
-     await Promise.all(Array.from({length: 9}, (_,idx)=> {
+    const Fetch = new FetchHandler(fileListObjects, this.image_data, this.object_data);  //All this for displaying cells on canvas object
+     var images = await Fetch.handleFetch(9);
 
+     await Promise.all(Array.from({length: 9}, (_,idx)=> {
+    
      var canvas_at_index = document.getElementById(`canvas: ${idx}`);
      var ctx_at_index = canvas_at_index.getContext("2d");
      var temp_canvas = document.createElement('canvas');
      // alright this promise will resolve when canvas is loaded with the tensorflow image
-     tf.browser.toPixels(img_tensor, temp_canvas).then(()=>{
-         ctx_at_index.drawImage(temp_canvas, 0, 0, canvas_at_index.width, canvas_at_index.height)
+     tf.browser.toPixels(images[idx].img_tf, temp_canvas).then(()=>{
+         ctx_at_index.drawImage(temp_canvas, images[idx].lo_x, images[idx].lo_y, 40, 40, 0, 0, canvas_at_index.width, canvas_at_index.height)
          temp_canvas.remove();
 
     
      })
      }));
-        // )
+     
+        //Quick getDataURLS API to use
+        const urls = new GetDataURLS(fileListObjects, this.image_data, this.object_data);
+        var test_urls = await urls.nRandDataURLS(9);
+        console.log(test_urls)
+
     }
     state = {
         imageSources: new Array(9).fill(jones),

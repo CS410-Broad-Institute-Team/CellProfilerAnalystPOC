@@ -32,7 +32,9 @@ export default class UploadDataHandler {
         Papa.papaparseFilePromise = function(file, options={}, onEndMsg="") {
 
             return Papa.parsePromise(file,
-                {...this.basicPapaConfig, ...options} 
+                {worker: true,
+                    skipEmptyLines: true,
+                    dynamicTyping: true, ...options} 
             )
             .then((result)=> result.data)
             .notify(onEndMsg);
@@ -104,6 +106,7 @@ export default class UploadDataHandler {
         object_data = object_data.map(data_row=>{ return _.zipObject(object_column_names, data_row)})
         console.timeEnd('object data finished')
         console.log(object_data)
+        window.object_data = object_data
 
         
 

@@ -59,9 +59,15 @@ class ImageGridManager {
     }
 
     setImageClassByIndex (index, gridType) {
+      if(index === undefined || gridType === undefined){
+        throw new Error 
+        ("setImageClassByIndex Error must have 2 arguments: index and class")
+      }
+
       if(_.includes(["unclassified", "positive", "negative"], gridType)){
         this.classifications[index] = gridType
       }
+
       else{
         throw new Error
         ("setImageClassByIndex Error incorrect class to set:" +" "+gridType+ ", must be: unclassified, positive, negative")

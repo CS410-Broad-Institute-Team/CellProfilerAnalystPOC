@@ -1,12 +1,7 @@
-import { render } from "@testing-library/react"
-import * as tf from "@tensorflow/tfjs";
 import * as dfd from "danfojs/src/index";
-import * as lgreg from "ml-logistic-regression";
-import * as prprcss from "ml-preprocess";
 import React from 'react';
 import logo from '../logo.svg';
 import Papa from "papaparse";
-import raw from "../example_SETUP.SQL";
 export default class Emma extends React.Component {
   constructor(props) {
     super(props);

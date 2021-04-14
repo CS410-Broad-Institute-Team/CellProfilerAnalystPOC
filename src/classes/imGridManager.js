@@ -9,6 +9,10 @@ class ImageGridManager {
       if (!data_pairs || !dataurls) {
           throw new Error("Constructor Error on no data url or data pairs passed in")
       }
+
+      if(data_pairs.length !== dataurls.length){
+        throw new Error("Constructor Error on mismatched data pair and dataurl length") 
+      }
     }
 
     static getDataUrlFromImg(img) {

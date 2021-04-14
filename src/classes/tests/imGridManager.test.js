@@ -87,11 +87,6 @@ describe('image Grid manager tests', function() {
                 IGManager.setImageClassByIndex(1)
             }, 
             Error, "setImageClassByIndex Error must have 2 arguments: index and class")
-            assert.throws(()=>{
-                IGManager.setImageClassByIndex(1, "negative", 'random thing')
-            }, 
-            Error, "setImageClassByIndex Error must have 2 arguments: index and class")
-
             
             IGManager.setImageClassByIndex(1, "negative")
         }); 
@@ -109,20 +104,36 @@ describe('image Grid manager tests', function() {
               Error, "setImageClassByIndex Error incorrect class to set: zoidberg, must be: unclassified, positive, negative")
         }); 
 
-        // it("API: getPairsByClass works with no swapping", function() {
+        it("API: getPairsByClass works with no swapping", function() {
 
-        //     const data_pairs = [ {ImageKey:  4, ObjectKey: 5}, {ImageKey: 2, ObjectKey: 8}]
-        //     const dataurl1 = "https://i.postimg.cc/0yS7m2dV/AS-09125-050116000001-A01f00d2.png"
-        //     const dataurl2 = "https://i.postimg.cc/0yS7m2dV/AS-09125-050116000001-A01f00d2.png"
-        //     const dataurls = [dataurl1, dataurl2]
-        //     const IGManager = new ImageGridManager(data_pairs, dataurls)
+            const data_pairs = [ {ImageKey:  4, ObjectKey: 5}, {ImageKey: 2, ObjectKey: 8}]
+            const dataurl1 = "https://i.postimg.cc/0yS7m2dV/AS-09125-050116000001-A01f00d2.png"
+            const dataurl2 = "https://i.postimg.cc/0yS7m2dV/AS-09125-050116000001-A01f00d2.png"
+            const dataurls = [dataurl1, dataurl2]
+            const IGManager = new ImageGridManager(data_pairs, dataurls)
 
-        //     assert.throws(()=>{
-        //         assert.strictEqual
-        //       }, 
-        //       Error, "setImageClassByIndex Error incorrect class to set: zoidberg, must be: unclassified, positive, negative")
+            const unclassified_pairs = IGManager.getPairsByClass("unclassified");
 
-        // });
+            const expected_output_pairs = [ {ImageKey:  4, ObjectKey: 5}, {ImageKey: 2, ObjectKey: 8}]
+            
+            assert.strictEqual(unclassified_pairs.length, 2)
+
+            for (var i = 0; i < expected_output_pairs.length; i++) {
+
+                const expectedPair = expected_output_pairs[i]
+                var bool_IncludesExpectedPair = false;
+                for (var j = 0; j <unclassified_pairs.length; j++) {
+                    const unclassifiedPair = unclassified_pairs[j]
+
+                    const bool_areSamePair = _.isEqual(expectedPair, unclassifiedPair)
+
+                    bool_IncludesExpectedPair = bool_IncludesExpectedPair || bool_areSamePair
+                }
+
+                assert.isTrue(bool_IncludesExpectedPair)
+            }
+
+        });
 
 
 

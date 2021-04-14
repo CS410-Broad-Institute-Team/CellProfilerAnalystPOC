@@ -68,6 +68,34 @@ describe('image Grid manager tests', function() {
             IGManager.setImageClassByIndex(1, "negative")
         }); 
 
+        it('API: fail setImageClassByIndex on wrong number arguments', function() {
+            const data_pairs = [ {ImageKey:  4, ObjectKey: 5}, {ImageKey: 2, ObjectKey: 8}]
+            const dataurl1 = "https://i.postimg.cc/0yS7m2dV/AS-09125-050116000001-A01f00d2.png"
+            const dataurl2 = "https://i.postimg.cc/0yS7m2dV/AS-09125-050116000001-A01f00d2.png"
+            const dataurls = [dataurl1, dataurl2]
+            const IGManager = new ImageGridManager(data_pairs, dataurls)
+
+            assert.throws(()=>{
+                IGManager.setImageClassByIndex()
+            }, 
+            Error, "setImageClassByIndex Error must have 2 arguments: index and class")
+            assert.throws(()=>{
+                IGManager.setImageClassByIndex()
+            }, 
+            Error, "setImageClassByIndex Error must have 2 arguments: index and class")
+            assert.throws(()=>{
+                IGManager.setImageClassByIndex(1)
+            }, 
+            Error, "setImageClassByIndex Error must have 2 arguments: index and class")
+            assert.throws(()=>{
+                IGManager.setImageClassByIndex(1, "negative", 'random thing')
+            }, 
+            Error, "setImageClassByIndex Error must have 2 arguments: index and class")
+
+            
+            IGManager.setImageClassByIndex(1, "negative")
+        }); 
+
         it('API: setImageClassByIndex will fail for wrong classes', function() {
             const data_pairs = [ {ImageKey:  4, ObjectKey: 5}, {ImageKey: 2, ObjectKey: 8}]
             const dataurl1 = "https://i.postimg.cc/0yS7m2dV/AS-09125-050116000001-A01f00d2.png"

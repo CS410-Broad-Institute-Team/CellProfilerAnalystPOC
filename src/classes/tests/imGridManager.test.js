@@ -19,8 +19,7 @@ describe('image Grid manager tests', function() {
             const dataurl1 = "https://i.postimg.cc/0yS7m2dV/AS-09125-050116000001-A01f00d2.png"
             const dataurl2 = "https://i.postimg.cc/0yS7m2dV/AS-09125-050116000001-A01f00d2.png"
             const dataurls = [dataurl1, dataurl2]
-            const IGManager = new ImageGridManager(data_pairs, dataurls)
-            assert.exists(IGManager)
+            const m = new ImageGridManager(data_pairs, dataurls)
         });
         it('fail constructor on mismatched data pair and dataurl length', function() {
             assert.throws(()=>{
@@ -31,19 +30,5 @@ describe('image Grid manager tests', function() {
               }, 
               Error, "Constructor Error on mismatched data pair and dataurl length")
         })
-    });
-
-    describe('usage tests', function() {
-
-        it('API: gets number of images', function() {
-            const data_pairs = [ {ImageKey:  4, ObjectKey: 5}, {ImageKey: 2, ObjectKey: 8}]
-            const dataurl1 = "https://i.postimg.cc/0yS7m2dV/AS-09125-050116000001-A01f00d2.png"
-            const dataurl2 = "https://i.postimg.cc/0yS7m2dV/AS-09125-050116000001-A01f00d2.png"
-            const dataurls = [dataurl1, dataurl2]
-            const IGManager = new ImageGridManager(data_pairs, dataurls)
-
-            assert.strictEqual(IGManager.getNumberImages(), 2)
-        }); 
-
     });
 });

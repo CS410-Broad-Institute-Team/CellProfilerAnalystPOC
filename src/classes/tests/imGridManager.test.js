@@ -56,6 +56,56 @@ describe('image Grid manager tests', function() {
             assert.strictEqual(IGManager.getDataUrlByIndex(1), dataurl2)
         }); 
 
+        it('API: can call set image class by index', function() {
+            const data_pairs = [ {ImageKey:  4, ObjectKey: 5}, {ImageKey: 2, ObjectKey: 8}]
+            const dataurl1 = "https://i.postimg.cc/0yS7m2dV/AS-09125-050116000001-A01f00d2.png"
+            const dataurl2 = "https://i.postimg.cc/0yS7m2dV/AS-09125-050116000001-A01f00d2.png"
+            const dataurls = [dataurl1, dataurl2]
+            const IGManager = new ImageGridManager(data_pairs, dataurls)
+
+            IGManager.setImageClassByIndex(0, "positive")
+            IGManager.setImageClassByIndex(1, "negative")
+        }); 
+
+        it('API: can call setImageClassByIndex', function() {
+            const data_pairs = [ {ImageKey:  4, ObjectKey: 5}, {ImageKey: 2, ObjectKey: 8}]
+            const dataurl1 = "https://i.postimg.cc/0yS7m2dV/AS-09125-050116000001-A01f00d2.png"
+            const dataurl2 = "https://i.postimg.cc/0yS7m2dV/AS-09125-050116000001-A01f00d2.png"
+            const dataurls = [dataurl1, dataurl2]
+            const IGManager = new ImageGridManager(data_pairs, dataurls)
+
+            IGManager.setImageClassByIndex(0, "positive")
+            IGManager.setImageClassByIndex(1, "negative")
+        }); 
+
+        it('API: setImageClassByIndex will fail for wrong classes', function() {
+            const data_pairs = [ {ImageKey:  4, ObjectKey: 5}, {ImageKey: 2, ObjectKey: 8}]
+            const dataurl1 = "https://i.postimg.cc/0yS7m2dV/AS-09125-050116000001-A01f00d2.png"
+            const dataurl2 = "https://i.postimg.cc/0yS7m2dV/AS-09125-050116000001-A01f00d2.png"
+            const dataurls = [dataurl1, dataurl2]
+            const IGManager = new ImageGridManager(data_pairs, dataurls)
+
+            assert.throws(()=>{
+                IGManager.setImageClassByIndex(0, "zoidberg")
+              }, 
+              Error, "setImageClassByIndex Error incorrect class to set: zoidberg, must be: unclassified, positive, negative")
+        }); 
+
+        // it("API: getPairsByClass works with no swapping", function() {
+
+        //     const data_pairs = [ {ImageKey:  4, ObjectKey: 5}, {ImageKey: 2, ObjectKey: 8}]
+        //     const dataurl1 = "https://i.postimg.cc/0yS7m2dV/AS-09125-050116000001-A01f00d2.png"
+        //     const dataurl2 = "https://i.postimg.cc/0yS7m2dV/AS-09125-050116000001-A01f00d2.png"
+        //     const dataurls = [dataurl1, dataurl2]
+        //     const IGManager = new ImageGridManager(data_pairs, dataurls)
+
+        //     assert.throws(()=>{
+        //         assert.strictEqual
+        //       }, 
+        //       Error, "setImageClassByIndex Error incorrect class to set: zoidberg, must be: unclassified, positive, negative")
+
+        // });
+
 
 
     });

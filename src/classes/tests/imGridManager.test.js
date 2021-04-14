@@ -42,7 +42,7 @@ describe('image Grid manager tests', function() {
             const dataurls = [dataurl1, dataurl2]
             const IGManager = new ImageGridManager(data_pairs, dataurls)
 
-            assert.strictEqual(IGManager.get_number_images(), 2)
+            assert.strictEqual(IGManager.getNumberImages(), 2)
         }); 
 
     });

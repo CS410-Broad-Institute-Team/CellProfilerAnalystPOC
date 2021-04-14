@@ -138,6 +138,18 @@ export default class UploadDataHandlerE {
     getObjectData() {
         return this.data.object_data
     }
+    getInitialTrainingData() {
+        return this.data.training_data
+    }
+    getTrainingColumns() {
+        return this.data.training_columns
+    }
+    getObjectColumnNames() {
+        return this.data.object_column_names
+    }
+    getImageColumnNames() {
+        return this.data.image_column_names
+    }
     findFileIndex = (fileListObject, fileName) => {
         var index = Array.from(fileListObject.target.files).findIndex((elem) => {
             return elem.name === fileName;

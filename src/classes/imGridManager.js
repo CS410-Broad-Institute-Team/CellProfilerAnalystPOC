@@ -3,6 +3,8 @@ import _ from "lodash";
 
 class ImageGridManager {
 
+    classifications = []
+    
     constructor(data_pairs, dataurls) {
 
       
@@ -16,6 +18,11 @@ class ImageGridManager {
 
       this.data_pairs = data_pairs
       this.dataurls = dataurls
+  
+      for(var i = 0; i < this.data_pairs.length; i++){
+      this.classifications.push("unclassified")
+      }
+
     }
 
     static getDataUrlFromImg(img) {
@@ -51,9 +58,13 @@ class ImageGridManager {
       return this.dataurls[index]
     }
 
-    set_grid_prop (index, gridType) {
-      if(classifications[index] !== gridType){
-        classifications[index] = gridType
+    setImageClassByIndex (index, gridType) {
+      if(_.includes(["unclassified", "positive", "negative"], gridType)){
+        this.classifications[index] = gridType
+      }
+      else{
+        throw new Error
+        ("setImageClassByIndex Error incorrect class to set:" +" "+gridType+ ", must be: unclassified, positive, negative")
       }
     }
   //   render(){

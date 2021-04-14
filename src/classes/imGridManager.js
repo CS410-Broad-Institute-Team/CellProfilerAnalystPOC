@@ -47,8 +47,8 @@ class ImageGridManager {
     }
 
 
-    get_url_by_ID (index) {
-      return urls[index]
+    getDataUrlByIndex (index) {
+      return this.dataurls[index]
     }
 
     set_grid_prop (index, gridType) {

@@ -1,4 +1,5 @@
 import {Classifier} from "../Classifier"
+import {FetchHandler} from "../FetchHandler"
 var assert = require('chai').assert;
 import _ from "lodash";
 
@@ -18,7 +19,7 @@ describe('Fetch Handler tests', function() {
             }
             const classifier = new Classifier(classifierOptions);
             const dataProvider = "put data provider here which doesn't exist yet"
-            const fetchHandler = new fetchHandler(classifier, dataProvider)
+            const fetchHandler = new FetchHandler(classifier, dataProvider)
 
         });
 

@@ -45,5 +45,18 @@ describe('image Grid manager tests', function() {
             assert.strictEqual(IGManager.getNumberImages(), 2)
         }); 
 
+        it('API: get dataurl by index', function() {
+            const data_pairs = [ {ImageKey:  4, ObjectKey: 5}, {ImageKey: 2, ObjectKey: 8}]
+            const dataurl1 = "https://i.postimg.cc/0yS7m2dV/AS-09125-050116000001-A01f00d2.png"
+            const dataurl2 = "https://i.postimg.cc/0yS7m2dV/AS-09125-050116000001-A01f00d2.png"
+            const dataurls = [dataurl1, dataurl2]
+            const IGManager = new ImageGridManager(data_pairs, dataurls)
+
+            assert.strictEqual(IGManager.getDataUrlByIndex(0), dataurl1)
+            assert.strictEqual(IGManager.getDataUrlByIndex(1), dataurl2)
+        }); 
+
+
+
     });
 });

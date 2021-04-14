@@ -13,6 +13,9 @@ class ImageGridManager {
       if(data_pairs.length !== dataurls.length){
         throw new Error("Constructor Error on mismatched data pair and dataurl length") 
       }
+
+      this.data_pairs = data_pairs
+      this.dataurls = dataurls
     }
 
     static getDataUrlFromImg(img) {
@@ -39,8 +42,8 @@ class ImageGridManager {
 
     }
 
-    get_number_images (arr) {
-      return data_pairs.length
+    getNumberImages () {
+      return this.data_pairs.length
     }
 
 

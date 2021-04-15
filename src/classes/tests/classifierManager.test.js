@@ -6,7 +6,7 @@ import _ from "lodash";
 
 
 
-describe('Fetch Handler tests', function() {
+describe('Classifier Manager tests', function() {
 
     describe('constructor tests', function() {
 

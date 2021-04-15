@@ -9,7 +9,7 @@ import ProofOfConceptComponent from "./components/ProofOfConcept"
 import YahiyaHomeComponent from "./components/YahiyaTesting/YahiyaHome"
 import EmmmmmmaComponent from "./components/CaveOfEmma/Emmmmmma"
 import BelladndTestComponent from "./components/BelladndTest"
-
+import TestUIComponent from "./components/TestUI"
 
 
 
@@ -124,6 +124,12 @@ function App() {
             <li>
             <Link to="/Abby">Abby</Link>
             </li>
+            <li>
+            <Link to="/TestUI">TestUI</Link>
+            </li>
+          
+          
+          
           </ul>
 
           <hr />
@@ -165,6 +171,9 @@ function App() {
             </Route>
             <Route path="/BelladndTest">
               <BelladndTest />
+            </Route>
+            <Route path="/TestUI">
+              <TestUI />
             </Route>
             
 
@@ -223,6 +232,10 @@ function BelladndTest() {
 
 function Emmanuel() {
   return <EmmanuelComponent></EmmanuelComponent>
+}
+
+function TestUI(){
+  return <TestUIComponent></TestUIComponent>
 }
 
 export default App;

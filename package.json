@@ -22,6 +22,7 @@
     "@types/react": "^17.0.3",
     "@types/react-native": "^0.64.0",
     "@types/react-test-renderer": "^17.0.1",
+    "antd": "^4.15.1",
     "array-to-image": "^1.0.0",
     "aws-sdk": "^2.868.0",
     "bootstrap": "^4.6.0",

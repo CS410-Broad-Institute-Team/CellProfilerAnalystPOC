@@ -1,6 +1,6 @@
 
-import React, { PureComponent } from "react";
-import {Button} from "antd";
+import React, { PureComponent } from 'react';
+import { Button } from 'antd';
 
 //needed:
 //1.loading animation: bootstrap <Spinner>, lifecycle

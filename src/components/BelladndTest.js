@@ -13,9 +13,7 @@ import {
 import "../dndstyles.css";
 import { unregisterKernel } from '@tensorflow/tfjs';
 
-
-
-
+import { Row} from "reactstrap";
 
 
 
@@ -152,7 +150,9 @@ function BelladndTest() {
     
     <GridContextProvider onChange={onChange}>
         <div>
-      
+        
+        <p style = {{textAlign:"left", backgroundColor: 'white', paddingLeft: "10%", marginBottom: 0} }>Unclassified</p>
+        
         <div className="topContainer">
        
         <GridDropZone
@@ -161,6 +161,7 @@ function BelladndTest() {
             boxesPerRow={8}
             rowHeight={70}
           >
+             
             {items.unclassifed.map(item => (
               <GridItem key={item.id}>
                 <div className="grid-item" >
@@ -173,13 +174,21 @@ function BelladndTest() {
           </GridDropZone>
           </div>
         
-          <div className="container">
+        <Row>
+          <label style = {{textAlign:"left", backgroundColor: 'white', paddingLeft: "11%"} }>Positive</label> 
+
+          <label style = {{textAlign:"left", backgroundColor: 'white', paddingLeft: "34.5%", marginBottom: 0} }>Negative</label>
+          </Row>
+         
+         <Row>
+
           <GridDropZone
             className="dropzone positive"
             id="positive"
             boxesPerRow={4}
             rowHeight={70}
           >
+            
             {items.positive.map(item => (
               <GridItem key={item.id}>
                 <div className="grid-item"> 
@@ -190,7 +199,8 @@ function BelladndTest() {
               </GridItem>
             ))}
           </GridDropZone>
-         
+   
+      
           <GridDropZone
             className="dropzone negative"
             id="negative"
@@ -208,8 +218,9 @@ function BelladndTest() {
             ))}
           </GridDropZone>
 
-          
-        </div>
+     
+      
+        </Row>
         </div>
       </GridContextProvider>
     );

@@ -60,6 +60,10 @@ class Classifier {
         return tf_predictions.array()
     }
 
+    DownloadModelPromise() {
+        this.model.save(`downloads://${classifierType}`)
+    }
+
     static hasMultiple (feature_names, object) {
         return _.every(feature_names, _.partial(_.has, object));
     }

@@ -2,11 +2,14 @@ import * as Papa from "papaparse"
 export default class PapaParser {
 
     constructor() {
+        // Could do the whole thing in here by keeping what configs mapped by key name
+        // Maybe faster?
+        //Is making multiple of these smart
     
         this.file_config_options = {
             "object_data" :  {fastMode: true, error: (e)=>console.error(e)} ,
-            "image_data" : {fastMode: true, error: (e)=>console.error(e)} ,
-            "training_data" : {delimiter: " ", comments: "#" }
+            "image_data" : { error: (e)=>console.error(e)} ,
+            "MyTrainingSet.txt" : {delimiter: " ", comments: "#" }
         }
 
         Papa.parsePromise = function(file, config) {
@@ -42,7 +45,7 @@ export default class PapaParser {
     }
     papaTextfromCSV(file_object) {
         var file_for_papa = file_object.file;
-        return Papa.papaparseFilePromise(file_for_papa, this.file_config_options[file_object.file])
+        return Papa.papaparseFilePromise(file_for_papa, this.file_config_options[file_object.name])
     }
 
 }

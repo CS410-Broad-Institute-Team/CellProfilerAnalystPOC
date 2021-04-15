@@ -39,7 +39,7 @@ export default class FetchHandler {
             var data_url = await this.createDataURL(images);
 
             //console.log(data_url)    
-            return  images;
+            return images;
         
      }
      createDataURL = async function(image_info) {
@@ -93,7 +93,6 @@ export default class FetchHandler {
         newImg.src = img
         })
      }
-
 
     fileReaderPromiseImage(fileIndex) {
         return new Promise((resolve, reject)=> {

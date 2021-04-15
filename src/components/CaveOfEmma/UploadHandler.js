@@ -1,38 +1,14 @@
-import * as Papa from "papaparse";
-import _ from "lodash";
+//import DataUtils from "./DataUtils";
 import PapaParser from "./PapaParser.js";
 import FileHandler from "./FileHandler.js";
 import { data } from "@tensorflow/tfjs";
+import _ from "lodash";                                                                                                                                                                                                         
+import DataProvider from "./DataProvider.js";
+import TrainingTable from "./TrainingTable.js";
 export default class UploadHandler {
 
     constructor(fileListObject) {
         this.fileListObject = fileListObject
-        Papa.parsePromise = function(file, config) {
-            return new Promise(function(complete, error) {
-              Papa.parse(file, {...config, complete, error});
-            });
-        };  
-        Promise.prototype.notify = function(strMsg) {
-            return this.then(x=>{console.log(strMsg); return x});
-          }
-          Promise.prototype.debugPrint = function() {
-            return this.then(x=>{console.log(x); return x});
-        }  
-        Papa.papaparseFilePromise = function(file, options={}, onEndMsg="") {
-    
-            return Papa.parsePromise(file,
-                {...this.basicPapaConfig, ...options} 
-            )
-            .then((result)=> result.data)
-            .notify(onEndMsg);
-        }
-        Papa.papaparseFilePromise_noReturn = function(file, options={}, onEndMsg="") {
-    
-            return Papa.parsePromise(file,
-                {...this.basicPapaConfig, ...options} 
-            )
-            .notify(onEndMsg);
-        }
     }
     // TODO
     // getProperties(file_handler) {
@@ -108,20 +84,22 @@ export default class UploadHandler {
             'image_data',
             'training_data'
         ]  
+
         var data = [];
-        console.time("data done")
         var file_objects = this.getFiles();
         var text_data = await this.getText(file_objects);
         var column_lines = this.getColumnLines(text_data[0]);
-        var image_data = text_data[2].map(data_row=>{ return _.zipObject(column_lines[1], data_row)})
-        var object_data = text_data[1].map(data_row=>{ return _.zipObject(column_lines[0], data_row)})
-        var training_data = text_data[3].map(data_row=>{ return _.zipObject(column_lines[2], data_row)})
+        var dp = new DataProvider({'setup_lines' : text_data[0], 'object_data' : text_data[1], 'image_data' : text_data[2], 
+                                       'object_columns' : column_lines[0], 'image_columns' : column_lines[1]})
+        var tt = new TrainingTable( text_data[3].slice(1) , column_lines[2])
+        return {'data_provider' : dp, 'training_data' : {'features' : column_lines[0],  'training_table' :  tt}}
 
-        console.timeEnd("data done")
+
+        // var image_data = text_data[2].map(data_row=>{ return _.zipObject(column_lines[1], data_row)})
+        // var object_data = text_data[1].map(data_row=>{ return _.zipObject(column_lines[0], data_row)})
+        // var training_data = text_data[3].map(data_row=>{ return _.zipObject(column_lines[2], data_row)})
+
  
-        console.log(image_data);
-        console.log(object_data);
-        console.log(training_data);
 
 
     }

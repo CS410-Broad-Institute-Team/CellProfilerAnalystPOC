@@ -1,11 +1,17 @@
 export default class FileHandler {
+    //needs to be static
     fileListObject = null;
     constructor(fileListObject) {
         this.fileListObject = fileListObject
     }
-    findFile = (fileName) => {
+    findAllFiles(file_names) {
+        return file_names.map(file_name => {
+            return this.findFile(file_name)
+        })
+    }
+    findFile = (file_name) => {
         const fileIndex = Array.from(this.fileListObject.target.files).findIndex((elem) => {
-            return elem.name === fileName;
+            return elem.name === file_name;
         });
         return this.fileListObject.target.files[fileIndex];
     }
@@ -27,5 +33,7 @@ export default class FileHandler {
             fr.readAsDataURL(file_result)
         })
     }
+
+    
 
 }

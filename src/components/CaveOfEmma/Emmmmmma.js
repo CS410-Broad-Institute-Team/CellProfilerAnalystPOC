@@ -9,6 +9,7 @@ import GetDataURLS from "./GetDataURLS"
 import FetchHandler from "./FetchHandler"
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid';
+import DataProviderAPI from "./DataProviderAPI.js";
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import DatGui, { DatBoolean, DatColor, DatNumber, DatString } from '@tim-soft/react-dat-gui';
@@ -32,8 +33,12 @@ export default class Emmmmmma extends React.Component {
     }
     on_folder_uploaded_callback = async function(fileListObject) {
         var upload_handler = new UploadHandler(fileListObject);
-        await upload_handler.getDataHandlerandStartingTrainingSet();
-    //   fileListObjects = fileListObject;
+        var all_data = await upload_handler.getDataHandlerandStartingTrainingSet();
+        var dp = all_data.data_provider;
+        var dpTest = new DataProviderAPI(dp)
+        dpTest.testAll(fileListObject)
+
+
     //    const DataModel = UploadDataHandlerE.getInstance();
     //    await DataModel.handleFolderUpload(fileListObject);
     //    this.image_data = DataModel.getImageData();
@@ -42,9 +47,9 @@ export default class Emmmmmma extends React.Component {
     
 }
     on_fetch_button_callback = async function() {
-    // const Fetch = new FetchHandler(fileListObjects, this.image_data, this.object_data);  //All this for displaying cells on canvas object
+    const Fetch = new FetchHandler(fileListObjects, this.image_data, this.object_data);  //All this for displaying cells on canvas object
     // console.time("fetch")
-    //  var images = await Fetch.handleFetch(9);
+    var images = await Fetch.handleFetch(9);
 
     //  await Promise.all(Array.from({length: 9}, (_,idx)=> {
     
@@ -148,7 +153,7 @@ this.setState(prevState => ({
             </Grid>
 
             <Container  maxWidth="xs" spacing={0}> 
-            
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
                
             
                 <GridList cellHeight="auto" cols={3}>

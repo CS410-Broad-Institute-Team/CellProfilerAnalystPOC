@@ -8,7 +8,7 @@ import AbbyComponent from "./components/Abby"
 import ProofOfConceptComponent from "./components/ProofOfConcept"
 import YahiyaHomeComponent from "./components/YahiyaTesting/YahiyaHome"
 import EmmmmmmaComponent from "./components/CaveOfEmma/Emmmmmma"
-import BelladndTestComponent from "./components/BelladndTest"
+//import BelladndTestComponent from "./components/BelladndTest"
 
 
 
@@ -118,9 +118,9 @@ function App() {
             <li>
                 <Link to="/YahiyaHome">Yahiya's Home of Testing</Link>
             </li>
-            <li>
+            {/* { <li>
                 <Link to="/BelladndTest">BelladndTest</Link>
-     </li>
+     </li> } */}
             <li>
             <Link to="/Abby">Abby</Link>
             </li>
@@ -163,9 +163,9 @@ function App() {
             <Route path="/YahiyaHome">
               <YahiyaHomeComponent></YahiyaHomeComponent>
             </Route>
-            <Route path="/BelladndTest">
+            {/* <Route path="/BelladndTest">
               <BelladndTest />
-            </Route>
+            </Route> */}
             
 
           </Switch>
@@ -217,9 +217,9 @@ function Emmmmmma() {
 function Abby() {
   return <AbbyComponent></AbbyComponent>
 }
-function BelladndTest() {
-  return <BelladndTestComponent></BelladndTestComponent>
-}
+// function BelladndTest() {
+//   return <BelladndTestComponent></BelladndTestComponent>
+// }
 
 function Emmanuel() {
   return <EmmanuelComponent></EmmanuelComponent>

@@ -60,11 +60,11 @@ class Classifier {
         return tf_predictions.array()
     }
 
-    static hasMultiple = (feature_names, object) => {
+    static hasMultiple (feature_names, object) {
         return _.every(feature_names, _.partial(_.has, object));
     }
 
-    static norm2DArray = (array) => {
+    static norm2DArray (array) {
 
         var means_array = new Array(array[0].length).fill(0)
         for (var j = 0; j < array[0].length; j++) {
@@ -97,7 +97,7 @@ class Classifier {
 
     }
 
-    static createBasicDataset = (data, labels, feature_names, batchSize) => {
+    static createBasicDataset (data, labels, feature_names, batchSize) {
         console.assert(Object.values(data[0]).reduce((accum, currVal)=>accum&&(typeof currVal === "number")), "First row object is numbers")
         console.assert(Classifier.hasMultiple(feature_names, data[0]), "First row object has all the feature columns fields");
         console.assert(data.length===labels.length, "data and labels match in length")
@@ -128,7 +128,7 @@ class Classifier {
 
     }
 
-    static createBasicTestset = (data, feature_names, labels=null) => {
+    static createBasicTestset (data, feature_names, labels=null){
         const X = data.map(data_row =>
             feature_names.map(feature_name => {
                 const feature_value = data_row[feature_name];
@@ -151,7 +151,7 @@ class Classifier {
         
     }
 
-    static createLogisticRegressionModel = (feature_count) => {
+    static createLogisticRegressionModel  (feature_count)  {
         const model = tf.sequential();
 
         model.add(
@@ -172,7 +172,7 @@ class Classifier {
         return model;
     }
 
-    static basicTrainPromise = async (model, training_dataset, number_epochs, render_containers=null ) => {
+    static async basicTrainPromise (model, training_dataset, number_epochs, render_containers=null ) {
         
 
         

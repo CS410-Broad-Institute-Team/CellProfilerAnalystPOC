@@ -10,6 +10,14 @@ describe('Classifier Manager tests', function() {
 
     describe('constructor tests', function() {
 
+        it('fail on pass nothing', function() {
+            assert.throws(()=>{
+                const m = new ImageGridManager();
+            }, 
+            Error, "Constructor Error on no data url or data pairs passed in")
+            
+        });
+
         it('basic construct', function() {
             
             

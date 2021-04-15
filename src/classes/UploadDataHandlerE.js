@@ -181,3 +181,5 @@ export default class UploadDataHandlerE {
         })
     }
 }
+
+export {UploadDataHandlerE as DataHandler}

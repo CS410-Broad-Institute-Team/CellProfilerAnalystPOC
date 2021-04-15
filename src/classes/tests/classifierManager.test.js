@@ -14,7 +14,7 @@ describe('Classifier Manager tests', function() {
             assert.throws(()=>{
                 const m = new ImageGridManager();
             }, 
-            Error, "Constructor Error on no data url or data pairs passed in")
+            Error, "Constructor Error on no dataprovider or no initialtrainingobject")
             
         });
 
@@ -46,10 +46,11 @@ describe('Classifier Manager tests', function() {
             const featuresToUse = ["f1", "f2"]
             const initialTrainingObject = {
                 TrainingData: [{"f1": 1, "f2": 2, "f3": 5}, {"f1": 3, "f2": 4, "f3": 6}],
-                TrainingLabels: [0, 1]
+                TrainingLabels: [0, 1],
+                FeaturesToUse: featuresToUse
             }
             const dataProvider = new DataProvider(uniformData)
-            const classifierManager = new ClassifierManager(dataProvider, initialTrainingObject, featuresToUse)
+            const classifierManager = new ClassifierManager(dataProvider, initialTrainingObject)
 
         });
 

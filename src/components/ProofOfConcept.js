@@ -1,5 +1,4 @@
-import { render } from "@testing-library/react"
-import React, {useState} from 'react'
+import React from 'react'
 import Button from '@material-ui/core/Button'
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid';
@@ -9,10 +8,6 @@ import Papa from 'papaparse'
 import * as tf from '@tensorflow/tfjs'
 
 import jones from '../jones.jpg'
-import { findRenderedComponentWithType } from "react-dom/test-utils";
-import { Matrix } from 'ml-matrix';
-import {normal, center, level} from 'ml-preprocess';
-import LogisticRegression, * as lgreg from "ml-logistic-regression";
 // modified from emma.js
 import DatGui, { DatBoolean, DatColor, DatNumber, DatString } from '@tim-soft/react-dat-gui';
 
@@ -22,13 +17,13 @@ export default class ProofOfConcept extends React.Component {
     constructor(){
         super();
 
-        console.log(normal([[1,2],
-                            [3,5]]))
-        console.log(center([[1,2],
-                            [3,20]]))
-        console.log(level([[1,2],
-                           [3,5],
-                           [7,9]]))
+        // console.log(normal([[1,2],
+        //                     [3,5]]))
+        // console.log(center([[1,2],
+        //                     [3,20]]))
+        // console.log(level([[1,2],
+        //                    [3,5],
+        //                    [7,9]]))
         Papa.parsePromise = function(file, config) {
             return new Promise(function(complete, error) {
               Papa.parse(file, {...config, complete, error});
@@ -305,7 +300,7 @@ export default class ProofOfConcept extends React.Component {
         
         this.standardized_features = await standardized_features_tensor.array();
         console.log(this.standardized_features)
-        const standardized_features_matrix = new Matrix(this.standardized_features)
+        // const standardized_features_matrix = new Matrix(this.standardized_features)
         // const a = new tf.tensor2d();
         // a.print();
         
@@ -313,11 +308,11 @@ export default class ProofOfConcept extends React.Component {
 
         this.labels = [this.training_data.map((row)=> row[0]==='positive'? 1:0).slice(0,613)];
         console.log(this.labels);
-        const labels_matrix = new Matrix(this.labels);
+        // const labels_matrix = new Matrix(this.labels);
         
-        this.classifier = new LogisticRegression({ numSteps: 10000, learningRate: 5e-2 });
-        this.classifier.train(standardized_features_matrix, labels_matrix);
-        console.log(this.classifier.predict(standardized_features_matrix))
+        // this.classifier = new LogisticRegression({ numSteps: 10000, learningRate: 5e-2 });
+        // this.classifier.train(standardized_features_matrix, labels_matrix);
+        // console.log(this.classifier.predict(standardized_features_matrix))
         
         // console.log(this.image_column_names)
         
@@ -411,22 +406,22 @@ export default class ProofOfConcept extends React.Component {
         var data_samples = [];
         console.log("fetching...");
 
-        while (sample_count < 9) {
-            const randDataIndices = Array(SAMPLES_PER_PREDICT).fill(0).map(()=>Math.floor(Math.random() * this.object_data.length));
-            const cell_features = randDataIndices.map((data_idx)=>this.object_features_to_use_indices.map((feature_idx)=>this.object_data[data_idx][feature_idx]));
-            const predicted_labels = this.classifier.predict(new Matrix(normal(cell_features)))
-            console.log(predicted_labels);
+        // while (sample_count < 9) {
+        //     const randDataIndices = Array(SAMPLES_PER_PREDICT).fill(0).map(()=>Math.floor(Math.random() * this.object_data.length));
+        //     const cell_features = randDataIndices.map((data_idx)=>this.object_features_to_use_indices.map((feature_idx)=>this.object_data[data_idx][feature_idx]));
+        //     // const predicted_labels = this.classifier.predict(new Matrix(normal(cell_features)))
+        //     // console.log(predicted_labels);
 
-            const positive_cells = predicted_labels.filter(x=>x===1);
-            if (positive_cells.length > 0) {
-                data_samples.concat(positive_cells);
-                if (data_samples.length >= SAMPLES_NEEDED) {
-                    console.log(data_samples);
-                    return;
-                }             
-            }
-            console.log("found no positive cells, looping...")
-        }
+        //     // const positive_cells = predicted_labels.filter(x=>x===1);
+        //     // if (positive_cells.length > 0) {
+        //     //     data_samples.concat(positive_cells);
+        //     //     if (data_samples.length >= SAMPLES_NEEDED) {
+        //     //         console.log(data_samples);
+        //     //         return;
+        //     //     }             
+        //     // }
+        //     console.log("found no positive cells, looping...")
+        // }
     }
 
     componentDidMount(){

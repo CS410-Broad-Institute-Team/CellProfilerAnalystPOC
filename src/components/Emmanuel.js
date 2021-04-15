@@ -1,14 +1,12 @@
-import { render } from "@testing-library/react"
-import raw from "../example_SETUP.SQL";
 import React from 'react';
 
-import * as tf from "@tensorflow/tfjs";
-import * as dfd from "danfojs/src/index";
-import * as lgreg from "ml-logistic-regression";
-import * as prprcss from "ml-preprocess";
 import _ from "lodash";
 import General_Classifier from "./YahiyaTesting/GeneralClassifier"
+<<<<<<< HEAD
 import Training_Set_Handler from "./YahiyaTesting/TrainingSetHandler"
+import downloadTxtFile from "./downloadButtonDemo"
+=======
+>>>>>>> 02c6dc2f6301019948fb28080d49d91581de15d0
 
 export default class Emmanuel extends React.Component {
    
@@ -24,16 +22,17 @@ export default class Emmanuel extends React.Component {
   render(){
 
     let new_cell_indices = []
-    //var name = window.prompt("Enter desired CellType")
 
     let data = [{a:1, b:2, c:3, d:7}, {a:4, b:5, c:6, d:7}, {a:7, b:8, c:9, d:7}]
+
+    downloadTxtFile(data, "csv")
 
     let cell_features = ["a", "b", "c"]
 
     let n = 5
     const classifier = General_Classifier.createLogisticRegressionModel(cell_features.length)
 
-    while(new_cell_indices.length < n){
+    //while(new_cell_indices.length < n){
         
         
         //random integer between 0 and length of object data
@@ -53,15 +52,16 @@ export default class Emmanuel extends React.Component {
 
         }
 
-    }
+    //}
     
     console.log(new_cell_indices)
-    
+
         return (
             <div>
                 <h2>Emmanuel</h2>
                 <p>Emmanuel Stuff</p>
             </div>
+            
             );
   };
 }

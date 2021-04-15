@@ -1,14 +1,19 @@
-import { render } from "@testing-library/react"
 import { Container, Row, Col} from "reactstrap";
+<<<<<<< HEAD
 import {Box, Button, Grid, IconButton, GridList, GridListTile }from '@material-ui/core'; 
+=======
+import {Box, Button, Grid, IconButton,GridList, GridListTile }from '@material-ui/core'; 
+>>>>>>> cec55257eb9f8f14754f987329aba67734139f97
 import logo from '../CPA_newlogo.png';
-import {Image, Dropdown, DropdownMenu, DropdownButton} from 'react-bootstrap'
-import CloseIcon from '@material-ui/icons/Close';
+import {Image, Dropdown, DropdownButton} from 'react-bootstrap'
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import jones from '../jones.jpg'
+<<<<<<< HEAD
 
 import ReactDOM from "react-dom";
 
+=======
+>>>>>>> cec55257eb9f8f14754f987329aba67734139f97
 import React from 'react';
 import "bootstrap/dist/css/bootstrap.css";
 

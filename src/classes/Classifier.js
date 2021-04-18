@@ -5,6 +5,21 @@ import _ from "lodash";
 
 class Classifier {
     constructor(ClassifierOptions) {
+
+        if(ClassifierOptions === undefined){
+            throw new Error("Classifier Error: ClassifierOptions not passed in")
+        }
+
+        if (ClassifierOptions.classifierType === undefined ||
+            ClassifierOptions.numberFeatures === undefined ||
+            ClassifierOptions.featureNames === undefined ||
+            ClassifierOptions.trainingData === undefined ||
+            ClassifierOptions.trainingLabels === undefined ||
+            ClassifierOptions.model === undefined)
+        {
+            throw new Error("Classifier Error: ClassifierOptions missing fields")
+        }
+
         this.classifierType = ClassifierOptions.classifierType;
         this.numberFeatures = ClassifierOptions.featureNames.length;
         this.featureNames = ClassifierOptions.featureNames;

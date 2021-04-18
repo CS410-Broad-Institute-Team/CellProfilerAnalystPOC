@@ -11,6 +11,7 @@ import EmmmmmmaComponent from "./components/CaveOfEmma/Emmmmmma"
 
 
 
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -121,12 +122,16 @@ function App() {
             <li>
             <Link to="/Abby">Abby</Link>
             </li>
+<<<<<<< HEAD
+            
+=======
             <li>
             <Link to="/TestUI">TestUI</Link>
             </li>
           
           
           
+>>>>>>> 5c54394cc1b5cb1f74b9989711f45fd4cb35b575
           </ul>
 
           <hr />
@@ -154,6 +159,7 @@ function App() {
             <Route path="/Abby">
             <Abby />
             </Route>
+            
             <Route path="/Bella">
               <Bella />
             </Route>
@@ -227,9 +233,16 @@ function Emmmmmma() {
 function Abby() {
   return <AbbyComponent></AbbyComponent>
 }
+<<<<<<< HEAD
+
+function BelladndTest() {
+  return <BelladndTestComponent></BelladndTestComponent>
+}
+=======
 // function BelladndTest() {
 //   return <BelladndTestComponent></BelladndTestComponent>
 // }
+>>>>>>> 5c54394cc1b5cb1f74b9989711f45fd4cb35b575
 
 function Emmanuel() {
   return <EmmanuelComponent></EmmanuelComponent>

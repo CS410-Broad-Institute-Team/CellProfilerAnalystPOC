@@ -7,11 +7,11 @@ describe('classifier tests', function() {
   describe('constructor tests', function() {
     it('basic construct', function() {
       const classifierType = "LogisticRegression"
-      const featureNames = ["f1", "f2"]
+      const featuresToUse = ["f1", "f2"]
       const trainingData = [{"f1": 1, "f2": 2, "f3": 5}, {"f1": 3, "f2": 4, "f3": 6}]
       const trainingLabels = [0, 1]
       const classifierOptions = {
-        classifierType, featureNames, trainingData, trainingLabels
+        classifierType, featuresToUse, trainingData, trainingLabels
       }
       var classifier = new Classifier(classifierOptions);
       assert.exists(classifier)
@@ -19,11 +19,11 @@ describe('classifier tests', function() {
     it('fail constructor on absent features', function() {
       assert.throws(()=>{
           const classifierType = "LogisticRegression"
-          const featureNames = ["g1", "g2", "f3"]
+          const featuresToUse = ["g1", "g2", "f3"]
           const trainingData = [{"f1": 1, "f2": 2, "f3": 5}, {"f1": 3, "f2": 4, "f3": 6}]
           const trainingLabels = [0, 1]
           const classifierOptions = {
-            classifierType, featureNames, trainingData, trainingLabels
+            classifierType, featuresToUse, trainingData, trainingLabels
           }
           var classifier = new Classifier(classifierOptions);
           assert.exists(classifier)
@@ -33,11 +33,11 @@ describe('classifier tests', function() {
     it('fail constructor on mismatched labels to trainingdata size', function() {
       assert.throws(()=>{
           const classifierType = "LogisticRegression"
-          const featureNames = ["f1", "f2", "f3"]
+          const featuresToUse = ["f1", "f2", "f3"]
           const trainingData = [{"f1": 1, "f2": 2, "f3": 5}, {"f1": 3, "f2": 4, "f3": 6}]
           const trainingLabels = [0]
           const classifierOptions = { 
-            classifierType, featureNames, trainingData, trainingLabels
+            classifierType, featuresToUse, trainingData, trainingLabels
           }
           var classifier = new Classifier(classifierOptions);
           assert.exists(classifier)
@@ -49,11 +49,11 @@ describe('classifier tests', function() {
   describe('train tests',  function() {
     it('train returns a promise', function() {
       const classifierType = "LogisticRegression"
-      const featureNames = ["f1", "f2"]
+      const featuresToUse = ["f1", "f2"]
       const trainingData = [{"f1": 1, "f2": 2, "f3": 5}, {"f1": 3, "f2": 4, "f3": 6}]
       const trainingLabels = [0, 1]
       const classifierOptions = {
-        classifierType, featureNames, trainingData, trainingLabels
+        classifierType, featuresToUse, trainingData, trainingLabels
       }
       var classifier = new Classifier(classifierOptions);
 
@@ -62,11 +62,11 @@ describe('classifier tests', function() {
     });
     it('awaiting train returns null', async function() {
       const classifierType = "LogisticRegression"
-      const featureNames = ["f1", "f2"]
+      const featuresToUse = ["f1", "f2"]
       const trainingData = [{"f1": 1, "f2": 2, "f3": 5}, {"f1": 3, "f2": 4, "f3": 6}]
       const trainingLabels = [0, 1]
       const classifierOptions = {
-        classifierType, featureNames, trainingData, trainingLabels
+        classifierType, featuresToUse, trainingData, trainingLabels
       }
       var classifier = new Classifier(classifierOptions);
 
@@ -78,11 +78,11 @@ describe('classifier tests', function() {
   describe('predict tests', function() {
     it('model outputs 0s and 1s', async function() {
       const classifierType = "LogisticRegression"
-      const featureNames = ["f1", "f2"]
+      const featuresToUse = ["f1", "f2"]
       const trainingData = [{"f1": 0.4, "f2": 0.2}, {"f1": 0, "f2": 0}, {"f1": 0.7, "f2": 0.2}]
       const trainingLabels = [1, 0, 1]
       const classifierOptions = {
-        classifierType, featureNames, trainingData, trainingLabels
+        classifierType, featuresToUse, trainingData, trainingLabels
       }
       var classifier = new Classifier(classifierOptions);
       await classifier.trainPromise()

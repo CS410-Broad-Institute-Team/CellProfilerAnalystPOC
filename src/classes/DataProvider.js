@@ -3,11 +3,53 @@ import { ThumbDownSharp } from "@material-ui/icons";
 import ImageTable from "./ImageTable.js";
 import ObjectTable from "./ObjectTable.js";
 export default class DataProvider {
-    constructor(unformed_data) {
+    constructor(uniform_data) {
+        
+
+
+        this.testConstructorInputPreconditions(uniform_data);
+
         this.data = {
-            'object_data' : new ObjectTable(unformed_data.object_data, unformed_data.object_columns),
-            'image_data' :  new ImageTable(unformed_data.image_data, unformed_data.image_columns)
+            'object_data' : new ObjectTable(uniform_data.object_data, uniform_data.object_columns),
+            'image_data' :  new ImageTable(uniform_data.image_data, uniform_data.image_columns)
         }
+        
+    }
+
+    testConstructorInputPreconditions(uniform_data) {
+        if (uniform_data == undefined) {
+            throw new Error("Constructor Error on uniform_data is not defined")
+        }
+        if (uniform_data.image_data == undefined || 
+            uniform_data.object_data == undefined ||
+            uniform_data.image_columns == undefined ||
+            uniform_data.object_columns == undefined) {
+            
+            throw new Error("Constructor Error on uniform_data is missing fields")
+        }
+        if (uniform_data.object_data[0][0] == undefined) {
+            throw new Error("Constructor Error on object_data is not a 2d array")
+        }
+        if (uniform_data.image_data[0][0] == undefined) {
+            throw new Error("Constructor Error on image_data is not a 2d array")
+        }
+        if (uniform_data.object_data[0].length !== uniform_data.object_columns.length) {
+            throw new Error("Constructor Error on object_data length mismatch with object_columns length")
+        }
+        if (uniform_data.image_data[0].length !== uniform_data.image_columns.length) {
+            throw new Error("Constructor Error on image_data length mismatch with image_columns length")
+        }
+        if (!uniform_data.object_columns.includes("ObjectNumber") ||
+            !uniform_data.object_columns.includes("ImageNumber")) {
+                throw new Error("Constructor Error on object_columns doesn't have ObjectNumber and ImageNumber")
+            }
+        if (!uniform_data.image_columns.includes("ImageNumber")) {
+                throw new Error("Constructor Error on image_columns doesn't have ImageNumber")
+            }
+        if (!uniform_data.object_columns.includes("Nuclei_Location_CenterX") ||
+            !uniform_data.object_columns.includes("Nuclei_Location_CenterY")) {
+                throw new Error("Constructor Error on uniform_data doesn't have Nuclei_Location_CenterX or Nuclei_Location_CenterY")
+            }
     }
     
     returnAllImgFileNames(img) {

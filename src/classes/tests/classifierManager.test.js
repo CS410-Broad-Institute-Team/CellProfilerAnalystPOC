@@ -11,7 +11,7 @@ describe('Classifier Manager tests', function() {
 
     describe('constructor tests', function() {
 
-        xit('fail on pass nothing', function() {
+        it('fail on pass nothing', function() {
             assert.throws(()=>{
                 const m = new ClassifierManager();
                 
@@ -21,23 +21,25 @@ describe('Classifier Manager tests', function() {
             
         });
 
-        xit('basic construct', function() {
+        
+
+        it('basic construct', function() {
             
             
 
             const object_data = [
-                {"ImageNumber": 1, "ObjectNumber": 1, "f1": 1, "f2": 2, "f3": 5, "Nuclei_Location_CenterX": 1, "Nuclei_Location_CenterY": 3},
-                {"ImageNumber": 2, "ObjectNumber": 2, "f1": 3, "f2": 4, "f3": 6, "Nuclei_Location_CenterX": 2, "Nuclei_Location_CenterY": 5},
-                {"ImageNumber": 3, "ObjectNumber": 3, "f1": 2, "f2": 7, "f3": 3, "Nuclei_Location_CenterX": 5, "Nuclei_Location_CenterY": 4}
+                [1, 1, 1, 2, 5, 1, 3],
+                [2, 2, 3, 4, 6, 2, 5],
+                [3, 3, 2, 7, 3, 5, 4]
             ]
-            const object_columns = ["ImageNumber", "ObjectNumber", "f1", "f2", "f3"]
+            const object_columns = ["ImageNumber", "ObjectNumber", "f1", "f2", "f3", "Nuclei_Location_CenterX", "Nuclei_Location_CenterY"]
 
             const image_data = [
-                {"ImageNumber": 1, "ObjectNumber": 1, "Image_FileNames_Filename_OrigActin": "img1A.png","Image_FileNames_Filename_OrigpH3": "img1P.png","Image_FileNames_Filename_OrigDNA": "img1D.png"},
-                {"ImageNumber": 2, "ObjectNumber": 2, "Image_FileNames_Filename_OrigActin": "img2A.png", "Image_FileNames_Filename_OrigpH3": "img2P.png","Image_FileNames_Filename_OrigDNA": "img2.png"},
-                {"ImageNumber": 3, "ObjectNumber": 3, "Image_FileNames_Filename_OrigActin": "img3A.png", "Image_FileNames_Filename_OrigpH3": "img3P.png","Image_FileNames_Filename_OrigDNA": "img3.png"}
+                [1, "img1A.png", "img1P.png", "img1D.png"],
+                [2, "img2A.png", "img2P.png", "img2D.png"],
+                [3, "img3A.png", "img3P.png", "img3D.png"]
             ]
-            const image_columns = ["ImageNumber", "ObjectNumber", "Image_FileNames_Filename_OrigActin", "Image_FileNames_Filename_OrigpH3", "Image_FileNames_Filename_OrigDNA"]
+            const image_columns = ["ImageNumber", "Image_FileNames_Filename_OrigActin", "Image_FileNames_Filename_OrigpH3", "Image_FileNames_Filename_OrigDNA"]
 
             const uniformData = {
                 object_data,
@@ -46,11 +48,11 @@ describe('Classifier Manager tests', function() {
                 image_columns
             }
 
-            const featuresToUse = ["f1", "f2"]
             const initialTrainingObject = {
-                TrainingData: [{"f1": 1, "f2": 2, "f3": 5}, {"f1": 3, "f2": 4, "f3": 6}],
-                TrainingLabels: [0, 1],
-                FeaturesToUse: featuresToUse
+                classifierType: "LogisticRegression",
+                trainingData: [{"f1": 1, "f2": 2, "f3": 5}, {"f1": 3, "f2": 4, "f3": 6}],
+                trainingLabels: [0, 1],
+                featuresToUse: ["f1", "f2"]
             }
             const dataProvider = new DataProvider(uniformData)
             const classifierManager = new ClassifierManager(dataProvider, initialTrainingObject)
@@ -61,20 +63,20 @@ describe('Classifier Manager tests', function() {
 
     describe('API: fetch random cells tests', function() {
 
-        xit('basic fetch cellPairs works and returns something valid', function() {
+        it('basic fetch cellPairs works and returns something valid', function() {
             const object_data = [
-                {"ImageNumber": 1, "ObjectNumber": 1, "f1": 1, "f2": 2, "f3": 5, "Nuclei_Location_CenterX": 1, "Nuclei_Location_CenterY": 3},
-                {"ImageNumber": 2, "ObjectNumber": 2, "f1": 3, "f2": 4, "f3": 6, "Nuclei_Location_CenterX": 2, "Nuclei_Location_CenterY": 5},
-                {"ImageNumber": 3, "ObjectNumber": 3, "f1": 2, "f2": 7, "f3": 3, "Nuclei_Location_CenterX": 5, "Nuclei_Location_CenterY": 4}
+                [1, 1, 1, 2, 5, 1, 3],
+                [2, 2, 3, 4, 6, 2, 5],
+                [3, 3, 2, 7, 3, 5, 4]
             ]
-            const object_columns = ["ImageNumber", "ObjectNumber", "f1", "f2", "f3"]
+            const object_columns = ["ImageNumber", "ObjectNumber", "f1", "f2", "f3", "Nuclei_Location_CenterX", "Nuclei_Location_CenterY"]
 
             const image_data = [
-                {"ImageNumber": 1, "ObjectNumber": 1, "Image_FileNames_Filename_OrigActin": "img1A.png","Image_FileNames_Filename_OrigpH3": "img1P.png","Image_FileNames_Filename_OrigDNA": "img1D.png"},
-                {"ImageNumber": 2, "ObjectNumber": 2, "Image_FileNames_Filename_OrigActin": "img2A.png", "Image_FileNames_Filename_OrigpH3": "img2P.png","Image_FileNames_Filename_OrigDNA": "img2.png"},
-                {"ImageNumber": 3, "ObjectNumber": 3, "Image_FileNames_Filename_OrigActin": "img3A.png", "Image_FileNames_Filename_OrigpH3": "img3P.png","Image_FileNames_Filename_OrigDNA": "img3.png"}
+                [1, "img1A.png", "img1P.png", "img1D.png"],
+                [2, "img2A.png", "img2P.png", "img2D.png"],
+                [3, "img3A.png", "img3P.png", "img3D.png"]
             ]
-            const image_columns = ["ImageNumber", "ObjectNumber", "Image_FileNames_Filename_OrigActin", "Image_FileNames_Filename_OrigpH3", "Image_FileNames_Filename_OrigDNA"]
+            const image_columns = ["ImageNumber", "Image_FileNames_Filename_OrigActin", "Image_FileNames_Filename_OrigpH3", "Image_FileNames_Filename_OrigDNA"]
 
             const uniformData = {
                 object_data,
@@ -85,9 +87,10 @@ describe('Classifier Manager tests', function() {
 
             const featuresToUse = ["f1", "f2"]
             const initialTrainingObject = {
-                TrainingData: [{"f1": 1, "f2": 2, "f3": 5}, {"f1": 3, "f2": 4, "f3": 6}],
-                TrainingLabels: [0, 1],
-                FeaturesToUse: featuresToUse
+                classifierType: 'LogisticRegression',
+                trainingData: [{"f1": 1, "f2": 2, "f3": 5}, {"f1": 3, "f2": 4, "f3": 6}],
+                trainingLabels: [0, 1],
+                featuresToUse: featuresToUse
             }
             const dataProvider = new DataProvider(uniformData)
             const classifierManager = new ClassifierManager(dataProvider, initialTrainingObject)
@@ -114,20 +117,20 @@ describe('Classifier Manager tests', function() {
 
     describe('API: fetch positive/negative cells tests', function() {
         
-        xit('basic fetch positive/negative cellPairs works and returns something valid', async function() {
+        it('basic fetch positive/negative cellPairs works and returns something valid', async function() {
             const object_data = [
-                {"ImageNumber": 1, "ObjectNumber": 1, "f1": 1, "f2": 2, "f3": 5, "Nuclei_Location_CenterX": 1, "Nuclei_Location_CenterY": 3},
-                {"ImageNumber": 2, "ObjectNumber": 2, "f1": 3, "f2": 4, "f3": 6, "Nuclei_Location_CenterX": 2, "Nuclei_Location_CenterY": 5},
-                {"ImageNumber": 3, "ObjectNumber": 3, "f1": 2, "f2": 7, "f3": 3, "Nuclei_Location_CenterX": 5, "Nuclei_Location_CenterY": 4}
+                [1, 1, 1, 2, 5, 1, 3],
+                [2, 2, 3, 4, 6, 2, 5],
+                [3, 3, 2, 7, 3, 5, 4]
             ]
-            const object_columns = ["ImageNumber", "ObjectNumber", "f1", "f2", "f3"]
+            const object_columns = ["ImageNumber", "ObjectNumber", "f1", "f2", "f3", "Nuclei_Location_CenterX", "Nuclei_Location_CenterY"]
 
             const image_data = [
-                {"ImageNumber": 1, "ObjectNumber": 1, "Image_FileNames_Filename_OrigActin": "img1A.png","Image_FileNames_Filename_OrigpH3": "img1P.png","Image_FileNames_Filename_OrigDNA": "img1D.png"},
-                {"ImageNumber": 2, "ObjectNumber": 2, "Image_FileNames_Filename_OrigActin": "img2A.png", "Image_FileNames_Filename_OrigpH3": "img2P.png","Image_FileNames_Filename_OrigDNA": "img2.png"},
-                {"ImageNumber": 3, "ObjectNumber": 3, "Image_FileNames_Filename_OrigActin": "img3A.png", "Image_FileNames_Filename_OrigpH3": "img3P.png","Image_FileNames_Filename_OrigDNA": "img3.png"}
+                [1, "img1A.png", "img1P.png", "img1D.png"],
+                [2, "img2A.png", "img2P.png", "img2D.png"],
+                [3, "img3A.png", "img3P.png", "img3D.png"]
             ]
-            const image_columns = ["ImageNumber", "ObjectNumber", "Image_FileNames_Filename_OrigActin", "Image_FileNames_Filename_OrigpH3", "Image_FileNames_Filename_OrigDNA"]
+            const image_columns = ["ImageNumber", "Image_FileNames_Filename_OrigActin", "Image_FileNames_Filename_OrigpH3", "Image_FileNames_Filename_OrigDNA"]
 
             const uniformData = {
                 object_data,
@@ -138,12 +141,14 @@ describe('Classifier Manager tests', function() {
 
             const featuresToUse = ["f1", "f2"]
             const initialTrainingObject = {
-                TrainingData: [{"f1": 1, "f2": 2, "f3": 5}, {"f1": 3, "f2": 4, "f3": 6}],
-                TrainingLabels: [0, 1],
-                FeaturesToUse: featuresToUse
+                classifierType: 'LogisticRegression',
+                trainingData: [{"f1": 1, "f2": 2, "f3": 5}, {"f1": 3, "f2": 4, "f3": 6}],
+                trainingLabels: [0, 1],
+                featuresToUse: featuresToUse
             }
             const dataProvider = new DataProvider(uniformData)
             const classifierManager = new ClassifierManager(dataProvider, initialTrainingObject)
+            await classifierManager.initTrainPromise()
 
             const classType1 = "positive"
             const N = 2
@@ -173,25 +178,72 @@ describe('Classifier Manager tests', function() {
             
         });
 
-    });
-
-    describe('API: appendToTrainingSet', function() {
-
         
-        xit('basic fetch positive/negative cellPairs works and returns something valid', async function() {
+        it('fetch positive/negative fail on invalid class', function() {
             const object_data = [
-                {"ImageNumber": 1, "ObjectNumber": 1, "f1": 1, "f2": 2, "f3": 5, "Nuclei_Location_CenterX": 1, "Nuclei_Location_CenterY": 3},
-                {"ImageNumber": 2, "ObjectNumber": 2, "f1": 3, "f2": 4, "f3": 6, "Nuclei_Location_CenterX": 2, "Nuclei_Location_CenterY": 5},
-                {"ImageNumber": 3, "ObjectNumber": 3, "f1": 2, "f2": 7, "f3": 3, "Nuclei_Location_CenterX": 5, "Nuclei_Location_CenterY": 4}
+                [1, 1, 1, 2, 5, 1, 3],
+                [2, 2, 3, 4, 6, 2, 5],
+                [3, 3, 2, 7, 3, 5, 4]
             ]
-            const object_columns = ["ImageNumber", "ObjectNumber", "f1", "f2", "f3"]
+            const object_columns = ["ImageNumber", "ObjectNumber", "f1", "f2", "f3", "Nuclei_Location_CenterX", "Nuclei_Location_CenterY"]
 
             const image_data = [
-                {"ImageNumber": 1, "ObjectNumber": 1, "Image_FileNames_Filename_OrigActin": "img1A.png","Image_FileNames_Filename_OrigpH3": "img1P.png","Image_FileNames_Filename_OrigDNA": "img1D.png"},
-                {"ImageNumber": 2, "ObjectNumber": 2, "Image_FileNames_Filename_OrigActin": "img2A.png", "Image_FileNames_Filename_OrigpH3": "img2P.png","Image_FileNames_Filename_OrigDNA": "img2.png"},
-                {"ImageNumber": 3, "ObjectNumber": 3, "Image_FileNames_Filename_OrigActin": "img3A.png", "Image_FileNames_Filename_OrigpH3": "img3P.png","Image_FileNames_Filename_OrigDNA": "img3.png"}
+                [1, "img1A.png", "img1P.png", "img1D.png"],
+                [2, "img2A.png", "img2P.png", "img2D.png"],
+                [3, "img3A.png", "img3P.png", "img3D.png"]
             ]
-            const image_columns = ["ImageNumber", "ObjectNumber", "Image_FileNames_Filename_OrigActin", "Image_FileNames_Filename_OrigpH3", "Image_FileNames_Filename_OrigDNA"]
+            const image_columns = ["ImageNumber", "Image_FileNames_Filename_OrigActin", "Image_FileNames_Filename_OrigpH3", "Image_FileNames_Filename_OrigDNA"]
+
+            const uniformData = {
+                object_data,
+                object_columns,
+                image_data,
+                image_columns
+            }
+
+            const featuresToUse = ["f1", "f2"]
+            const initialTrainingObject = {
+                classifierType: "LogisticRegression",
+                trainingData: [{"f1": 1, "f2": 2, "f3": 5}, {"f1": 3, "f2": 4, "f3": 6}],
+                trainingLabels: [0, 1],
+                featuresToUse: featuresToUse
+            }
+            const dataProvider = new DataProvider(uniformData)
+            const classifierManager = new ClassifierManager(dataProvider, initialTrainingObject)
+
+            const classType = "zoidberg"
+            const N = 2
+            assert.throws(()=>{
+                
+                classifierManager.fetchUpToNCellPairsByClassPromise(classType, N)
+
+                
+            }, 
+            
+            Error, `Error on invalid class: got ${classType} but expected negative or positive}`)
+            
+        });
+
+    });
+
+
+    describe('API: appendToTrainingSetAndRetrainPromise', function() {
+
+        
+        it('basic fetch positive/negative cellPairs works and returns something valid', async function() {
+            const object_data = [
+                [1, 1, 1, 2, 5, 1, 3],
+                [2, 2, 3, 4, 6, 2, 5],
+                [3, 3, 2, 7, 3, 5, 4]
+            ]
+            const object_columns = ["ImageNumber", "ObjectNumber", "f1", "f2", "f3", "Nuclei_Location_CenterX", "Nuclei_Location_CenterY"]
+
+            const image_data = [
+                [1, "img1A.png", "img1P.png", "img1D.png"],
+                [2, "img2A.png", "img2P.png", "img2D.png"],
+                [3, "img3A.png", "img3P.png", "img3D.png"]
+            ]
+            const image_columns = ["ImageNumber", "Image_FileNames_Filename_OrigActin", "Image_FileNames_Filename_OrigpH3", "Image_FileNames_Filename_OrigDNA"]
 
             const uniformData = {
                 object_data,
@@ -201,24 +253,23 @@ describe('Classifier Manager tests', function() {
             }
 
             const initialTrainingObject = {
-                TrainingData: [{"ImageNumber": 1, "ObjectNumber": 1, "f1": 1, "f2": 2, "f3": 5}, 
+                classifierType: "LogisticRegression",
+                trainingData: [{"ImageNumber": 1, "ObjectNumber": 1, "f1": 1, "f2": 2, "f3": 5}, 
                                {"ImageNumber": 2, "ObjectNumber": 2, "f1": 3, "f2": 4, "f3": 6}],
-                TrainingLabels: [0, 1],
-                FeaturesToUse: ["f1", "f2"]
+                trainingLabels: [0, 1],
+                featuresToUse: ["f1", "f2"]
             }
             const dataProvider = new DataProvider(uniformData)
             const classifierManager = new ClassifierManager(dataProvider, initialTrainingObject)
 
 
             const additionalTrainingObject = {
-                TrainingData: [{"ImageNumber": 3, "ObjectNumber": 3, "f1": 2, "f2": 7, "f3": 3}],
-                TrainingLabels: [0],
-                FeaturesToUse: ["f1", "f2"]
+                classifierType: "LogisticRegression",
+                trainingData: [{"ImageNumber": 3, "ObjectNumber": 3, "f1": 2, "f2": 7, "f3": 3}],
+                trainingLabels: [0],
+                featuresToUse: ["f1", "f2"]
             }
-            const additionalTrainingSet = 
-                [ additionalTrainingObject ]
-
-            await classifierManager.appendToTrainingSetPromise(additionalTrainingSet)
+            await classifierManager.appendToTrainingSetAndRetrainPromise(additionalTrainingObject)
 
             const finalTrainingSet = classifierManager.getTrainingSet()
             const expectedFinalTrainingSet = [
@@ -226,9 +277,9 @@ describe('Classifier Manager tests', function() {
                 {"ImageNumber": 2, "ObjectNumber": 2, "f1": 3, "f2": 4, "f3": 6},
                 {"ImageNumber": 3, "ObjectNumber": 3, "f1": 2, "f2": 7, "f3": 3}
             ]
-            // check they have same elements but order doesn't matter
-            assert.equal(finalTrainingSet.length, expectedFinalTrainingSet.length)
-            assert.deepInclude(expectedFinalTrainingSet, expectedFinalTrainingSet)
+            // check they have same elements and also order matters because of the append order
+
+            assert.deepEqual(finalTrainingSet, expectedFinalTrainingSet)
             
         });
 

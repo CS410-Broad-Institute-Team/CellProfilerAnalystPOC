@@ -271,7 +271,7 @@ describe('Classifier Manager tests', function() {
             }
             await classifierManager.appendToTrainingSetAndRetrainPromise(additionalTrainingObject)
 
-            const finalTrainingSet = classifierManager.getTrainingSet()
+            const finalTrainingSet = classifierManager.getTrainingSetObject()
             const expectedFinalTrainingSet = [
                 {"ImageNumber": 1, "ObjectNumber": 1, "f1": 1, "f2": 2, "f3": 5},
                 {"ImageNumber": 2, "ObjectNumber": 2, "f1": 3, "f2": 4, "f3": 6},

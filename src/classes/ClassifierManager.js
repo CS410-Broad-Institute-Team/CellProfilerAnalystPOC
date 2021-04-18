@@ -119,8 +119,12 @@ class ClassifierManager {
         return this.Classifier.trainPromise()
     }
 
-    getTrainingSet() {
+    getTrainingSetObject() {
         return this.TrainingSetObject.trainingData
+    }
+
+    userDownloadClassifierSpecPromise() {
+        return this.Classifier.DownloadModelPromise()
     }
 }
 

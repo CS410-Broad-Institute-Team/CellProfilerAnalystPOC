@@ -120,7 +120,7 @@ class ClassifierManager {
     }
 
     getTrainingSetObject() {
-        return this.TrainingSetObject.trainingData
+        return this.TrainingSetObject
     }
 
     userDownloadClassifierSpecPromise() {

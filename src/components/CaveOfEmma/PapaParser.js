@@ -5,10 +5,14 @@ export default class PapaParser {
         // Could do the whole thing in here by keeping what configs mapped by key name
         // Maybe faster?
         //Is making multiple of these smart
-    
+        this.basicPapaConfig = {
+            worker: true,
+            skipEmptyLines: true,
+            dynamicTyping: true
+        }
         this.file_config_options = {
-            "object_data" :  {fastMode: true, error: (e)=>console.error(e)} ,
-            "image_data" : { error: (e)=>console.error(e)} ,
+            "per_object.csv" :  {fastMode: true, error: (e)=>console.error(e)} ,
+            "per_image.csv" : { error: (e)=>console.error(e)} ,
             "MyTrainingSet.txt" : {delimiter: " ", comments: "#" }
         }
 
@@ -25,27 +29,20 @@ export default class PapaParser {
         }  
         Papa.papaparseFilePromise = function(file, options={}, onEndMsg="") {
     
-            return Papa.parsePromise(file,
-                {...this.basicPapaConfig, ...options} 
-            )
+            return Papa.parsePromise(file, options)
             .then((result)=> result.data)
             .notify(onEndMsg);
         }
         Papa.papaparseFilePromise_noReturn = function(file, options={}, onEndMsg="") {
-            return Papa.parsePromise(file,
-                {...this.basicPapaConfig, ...options} 
-            )
+            return Papa.parsePromise(file, options)
             .notify(onEndMsg);
         }
-    }
-    basicPapaConfig = {
-        worker: true,
-        skipEmptyLines: true,
-        dynamicTyping: true
-    }
+}
     papaTextfromCSV(file_object) {
         var file_for_papa = file_object.file;
-        return Papa.papaparseFilePromise(file_for_papa, this.file_config_options[file_object.name])
+        console.log(file_object.name);
+        var option = Object.assign(this.basicPapaConfig, this.file_config_options[file_object.name])
+        return Papa.papaparseFilePromise(file_for_papa, option)
     }
 
 }

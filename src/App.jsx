@@ -8,14 +8,6 @@ import AbbyComponent from "./components/Abby"
 import ProofOfConceptComponent from "./components/ProofOfConcept"
 import YahiyaHomeComponent from "./components/YahiyaTesting/YahiyaHome"
 import EmmmmmmaComponent from "./components/CaveOfEmma/Emmmmmma"
-<<<<<<< HEAD
-import BelladndTestComponent from "./components/BelladndTest"
-import TestUIComponent from "./components/TestUI"
-=======
-//import BelladndTestComponent from "./components/BelladndTest"
-
->>>>>>> cec55257eb9f8f14754f987329aba67734139f97
-
 
 
 

@@ -1,6 +1,6 @@
 //import DataUtils from "./DataUtils";
 import PapaParser from "./PapaParser.js";
-import FileHandler from "./FileHandler.js";
+import UserUploadFileHandler from "./UserUploadFileHandler.js";
 import { data } from "@tensorflow/tfjs";
 import _ from "lodash";                                                                                                                                                                                                         
 import DataProvider from "./DataProvider.js";
@@ -40,7 +40,7 @@ export default class UploadHandler {
         ]
         var file_handlers = [];
         var i = 0;
-        var file_handler = new FileHandler(this.fileListObject)
+        var file_handler = new UserUploadFileHandler(this.fileListObject)
         return  file_names.map(file_name => {
                 var file = file_handler.findFile(file_name)
                 return {'file': file, 'name' : file_name};
@@ -53,7 +53,7 @@ export default class UploadHandler {
                 return papa_parser.papaTextfromCSV(file_object);
             }
             else {
-                var file_handler = new FileHandler(this.fileListObject)
+                var file_handler = new UserUploadFileHandler(this.fileListObject)
                 return file_handler.fileReaderPromiseText(file_object.file);
             }
         }))

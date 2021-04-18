@@ -15,12 +15,16 @@ import GridListTile from '@material-ui/core/GridListTile';
 import DatGui, { DatBoolean, DatColor, DatNumber, DatString } from '@tim-soft/react-dat-gui';
 import { clipByValue } from '@tensorflow/tfjs';
 import UploadHandler from './UploadHandler';
+import UserUploadFileHandler from './UserUploadFileHandler';
 // import { bytesToBase64 } from "./base64.js";
-var fileListObjects = null;
+
 
 export default class Emmmmmma extends React.Component {
     constructor() {
         super();
+        this.dp = null
+        this.fileListObject = null
+        this.fh = null
         this.image_data = null
         this.object_data = null
 
@@ -32,10 +36,13 @@ export default class Emmmmmma extends React.Component {
 
     }
     on_folder_uploaded_callback = async function(fileListObject) {
+        this.fileListObject = fileListObject
+        this.fh = new UserUploadFileHandler(fileListObject)
         var upload_handler = new UploadHandler(fileListObject);
         var all_data = await upload_handler.getDataHandlerandStartingTrainingSet();
-        var dp = all_data.data_provider;
-        var dpTest = new DataProviderAPI(dp)
+        this.dp = all_data.data_provider;
+        console.log(this.dp)
+        var dpTest = new DataProviderAPI(this.dp)
         dpTest.testAll(fileListObject)
 
 
@@ -47,23 +54,24 @@ export default class Emmmmmma extends React.Component {
     
 }
     on_fetch_button_callback = async function() {
-    const Fetch = new FetchHandler(fileListObjects, this.image_data, this.object_data);  //All this for displaying cells on canvas object
+    const Fetch = new FetchHandler(this.fh, this.dp);  //All this for displaying cells on canvas object
     // console.time("fetch")
     var images = await Fetch.handleFetch(9);
 
-    //  await Promise.all(Array.from({length: 9}, (_,idx)=> {
+      await Promise.all(Array.from({length: 9}, (_,idx)=> {
     
-    //  var canvas_at_index = document.getElementById(`canvas: ${idx}`);
-    //  var ctx_at_index = canvas_at_index.getContext("2d");
-    //  var temp_canvas = document.createElement('canvas');
-    //  // alright this promise will resolve when canvas is loaded with the tensorflow image
-    //  tf.browser.toPixels(images[idx].img_tf, temp_canvas).then(()=>{
-    //      ctx_at_index.drawImage(temp_canvas, 0, 0, canvas_at_index.width, canvas_at_index.height)
-    //      temp_canvas.remove();
-
+      var canvas_at_index = document.getElementById(`canvas: ${idx}`);
+      var ctx_at_index = canvas_at_index.getContext("2d");
+      var temp_canvas = document.createElement('canvas');
+      // alright this promise will resolve when canvas is loaded with the tensorflow image
+      tf.browser.toPixels(images[idx].img_tf, temp_canvas).then(()=>{
+          ctx_at_index.drawImage(temp_canvas, 0, 0, canvas_at_index.width, canvas_at_index.height)
+          temp_canvas.remove();
+      
     
-    //  })
-    //  }));
+    
+      })
+      }));
     //  console.timeEnd("fetch")
     //     //Quick getDataURLS API to use
     //     const urls = new GetDataURLS(fileListObjects, this.image_data, this.object_data);

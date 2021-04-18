@@ -1,7 +1,7 @@
-export default class FileHandler {
-    //needs to be static
-    fileListObject = null;
+export default class UserUploadFileHandler {
+
     constructor(fileListObject) {
+
         this.fileListObject = fileListObject
     }
     findAllFiles(file_names) {
@@ -11,7 +11,7 @@ export default class FileHandler {
     }
     findFile = (file_name) => {
         const fileIndex = Array.from(this.fileListObject.target.files).findIndex((elem) => {
-            return elem.name === file_name;
+            return (elem.name === file_name);
         });
         return this.fileListObject.target.files[fileIndex];
     }

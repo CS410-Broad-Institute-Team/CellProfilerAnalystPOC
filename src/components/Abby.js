@@ -1,9 +1,14 @@
 
+<<<<<<< HEAD
 import React, { PureComponent } from "react";
 import {Button} from "antd";
 //                        import{Button} from "@material-ui/icons"
 import Spinner from 'react-bootstrap/spinner'
 //import Loader from './loader'
+=======
+import React, { PureComponent } from 'react';
+import { Button } from 'antd';
+>>>>>>> 5c54394cc1b5cb1f74b9989711f45fd4cb35b575
 
 //needed:
 //1.loading animation: bootstrap <Spinner>, lifecycle

@@ -81,7 +81,6 @@ export default class GetDataURLS {
 
     createRGB = async function (index) {
         var img = await this.fileReaderPromiseImage(index);
-        console.log(img);
         return new Promise((resolve, reject) => {
             var img_tf;
             var newImg = new Image();

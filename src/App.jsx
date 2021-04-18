@@ -8,9 +8,6 @@ import AbbyComponent from "./components/Abby"
 import ProofOfConceptComponent from "./components/ProofOfConcept"
 import YahiyaHomeComponent from "./components/YahiyaTesting/YahiyaHome"
 import EmmmmmmaComponent from "./components/CaveOfEmma/Emmmmmma"
-import BelladndTestComponent from "./components/BelladndTest"
-
-
 
 
 
@@ -119,13 +116,22 @@ function App() {
             <li>
                 <Link to="/YahiyaHome">Yahiya's Home of Testing</Link>
             </li>
-            <li>
+            {/* { <li>
                 <Link to="/BelladndTest">BelladndTest</Link>
-     </li>
+     </li> } */}
             <li>
             <Link to="/Abby">Abby</Link>
             </li>
+<<<<<<< HEAD
             
+=======
+            <li>
+            <Link to="/TestUI">TestUI</Link>
+            </li>
+          
+          
+          
+>>>>>>> 5c54394cc1b5cb1f74b9989711f45fd4cb35b575
           </ul>
 
           <hr />
@@ -166,9 +172,16 @@ function App() {
             <Route path="/YahiyaHome">
               <YahiyaHomeComponent></YahiyaHomeComponent>
             </Route>
-            <Route path="/BelladndTest">
+            {/* <Route path="/BelladndTest">
               <BelladndTest />
+<<<<<<< HEAD
             </Route>
+            <Route path="/TestUI">
+              <TestUI />
+            </Route>
+=======
+            </Route> */}
+>>>>>>> cec55257eb9f8f14754f987329aba67734139f97
             
 
           </Switch>
@@ -220,13 +233,23 @@ function Emmmmmma() {
 function Abby() {
   return <AbbyComponent></AbbyComponent>
 }
+<<<<<<< HEAD
 
 function BelladndTest() {
   return <BelladndTestComponent></BelladndTestComponent>
 }
+=======
+// function BelladndTest() {
+//   return <BelladndTestComponent></BelladndTestComponent>
+// }
+>>>>>>> 5c54394cc1b5cb1f74b9989711f45fd4cb35b575
 
 function Emmanuel() {
   return <EmmanuelComponent></EmmanuelComponent>
+}
+
+function TestUI(){
+  return <TestUIComponent></TestUIComponent>
 }
 
 export default App;

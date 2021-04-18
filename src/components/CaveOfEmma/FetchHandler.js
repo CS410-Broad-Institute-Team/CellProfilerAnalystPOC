@@ -1,44 +1,40 @@
 import { EmojiObjectsOutlined, FilterCenterFocusOutlined } from "@material-ui/icons";
 import _ from "lodash";
 import * as tf from '@tensorflow/tfjs'
+import { deepPurple } from "@material-ui/core/colors";
 
 //Fetch handler before I knew what it was actually gonna be. A collection of methods that will be redistributed in the future
 //Brings cells to canvas objects to display though now we are using images
 export default class FetchHandler {
-    constructor (fileListObject, image_data, object_data) {
-        this.fileListObject = fileListObject
-        this.image_data = image_data
-        this.object_data = object_data
+    constructor (file_handler, data_provider) {
+        this.fh = file_handler
+        this.dp = data_provider
     };
 
     handleFetch = async function(n) {
-            var objects = this.getNrandomObjs(n);
+            var objects = this.dp.getNRandomObjs(n);
             var images = [];
+            var rgb_images = [];
             var j;
+            var i = 1;
             for (j = 0; j < n; j++) {
-                var rgb_images = [];
-                var channels = "Image_FileNames_Filename_OrigActin Image_FileNames_Filename_OrigpH3 Image_FileNames_Filename_OrigDNA".split(" ");
-                var imagecur = _.find(this.image_data, {'ImageNumber': objects[j].ImageNumber.toString()});
-                var image_paths = channels.map(path => {          
-                    return _.get(imagecur, path)
-                });
-                //console.log(image_paths)
+                var cords = this.dp.getCordsforCellDisplay(objects[j].img, objects[j].obj)
+                var image_paths = this.dp.returnAllImgFileNames(objects[j].img)
                 var file_indexes = image_paths.map(path => {
                     var real_path = path.substring(1, path.length-1) //For some reason path has ""...""
-                    return this.findFile(real_path)
+                    return this.fh.findFile(real_path)
                 });
                 var i;
                 for (i = 0; i < file_indexes.length; i++) {
                     rgb_images.push(await this.createRGB(file_indexes[i]))
                 }
-                var cords = this.getCords(objects[j].ImageNumber, objects[j].ObjectNumber)
+               // var cords = this.getCords(objects[j].ImageNumber, objects[j].ObjectNumber)
                 var stack = tf.stack(rgb_images,2).squeeze()
-                images.push({'lo_x' : cords[0], 'lo_y': cords[1], 'img_tf': stack});
+                images.push({'x' : cords.x, 'y': cords.y, 'img_tf': stack});
             }
-            var data_url = await this.createDataURL(images);
 
             //console.log(data_url)    
-            return  images;
+            return images;
         
      }
      createDataURL = async function(image_info) {
@@ -80,9 +76,8 @@ export default class FetchHandler {
         return rand_objs
      }
 
-     createRGB = async function (index) {
-        var img = await this.fileReaderPromiseImage(index);
-        //console.log(img);
+     createRGB = async function (file) {
+        var img = await this.fh.fileReaderPromiseImage(file);
         return new Promise((resolve, reject)=> {
             var img_tf;
             var newImg = new Image();
@@ -93,11 +88,6 @@ export default class FetchHandler {
         newImg.src = img
         })
      }
-    findFile = (fileName) => {
-        return Array.from(this.fileListObject.target.files).findIndex((elem) => {
-            return elem.name === fileName;
-        });
-    };
 
     fileReaderPromiseImage(fileIndex) {
         return new Promise((resolve, reject)=> {

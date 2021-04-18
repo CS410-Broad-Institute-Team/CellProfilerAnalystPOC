@@ -36,7 +36,7 @@ describe('classifier tests', function() {
           const featureNames = ["f1", "f2", "f3"]
           const trainingData = [{"f1": 1, "f2": 2, "f3": 5}, {"f1": 3, "f2": 4, "f3": 6}]
           const trainingLabels = [0]
-          const classifierOptions = {
+          const classifierOptions = { 
             classifierType, featureNames, trainingData, trainingLabels
           }
           var classifier = new Classifier(classifierOptions);

@@ -8,8 +8,9 @@ export default class UploadDataHandler {
     data = {};
     
     constructor() {
+       
         Promise.prototype.notify = function(strMsg) {
-            return this.then(x=>{console.log(strMsg); return x});
+                     return this.then(x=>{console.log(strMsg); return x});
           }
           Promise.prototype.debugPrint = function() {
             return this.then(x=>{console.log(x); return x});
@@ -32,9 +33,7 @@ export default class UploadDataHandler {
         Papa.papaparseFilePromise = function(file, options={}, onEndMsg="") {
 
             return Papa.parsePromise(file,
-                {worker: true,
-                    skipEmptyLines: true,
-                    dynamicTyping: true, ...options} 
+                {...this.basicPapaConfig, ...options} 
             )
             .then((result)=> result.data)
             .notify(onEndMsg);
@@ -74,10 +73,10 @@ export default class UploadDataHandler {
     
 
     handleFolderUpload = async function(fileListObject) {
-
+        console.time('data done')
         const setup_name = "example_SETUP.SQL";
         const setup_lines = (await this.fileReaderPromiseText(fileListObject, setup_name)).split('\n').map(e=>e.trim());
-        console.log(setup_lines)
+        //console.log(setup_lines)
 
         const training_name = "MyTrainingSet.txt";
         const training_file = this.findFile(fileListObject, training_name);
@@ -87,7 +86,7 @@ export default class UploadDataHandler {
             .slice(1) // first row is something like: labels positive negative, devoid of info
             .map(training_row => _.zipObject(training_columns, training_row));
         
-        console.log(training_data)
+        //console.log(training_data)
 
 
 
@@ -99,7 +98,7 @@ export default class UploadDataHandler {
         const object_column_names = object_column_lines.map((name)=>name.split(' ')[0]).slice(1);
         const object_name = "per_object.csv";
         const object_file = this.findFile(fileListObject, object_name);
-        console.time('object data finished')
+       // console.time('object data finished')
         var object_data = (await Papa.papaparseFilePromise(object_file,
             {fastMode: true, error: (e)=>console.error(e)} 
         ))
@@ -123,8 +122,8 @@ export default class UploadDataHandler {
             {fastMode: true, error: (e)=>console.error(e)} 
         ))
         image_data = image_data.map(data_row=>{ return _.zipObject(image_column_names, data_row)})
-        console.timeEnd('image data finished')
-        console.log(image_data)
+        console.timeEnd('data done')
+       // console.log(image_data)
 
         
         
@@ -147,7 +146,7 @@ export default class UploadDataHandler {
         const fileIndex = this.findFileIndex(fileListObject, fileName);
         return fileListObject.target.files[fileIndex];
     }
-
+    
     
 
     fileReaderPromiseText =  function(fileListObject, fileName) {

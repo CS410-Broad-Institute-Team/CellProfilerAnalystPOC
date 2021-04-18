@@ -10,12 +10,10 @@ class Classifier {
             throw new Error("Classifier Error: ClassifierOptions not passed in")
         }
 
-        if (ClassifierOptions.classifierType === undefined ||
-            ClassifierOptions.numberFeatures === undefined ||
+        if (ClassifierOptions.classifierType === undefined ||   
             ClassifierOptions.featureNames === undefined ||
             ClassifierOptions.trainingData === undefined ||
-            ClassifierOptions.trainingLabels === undefined ||
-            ClassifierOptions.model === undefined)
+            ClassifierOptions.trainingLabels === undefined)
         {
             throw new Error("Classifier Error: ClassifierOptions missing fields")
         }

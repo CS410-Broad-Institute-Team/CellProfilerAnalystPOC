@@ -11,7 +11,7 @@ describe('Classifier Manager tests', function() {
 
     describe('constructor tests', function() {
 
-        it('fail on pass nothing', function() {
+        xit('fail on pass nothing', function() {
             assert.throws(()=>{
                 const m = new ClassifierManager();
                 
@@ -21,7 +21,7 @@ describe('Classifier Manager tests', function() {
             
         });
 
-        it('basic construct', function() {
+        xit('basic construct', function() {
             
             
 
@@ -61,7 +61,7 @@ describe('Classifier Manager tests', function() {
 
     describe('API: fetch random cells tests', function() {
 
-        it('basic fetch cellPairs works and returns something valid', function() {
+        xit('basic fetch cellPairs works and returns something valid', function() {
             const object_data = [
                 {"ImageNumber": 1, "ObjectNumber": 1, "f1": 1, "f2": 2, "f3": 5, "Nuclei_Location_CenterX": 1, "Nuclei_Location_CenterY": 3},
                 {"ImageNumber": 2, "ObjectNumber": 2, "f1": 3, "f2": 4, "f3": 6, "Nuclei_Location_CenterX": 2, "Nuclei_Location_CenterY": 5},
@@ -114,7 +114,7 @@ describe('Classifier Manager tests', function() {
 
     describe('API: fetch positive/negative cells tests', function() {
         
-        it('basic fetch positive/negative cellPairs works and returns something valid', async function() {
+        xit('basic fetch positive/negative cellPairs works and returns something valid', async function() {
             const object_data = [
                 {"ImageNumber": 1, "ObjectNumber": 1, "f1": 1, "f2": 2, "f3": 5, "Nuclei_Location_CenterX": 1, "Nuclei_Location_CenterY": 3},
                 {"ImageNumber": 2, "ObjectNumber": 2, "f1": 3, "f2": 4, "f3": 6, "Nuclei_Location_CenterX": 2, "Nuclei_Location_CenterY": 5},
@@ -178,7 +178,7 @@ describe('Classifier Manager tests', function() {
     describe('API: appendToTrainingSet', function() {
 
         
-        it('basic fetch positive/negative cellPairs works and returns something valid', async function() {
+        xit('basic fetch positive/negative cellPairs works and returns something valid', async function() {
             const object_data = [
                 {"ImageNumber": 1, "ObjectNumber": 1, "f1": 1, "f2": 2, "f3": 5, "Nuclei_Location_CenterX": 1, "Nuclei_Location_CenterY": 3},
                 {"ImageNumber": 2, "ObjectNumber": 2, "f1": 3, "f2": 4, "f3": 6, "Nuclei_Location_CenterX": 2, "Nuclei_Location_CenterY": 5},

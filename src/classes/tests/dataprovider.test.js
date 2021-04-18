@@ -9,7 +9,7 @@ describe('Data Provider tests', function() {
 
     describe('constructor tests', function() {
 
-        it('fail on pass nothing', function() {
+        xit('fail on pass nothing', function() {
             assert.throws(()=>{
                 const p = new DataProvider();
                 
@@ -55,20 +55,20 @@ describe('Data Provider tests', function() {
 
 
         
-        it('basic get image filenames', function() {
+        xit('basic get image filenames', function() {
             
             
             const object_data = [
-                ["1", "1", "1", "2", "5", "1", "3"],
-                ["2", "2", "3", "4", "6", "2", "5"],
-                ["3", "3", "2", "7", "3", "5", "4"]
+                [1, 1, 1, 2, 5, 1, 3],
+                [2, 2, 3, 4, 6, 2, 5],
+                [3, 3, 2, 7, 3, 5, 4]
             ]
             const object_columns = ["ImageNumber", "ObjectNumber", "f1", "f2", "f3", "Nuclei_Location_CenterX", "Nuclei_Location_CenterY"]
 
             const image_data = [
-                ["1", "1", '"img1A.png"', '"img1P.png"', '"img1D.png"'],
-                ["2", "2", '"img2A.png"', '"img2P.png"', '"img2D.png"'],
-                ["3", "3", '"img3A.png"', '"img3P.png"', '"img3D.png"']
+                [1, 1, 'img1A.png', 'img1P.png', 'img1D.png'],
+                [2, 2, 'img2A.png', 'img2P.png', 'img2D.png'],
+                [3, 3, 'img3A.png', 'img3P.png', 'img3D.png']
             ]
             const image_columns = ["ImageNumber", "ObjectNumber", "Image_FileNames_Filename_OrigActin", "Image_FileNames_Filename_OrigpH3", "Image_FileNames_Filename_OrigDNA"]
 
@@ -100,16 +100,16 @@ describe('Data Provider tests', function() {
             
             
             const object_data = [
-                ["1", "1", "1", "2", "5", "1", "3"],
-                ["2", "2", "3", "4", "6", "2", "5"],
-                ["3", "3", "2", "7", "3", "5", "4"]
+                [1, 1, 1, 2, 5, 1, 3],
+                [2, 2, 3, 4, 6, 2, 5],
+                [3, 3, 2, 7, 3, 5, 4]
             ]
             const object_columns = ["ImageNumber", "ObjectNumber", "f1", "f2", "f3", "Nuclei_Location_CenterX", "Nuclei_Location_CenterY"]
 
             const image_data = [
-                ["1", "1", '"img1A.png"', '"img1P.png"', '"img1D.png"'],
-                ["2", "2", '"img2A.png"', '"img2P.png"', '"img2D.png"'],
-                ["3", "3", '"img3A.png"', '"img3P.png"', '"img3D.png"']
+                [1, 1, 'img1A.png', 'img1P.png', 'img1D.png'],
+                [2, 2, 'img2A.png', 'img2P.png', 'img2D.png'],
+                [3, 3, 'img3A.png', 'img3P.png', 'img3D.png']
             ]
             const image_columns = ["ImageNumber", "ObjectNumber", "Image_FileNames_Filename_OrigActin", "Image_FileNames_Filename_OrigpH3", "Image_FileNames_Filename_OrigDNA"]
 

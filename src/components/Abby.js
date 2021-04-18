@@ -1,6 +1,9 @@
 
 import React, { PureComponent } from "react";
 import {Button} from "antd";
+//                        import{Button} from "@material-ui/icons"
+import Spinner from 'react-bootstrap/spinner'
+//import Loader from './loader'
 
 //needed:
 //1.loading animation: bootstrap <Spinner>, lifecycle
@@ -22,7 +25,23 @@ storeId:'91',
       subsidyAmount:'82',
       imagePreviewUrl:'',
     }
+
   }
+
+  componentDidMount() {
+    //setIntervel()
+  }
+    
+  
+  componentWillUnmount() {
+    //clearInterval
+  }
+
+  //setState()
+  // animationEnd() {
+  //   this.setState((state))
+  // }
+
   render() {
     var {imagePreviewUrl,showImg} = this.state;
     var imagePreview = null;
@@ -39,7 +58,7 @@ storeId:'91',
             <input id="avatarFor" style={{display:'none'}} type="file" onChange={(e)=>this.handleImageChange(e)}/>
             {imagePreview}
             <label style={{color:"#1890FF",border:"1px dashed #1890FF",padding:'3px 10px ',display:showImg}} for="avatarFor">+click to upload</label>
-           
+           <Spinner animation="border"></Spinner>
             <Button
               key="submit"
               type="primary"

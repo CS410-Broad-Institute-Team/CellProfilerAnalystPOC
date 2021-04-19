@@ -16,6 +16,8 @@ import DatGui, { DatBoolean, DatColor, DatNumber, DatString } from '@tim-soft/re
 import { clipByValue } from '@tensorflow/tfjs';
 import UploadHandler from './UploadHandler';
 import UserUploadFileHandler from './UserUploadFileHandler';
+import {ImageProvider} from './ImageProvider.js';
+import ImageProviderAPI from './ImageProviderAPI.js';
 // import { bytesToBase64 } from "./base64.js";
 
 
@@ -28,13 +30,25 @@ export default class Emmmmmma extends React.Component {
         this.image_data = null
         this.object_data = null
 
-    this.handleUpdate = newData =>
+    
+
+    this.state = {
+        imageSources: new Array(9).fill(jones),
+        data: {
+            package: 'react-dat-gui',
+            power: 9000,
+            isAwesome: true,
+            feelsLike: '#2FA1D6',
+          },
+        buttonsDisabled: true
+    }
+    }
+    handleUpdate = newData =>
     {
         this.setState(prevState => ({
       data: { ...prevState.data, ...newData }
     }))};
 
-    }
     on_folder_uploaded_callback = async function(fileListObject) {
         this.fileListObject = fileListObject
         this.fh = new UserUploadFileHandler(fileListObject)
@@ -42,8 +56,8 @@ export default class Emmmmmma extends React.Component {
         var all_data = await upload_handler.getDataHandlerandStartingTrainingSet();
         this.dp = all_data.data_provider;
         console.log(this.dp)
-        var dpTest = new DataProviderAPI(this.dp)
-        dpTest.testAll(fileListObject)
+      //  var dpTest = new DataProviderAPI(this.dp)
+       // dpTest.testAll(fileListObject)
 
 
     //    const DataModel = UploadDataHandlerE.getInstance();
@@ -54,24 +68,26 @@ export default class Emmmmmma extends React.Component {
     
 }
     on_fetch_button_callback = async function() {
-    const Fetch = new FetchHandler(this.fh, this.dp);  //All this for displaying cells on canvas object
+   // const Fetch = new FetchHandler(this.fh, this.dp);  //All this for displaying cells on canvas object
     // console.time("fetch")
-    var images = await Fetch.handleFetch(9);
-
-      await Promise.all(Array.from({length: 9}, (_,idx)=> {
-    
-      var canvas_at_index = document.getElementById(`canvas: ${idx}`);
-      var ctx_at_index = canvas_at_index.getContext("2d");
-      var temp_canvas = document.createElement('canvas');
-      // alright this promise will resolve when canvas is loaded with the tensorflow image
-      tf.browser.toPixels(images[idx].img_tf, temp_canvas).then(()=>{
-          ctx_at_index.drawImage(temp_canvas, 0, 0, canvas_at_index.width, canvas_at_index.height)
-          temp_canvas.remove();
+    var ipAPI = new ImageProviderAPI(this.dp, this.fh);
+    var file_names = this.dp.returnAllImgFileNames(5)
+    ipAPI.runTest() 
+ 
+    //   await Promise.all(Array.from({length: 9}, (_,idx)=> {
+      
+    //   var canvas_at_index = document.getElementById(`canvas: ${idx}`);
+    //   var ctx_at_index = canvas_at_index.getContext("2d");
+    //   var temp_canvas = document.createElement('canvas');
+    //   // alright this promise will resolve when canvas is loaded with the tensorflow image
+    //   tf.browser.toPixels(images[idx].img_tf, temp_canvas).then(()=>{
+    //       ctx_at_index.drawImage(temp_canvas, 0, 0, canvas_at_index.width, canvas_at_index.height)
+    //       temp_canvas.remove();
       
     
     
-      })
-      }));
+   //   })
+   //   }));
     //  console.timeEnd("fetch")
     //     //Quick getDataURLS API to use
     //     const urls = new GetDataURLS(fileListObjects, this.image_data, this.object_data);
@@ -82,16 +98,6 @@ export default class Emmmmmma extends React.Component {
         
     //     console.log(test_urls)
 
-    }
-    state = {
-        imageSources: new Array(9).fill(jones),
-        data: {
-            package: 'react-dat-gui',
-            power: 9000,
-            isAwesome: true,
-            feelsLike: '#2FA1D6',
-          },
-        buttonsDisabled: true
     }
 
 componentDidMount(){
@@ -168,8 +174,7 @@ this.setState(prevState => ({
                     {[0,1,2,3,4,5,6,7,8].map((tile_idx) => (
                     <GridListTile key={tile_idx} cols={ 1} spacing={0}>
                         <Button  onClick={()=>console.log(`Click Image: ${tile_idx}!`)}>
-                            {/* <img  width={'100%'} src={this.state.imageSources[tile_idx]} alt={"jones"} /> */}
-                            <canvas color="black" height="100%" width="100%" id={`canvas: ${tile_idx}`}></canvas>
+                           <img  width={'100%'} src={this.state.imageSources[tile_idx]} alt={"jones"} />
                         </Button>
                     </GridListTile>
                     ))}

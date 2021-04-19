@@ -23,8 +23,7 @@ export default class DataProvider {
         var i;
         for (i = 0; i < n; i++) {
             var index = Math.floor(Math.random() * num_of_objs);
-            var search_obj =  {'index' : index}
-            var obj = this.getRow('object_data', search_obj);
+            var obj = this.getRow('object_data', {'index' : index});
             rand_objs.push({ 'ImageNumber': obj.ImageNumber, 'ObjectNumber': obj.ObjectNumber })
         }
         return rand_objs

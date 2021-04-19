@@ -6,7 +6,7 @@ import EmmanuelComponent from "./components/Emmanuel"
 import BellaComponent from "./components/Bella"
 import AbbyComponent from "./components/Abby"
 import ProofOfConceptComponent from "./components/ProofOfConcept"
-import YahiyaHomeComponent from "./components/YahiyaTesting/YahiyaHome"
+//import YahiyaHomeComponent from "./components/YahiyaTesting/YahiyaHome"
 import EmmmmmmaComponent from "./components/CaveOfEmma/Emmmmmma"
 
 
@@ -91,9 +91,9 @@ function App() {
             <li>
               <Link to="/Yahiya">Yahiya</Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/Alex">Alex</Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/Emma">Emma</Link>
             </li>
@@ -103,18 +103,18 @@ function App() {
             <li>
               <Link to="/ProofOfConcept">ProofOfConcept</Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/Bella">Bella</Link>
-            </li>
+            </li> */}
             <li>
                 <Link to="/Emmmmmma">Emmmmmma</Link>
             </li>
             <li>
                 <Link to="/ProofOfConcept">ProofOfConcept</Link>
             </li>
-            <li>
+            {/* <li>
                 <Link to="/YahiyaHome">Yahiya's Home of Testing</Link>
-            </li>
+            </li> */}
             {/* { <li>
                 <Link to="/BelladndTest">BelladndTest</Link>
      </li> } */}
@@ -145,37 +145,33 @@ function App() {
             <Route path="/Emmmmmma">
               <Emmmmmma />
             </Route>
-            <Route path="/Alex">
+            {/* <Route path="/Alex">
               <Alex />
-            </Route>
+            </Route> */}
             <Route path="/Emma">
             <Emma />
-            </Route>
+            {/* </Route>
             <Route path="/Abby">
-            <Abby />
+            <Abby /> */}
             </Route>
-            <Route path="/Bella">
+            {/* <Route path="/Bella">
               <Bella />
-            </Route>
+            </Route> */}
             <Route path="/ProofOfConcept">
               <ProofOfConcept />
             </Route>
             <Route path="/Emmanuel">
               <Emmanuel />
             </Route>
-            <Route path="/YahiyaHome">
+            {/* <Route path="/YahiyaHome">
               <YahiyaHomeComponent></YahiyaHomeComponent>
-            </Route>
-            {/* <Route path="/BelladndTest">
-              <BelladndTest />
-<<<<<<< HEAD
-            </Route>
-            <Route path="/TestUI">
-              <TestUI />
-            </Route>
-=======
             </Route> */}
->>>>>>> cec55257eb9f8f14754f987329aba67734139f97
+            {/* { <Route path="/BelladndTest">
+              <BelladndTest />
+            </Route> */}
+            {/* <Route path="/TestUI">
+              <TestUI />
+            </Route> */}
             
 
           </Switch>
@@ -197,7 +193,7 @@ function Yahiya() {
 }
 
 // TODO: stubbed for now, fix later
-function Alex() {
+//function Alex() {
 	/*
   return (
     <div>
@@ -205,8 +201,8 @@ function Alex() {
     </div>
   );
   */
-  return <h2>the</h2>
-}
+//   return <h2>the</h2>
+// }
 
 function Emma() {
   return <EmmaComponent></EmmaComponent>
@@ -218,15 +214,15 @@ function Bella() {
 function ProofOfConcept() {
   return <ProofOfConceptComponent></ProofOfConceptComponent>
 }
-function YahiyaHome() {
+{/* function YahiyaHome() {
   return <YahiyaHomeComponent></YahiyaHomeComponent>
-}
+} */}
 function Emmmmmma() {
   return <EmmmmmmaComponent></EmmmmmmaComponent>
 }
-function Abby() {
+{/* function Abby() {
   return <AbbyComponent></AbbyComponent>
-}
+} */}
 // function BelladndTest() {
 //   return <BelladndTestComponent></BelladndTestComponent>
 // }
@@ -235,8 +231,8 @@ function Emmanuel() {
   return <EmmanuelComponent></EmmanuelComponent>
 }
 
-function TestUI(){
-  return <TestUIComponent></TestUIComponent>
-}
+// function TestUI(){
+//   return <TestUIComponent></TestUIComponent>
+// }
 
 export default App;

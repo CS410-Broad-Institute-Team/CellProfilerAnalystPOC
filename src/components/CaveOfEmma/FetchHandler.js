@@ -24,6 +24,7 @@ export default class FetchHandler {
                     var real_path = path.substring(1, path.length-1) //For some reason path has ""...""
                     return this.fh.findFile(real_path)
                 });
+                //console.log(file)
                 var i;
                 for (i = 0; i < file_indexes.length; i++) {
                     rgb_images.push(await this.createRGB(file_indexes[i]))

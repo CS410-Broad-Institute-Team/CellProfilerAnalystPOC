@@ -4,12 +4,9 @@ import logo from '../CPA_newlogo.png';
 import {Image, Dropdown, DropdownButton} from 'react-bootstrap'
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import jones from '../jones.jpg'
-<<<<<<< HEAD
 
 import ReactDOM from "react-dom";
 
-=======
->>>>>>> cec55257eb9f8f14754f987329aba67734139f97
 import React from 'react';
 import "bootstrap/dist/css/bootstrap.css";
 

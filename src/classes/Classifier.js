@@ -5,9 +5,22 @@ import _ from "lodash";
 
 class Classifier {
     constructor(ClassifierOptions) {
+
+        if(ClassifierOptions === undefined){
+            throw new Error("Classifier Error: ClassifierOptions not passed in")
+        }
+
+        if (ClassifierOptions.classifierType === undefined ||   
+            ClassifierOptions.featuresToUse === undefined ||
+            ClassifierOptions.trainingData === undefined ||
+            ClassifierOptions.trainingLabels === undefined)
+        {
+            throw new Error("Classifier Error: ClassifierOptions missing fields")
+        }
+
         this.classifierType = ClassifierOptions.classifierType;
-        this.numberFeatures = ClassifierOptions.featureNames.length;
-        this.featureNames = ClassifierOptions.featureNames;
+        this.numberFeatures = ClassifierOptions.featuresToUse.length;
+        this.featuresToUse = ClassifierOptions.featuresToUse;
         this.trainingData = ClassifierOptions.trainingData;
         this.trainingLabels = ClassifierOptions.trainingLabels;
         this.model = Classifier.createLogisticRegressionModel(this.numberFeatures);
@@ -20,7 +33,7 @@ class Classifier {
         // make sure first row features includes all feature names
 
         const superset = first_row_features
-        const subset = this.featureNames
+        const subset = this.featuresToUse
         const includes_all_feature_names = _.difference(subset, superset).length === 0
 
         if (!includes_all_feature_names) {
@@ -38,7 +51,7 @@ class Classifier {
             const tf_batched_dataset = Classifier.createBasicDataset(
                 this.trainingData,
                 this.trainingLabels,
-                this.featureNames,
+                this.featuresToUse,
                 16
             );
             const number_epochs = 20;
@@ -55,7 +68,7 @@ class Classifier {
     }
 
     predictPromise(test_data) {
-        const tf_dataset = Classifier.createBasicTestset(test_data, this.featureNames)
+        const tf_dataset = Classifier.createBasicTestset(test_data, this.featuresToUse)
         const tf_predictions = this.model.predict(tf_dataset).argMax(-1);
         return tf_predictions.array()
     }

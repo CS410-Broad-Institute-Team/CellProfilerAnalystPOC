@@ -25,6 +25,7 @@ export default class ProofOfConcept extends React.Component {
         //                    [3,5],
         //                    [7,9]]))
         Papa.parsePromise = function(file, config) {
+            console.log(config);
             return new Promise(function(complete, error) {
               Papa.parse(file, {...config, complete, error});
             });

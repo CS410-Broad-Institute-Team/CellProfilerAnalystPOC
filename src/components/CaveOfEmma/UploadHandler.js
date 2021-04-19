@@ -89,7 +89,9 @@ export default class UploadHandler {
         var file_objects = this.getFiles();
         var text_data = await this.getText(file_objects);
         var column_lines = this.getColumnLines(text_data[0]);
-        var dp = new DataProvider({'setup_lines' : text_data[0], 'object_data' : text_data[1], 'image_data' : text_data[2], 
+        console.log(text_data[1])
+        console.log(column_lines[0])
+        var dp = new DataProvider({'object_data' : text_data[1], 'image_data' : text_data[2], 
                                        'object_columns' : column_lines[0], 'image_columns' : column_lines[1]})
         var tt = new TrainingTable( text_data[3].slice(1) , column_lines[2])
         return {'data_provider' : dp, 'training_data' : {'features' : column_lines[0],  'training_table' :  tt}}
